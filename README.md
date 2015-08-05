@@ -5,6 +5,7 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 - [gem bundler](http://bundler.io/)
 - [npm bower](http://bower.io/)
 - [npm grunt](http://gruntjs.com/)
+- [composer](https://getcomposer.org/)
 
 # Run this
 ```

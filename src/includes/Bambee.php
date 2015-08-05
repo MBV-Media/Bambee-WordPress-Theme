@@ -1,40 +1,57 @@
-<?php namespace Inc;
+<?php
+/**
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
+ */
+namespace Inc;
 
 
 use Inc\MottoDays;
 
 /**
- * Class Bambee
+ * The class representing both website (user frontend) and WordPress admin.
  *
- * Class for both website (end-user frontend) and Wordpress admin
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
  */
 class Bambee {
 
     /**
      * @var null|MottoDays
+     * @since 1.0.0
      */
     public $mottoDays = null;
 
     /**
      * @var int
+     * @since 1.0.0
      */
     public $postThumbnailWidth = 624;
 
     /**
      * @var int
+     * @since 1.0.0
      */
     public $postThumbnailHeight = 9999;
 
     /**
      * @var boolean
+     * @since 1.0.0
      */
     public $postThumbnailCrop = false;
 
     /**
      * @var array
+     * @since 1.0.0
      */
     private $additionalMenus = array();
 
+    /**
+     * @since 1.0.0
+     * @return void
+     */
     public function __construct() {
         $this->mottoDays = new MottoDays();
 
@@ -51,7 +68,10 @@ class Bambee {
     }
 
     /**
-     * Add menus
+     * Register default menus for header and footer.
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function _registerMenus() {
         $menus = array_merge(
@@ -66,7 +86,11 @@ class Bambee {
     }
 
     /**
-     * Register post types
+     * Register post type 'gallery' and add excerpt to post
+     * type 'page'.
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function _createPostTypes() {
         register_post_type( 'gallery', array(

@@ -1,46 +1,64 @@
-<?php namespace Inc;
+<?php
+/**
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
+ */
+namespace Inc;
 
 
 use Detection\MobileDetect;
 use Inc\ThemeView;
 
 /**
- * Class bambeeWebsite
+ * The class representing the website (user frontend).
  *
- * Class for website (end-user frontend)
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
  */
 class BambeeWebsite {
 
     /**
      * @var array
+     * @since 1.0.0
      */
     public $coreData = array();
 
     /**
      * @var array
+     * @since 1.0.0
      */
     public $globalData = array();
 
     /**
      * @var null|MobileDetect
+     * @since 1.0.0
      */
     public $mobileDetect = null;
 
     /**
      * @var array
+     * @since 1.0.0
      */
     public $scripts = array();
 
     /**
      * @var array
+     * @since 1.0.0
      */
     public $localizedScripts = array();
 
     /**
      * @var array
+     * @since 1.0.0
      */
     public $styles = array();
 
+    /**
+     * @since 1.0.0
+     * @return void
+     */
     public function __construct() {
         $this->coreData = AdminPage::ap_get_option( 'coredata' );
         $this->globalData = AdminPage::ap_get_option( 'globaldata' );
@@ -59,8 +77,15 @@ class BambeeWebsite {
     }
 
     /**
+     * Get permalink by id.
+     *
+     * @since 1.0.0
      * @param array $args
      * @return mixed
+     *
+     * @example
+     *  Usage:
+     *    [page-link id=42]
      */
     public function shortcodeGetLink( $args ) {
         $id = $args['id'];
@@ -68,11 +93,16 @@ class BambeeWebsite {
     }
 
     /**
-     * Load core_data
+     * Load a core_data field.
      *
+     * @since 1.0.0
      * @param array $args
      * @param string $content
      * @return string
+     *
+     * @example
+     *  Usage:
+     *    [coredata]street[/coredata]
      */
     public function shortcodeCoredata( $args, $content = '' ) {
         if ( empty( $content ) || empty( $this->coreData[$content] ) ) {
@@ -83,11 +113,16 @@ class BambeeWebsite {
     }
 
     /**
-     * Load global_data
+     * Load a global_data field.
      *
+     * @since 1.0.0
      * @param array $args
      * @param string $content
      * @return string
+     *
+     * @example
+     *  Usage:
+     *    [globaldata]key[/globaldata]
      */
     public function shortcodeGlobaldata( $args, $content = '' ) {
         if ( empty( $content ) || empty( $this->globalData[$content] ) ) {
@@ -98,11 +133,16 @@ class BambeeWebsite {
     }
 
     /**
-     * Generate a foundation grid row
+     * Generate a foundation grid row.
      *
+     * @since 1.0.0
      * @param array $args
      * @param string $content
      * @return string
+     *
+     * @example
+     *  Usage:
+     *    [row]Hello World![/row]
      */
     public function shortcodeRow( $args, $content = '' ) {
         $content = sprintf(
@@ -113,11 +153,16 @@ class BambeeWebsite {
     }
 
     /**
-     * Generate a foundation grid column
+     * Generate a foundation grid column.
      *
+     * @since 1.0.0
      * @param array $args
      * @param string $content
      * @return string
+     *
+     * @example
+     *  Usage:
+     *    [col small=12 medium=6 large=4]Hello World![/col]
      */
     public function shortcodeColumn( $args, $content = '' ) {
         $class = 'column ';
@@ -146,7 +191,34 @@ class BambeeWebsite {
     }
 
     /**
-     * Enqueue scripts and styles
+     * Enqueue the CSS and JS.
+     * Additional CSS and JS can be loaded via the class properties
+     * 'styles' and 'scripts' in the child class constructor.
+     * JS files can be localized via the class property 'localizedScripts'
+     * in the child class constructor.
+     *
+     * @since 1.0.0
+     * @return void
+     *
+     * @example
+     *  Usage:
+     *    $this->styles = array(
+     *      'handle' => 'style-css',
+     *      'src' => 'url/to/style.css'
+     *    );
+     *    $this->scripts = array(
+     *      'handle' => 'script-js',
+     *      'src' => 'url/to/script.js',
+     *      'deps' => array( 'jquery' )
+     *    );
+     *    $this->localizedScripts = array(
+     *      'handle' => 'script-js',
+     *      'name' => 'localized',
+     *      'data' => array(
+     *          'alertText' => __( 'An error occurred!' )
+     *      )
+     *    );
+     *    parent::__construct();
      */
     public function _enqueueScripts() {
         wp_enqueue_script( 'jquery' );
@@ -195,11 +267,13 @@ class BambeeWebsite {
     }
 
     /**
-     * Custom comment output
+     * Customize the comment list.
      *
+     * @since 1.0.0
      * @param string $comment
      * @param array $args
      * @param int $depth
+     * @return void
      */
     public function commentList( $comment, $args, $depth ) {
         $GLOBALS['comment'] = $comment;
@@ -224,7 +298,10 @@ class BambeeWebsite {
     }
 
     /**
-     * Display pagination
+     * Display comments pagination.
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function commentPages() {
         $pagination = paginate_comments_links( array(

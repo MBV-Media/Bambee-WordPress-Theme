@@ -1,14 +1,27 @@
-<?php namespace Lib;
+<?php
+/**
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
+ */
+namespace Lib;
 
 
 use Inc\BambeeWebsite;
 
 /**
- * Class CustomWebsite
+ * The class representing the website (user frontend).
  *
- * End-User frontend
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
  */
 class CustomWebsite extends BambeeWebsite {
+
+    /**
+     * @since 1.0.0
+     * @return void
+     */
     public function __construct() {
         # Enqueue additional scripts
         $this->scripts = array(

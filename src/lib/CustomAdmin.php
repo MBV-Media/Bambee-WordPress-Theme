@@ -1,14 +1,27 @@
-<?php namespace Lib;
+<?php
+/**
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
+ */
+namespace Lib;
 
 
 use Inc\BambeeAdmin;
 
 /**
- * Class CustomAdmin
+ * The class representing the WordPress Admin.
  *
- * Wordpress admin
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
  */
 class CustomAdmin extends BambeeAdmin {
+
+    /**
+     * @since 1.0.0
+     * @return void
+     */
     public function __construct() {
         parent::__construct();
     }

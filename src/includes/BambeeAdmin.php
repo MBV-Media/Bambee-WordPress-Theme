@@ -1,25 +1,39 @@
-<?php namespace Inc;
+<?php
+/**
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
+ */
+namespace Inc;
 
 
 use Inc\AdminPage;
 
 /**
- * Class bambeeAdmin
+ * The class representing the WordPress Admin.
  *
- * Class for Wordpress admin
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
  */
 class BambeeAdmin {
 
     /**
      * @var array
+     * @since 1.0.0
      */
     public $coreDataFields = array();
 
     /**
      * @var array
+     * @since 1.0.0
      */
     public $globalDataFields = array();
 
+    /**
+     * @since 1.0.0
+     * @return void
+     */
     public function __construct() {
         # Core data page
         $core_data_fields = array_merge(
@@ -60,6 +74,12 @@ class BambeeAdmin {
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
     }
 
+    /**
+     * Enqueue the CSS.
+     *
+     * @since 1.0.0
+     * @return void
+     */
     public function _enqueueCss() {
         wp_enqueue_style( 'custom_css', get_template_directory_uri() . '/css/admin/admin.css' );
     }

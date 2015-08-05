@@ -1,16 +1,33 @@
-<?php namespace Inc;
+<?php
+/**
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
+ */
+namespace Inc;
 
 
 /**
- * Class MottoDays
+ * The class representing the MottoDays.
+ * Creates the custom post type 'mottotage' and the corresponding
+ * MetaBox.
+ *
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
  */
 class MottoDays {
 
     /**
      * @var int
+     * @since 1.0.0
      */
     public $weekday = 0;
 
+    /**
+     * @since 1.0.0
+     * @return void
+     */
     public function __construct() {
         $todayTimestamp = strtotime( 'today' );
         $this->weekday = intval( date( 'w', $todayTimestamp ) );
@@ -21,12 +38,15 @@ class MottoDays {
     }
 
     /**
-     * Register post types
+     * Register post type 'mottotage'.
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function _createPostTypes() {
         $slug = 'mottotage';
 
-        // TODO: Move po/mo for translation
+        # TODO: Move po/mo for translation
         if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
             switch ( ICL_LANGUAGE_CODE ) {
                 case 'en':
@@ -47,7 +67,7 @@ class MottoDays {
                         'public' => true,
                         'has_archiv' => true,
                         'rewrite' => array( 'slug' => $slug ),
-                        'show_ui' => true, // UI in admin panel
+                        'show_ui' => true, # UI in admin panel
                         'capability_type' => 'post',
                         'hierarchical' => true,
                         'supports' => array( 'title', 'editor', 'thumbnail', 'trackbacks', 'custom-fields', 'revisions' ),
@@ -61,16 +81,21 @@ class MottoDays {
     }
 
     /**
-     * Register meta boxes
+     * Register the MetaBox.
+     *
+     * @since 1.0.0
+     * @return void
      */
     public function _createMetaBoxes() {
         add_meta_box( 'mottotage', 'Mottotage', array( $this, '_addMottotageMetaBox' ), 'mottotage', 'side' );
     }
 
     /**
-     * Add metabox to select a motto days
+     * Render the MetaBox.
      *
+     * @since 1.0.0
      * @param WP_Post $post
+     * @return void
      */
     public function _addMottotageMetaBox( $post ) {
         $days = array(
@@ -102,25 +127,26 @@ class MottoDays {
         $output .= '</select>';
         echo $output;
 
-        // Add nonce field
+        # Add nonce field
         wp_nonce_field( basename( __FILE__ ), 'mottotage_nonce' );
     }
 
     /**
-     * Save the motto days meta box
+     * Save the MetaBox.
      *
+     * @since 1.0.0
      * @param int $postId
      * @param WP_Post $post
      * @return mixed
      */
     public function _saveMottotageMetaBox( $postId, $post ) {
-        /* Verify the nonce before proceeding. */
+        # Verify the nonce before proceeding.
         if ( !isset( $_POST['mottotage_nonce'] ) || !wp_verify_nonce( $_POST['mottotage_nonce'], basename( __FILE__ ) ) )
             return $postId;
 
         $postType = get_post_type_object( $post->post_type );
 
-        /* Check if the current user has permission to edit the post. */
+        # Check if the current user has permission to edit the post.
         if ( !current_user_can( $postType->cap->edit_post, $postId ) )
             return $postId;
 
@@ -137,15 +163,15 @@ class MottoDays {
 
         $metaValue = get_post_meta( $postId, $metaKey );
 
-        /* If a new meta value was added and there was no previous value, add it. */
+        # If a new meta value was added and there was no previous value, add it.
         if ( count( $newMetaValue ) > 0 && '' == $metaValue )
             add_post_meta( $postId, $metaKey, $newMetaValue, true );
 
-        /* If the new meta value does not match the old value, update it. */
+        # If the new meta value does not match the old value, update it.
         elseif ( count( $newMetaValue ) > 0 && $newMetaValue != $metaValue )
             update_post_meta( $postId, $metaKey, $newMetaValue );
 
-        /* If there is no new meta value but an old value exists, delete it. */
+        # If there is no new meta value but an old value exists, delete it.
         elseif ( count( $newMetaValue ) <= 0 && $metaValue )
             delete_post_meta( $postId, $metaKey );
     }

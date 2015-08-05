@@ -32,10 +32,10 @@ relative_assets = true
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 
 # Method to get name defined in package.json
-sass_options = {:custom => { :name => pkg['name'] } }
+sass_options = {'custom' => pkg }
 module Sass::Script::Functions
-  def pkgname()
-    name = options[:custom][:name]
-    Sass::Script::Value::String.new(name)
+  def pkg(property)
+    value = options['custom'][property.to_s]
+    Sass::Script::Value::String.new(value)
   end
 end

@@ -1,11 +1,11 @@
 /*!
-Theme Name: #{pkgname()}
-Theme URI: http://mbv-media.com/
-Description: Wordpress base theme
-Author: Marcel Kempf
+Theme Name: #{pkg(name)}
+Theme URI: https://github.com/MBV-Media/Bambee-WordPress-Theme
+Description: #{pkg(description)}
+Author: #{pkg(author)}
 Author URI: http://mbv-media.com/
-Version: 0.1
+Version: #{pkg(version)}
 .
-Copyright 2015 Marcel Kempf
+Copyright 2015 #{pkg(author)}
 .
 */

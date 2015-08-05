@@ -1,3 +1,10 @@
+/**
+ * SASS color variables.
+ *
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @license MIT
+ */
 $black: #000 !default;
 $gray-darker: #222 !default;
 $gray-dark: #333 !default;
@@ -6,9 +13,7 @@ $gray-light: #999 !default;
 $gray-lighter: #eee !default;
 $white: #fff !default;
 
-//
 // Google materials color palette
-
 $red-50: #ffebee;
 $red-100: #ffcdd2;
 $red-200: #ef9a9a;

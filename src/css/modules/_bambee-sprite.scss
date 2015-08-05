@@ -1,3 +1,10 @@
+/**
+ * Render CSS properties for use of sprite images.
+ *
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @license MIT
+ */
 @mixin bambee-sprite($sprite, $name) {
   @include sprite-dimensions($sprite, $name);
   background-image: sprite-url($sprite);

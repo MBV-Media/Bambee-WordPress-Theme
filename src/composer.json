@@ -1,0 +1,13 @@
+{
+  "minimum-stability": "dev",
+  "require": {
+    "gloeckchen/magic-meta-box": "*",
+    "mobiledetect/mobiledetectlib": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Inc\\": "includes/",
+      "Lib\\": "lib/"
+    }
+  }
+}

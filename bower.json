@@ -1,0 +1,11 @@
+{
+  "name": "Bambee",
+  "dependencies": {
+    "foundation": ">=5.5.1",
+    "modernizr": "~2.8.3",
+    "normalize-css": "~3.0.2",
+    "classie": "~1.0.1",
+    "respond": "~1.4.2",
+    "html5shiv": "~3.7.2"
+  }
+}

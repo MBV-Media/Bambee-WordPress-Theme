@@ -1,0 +1,15 @@
+@import 'modules/all';
+
+li {
+  .wp-menu-image:before {
+    opacity: 0.6;
+  }
+
+  &:hover {
+    .wp-menu-image:before {
+      color: $dusty-gray !important;
+      opacity: 0.1;
+    }
+  }
+}
+

@@ -1,0 +1,5 @@
+@mixin bambee-sprite($sprite, $name) {
+  @include sprite-dimensions($sprite, $name);
+  background-image: sprite-url($sprite);
+  background-position: sprite-position($sprite, $name);
+}

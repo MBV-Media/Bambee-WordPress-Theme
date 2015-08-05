@@ -1,0 +1,13 @@
+// Your style goes here
+// For style guide, please refer to
+// http://sass-guidelin.es/
+//
+// For directory structure, please refer to
+// http://thesassway.com/beginner/how-to-structure-a-sass-project
+// Modules and variables
+@import 'partials/base';
+// Third-party
+@import 'vendor/foundation-settings';
+@import 'foundation';
+// Partials
+@import 'partials/typography';

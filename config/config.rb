@@ -38,4 +38,9 @@ module Sass::Script::Functions
     value = options['custom'][property.to_s]
     Sass::Script::Value::String.new(value)
   end
+
+  def year()
+    t = Time.now
+    Sass::Script::Value::String.new(t.strftime("%Y"))
+  end
 end

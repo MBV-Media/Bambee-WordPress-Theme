@@ -31,14 +31,20 @@ relative_assets = true
 # and then run:
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 
-# Method to get name defined in package.json
 sass_options = {'custom' => pkg }
 module Sass::Script::Functions
+  #Gett name defined in package.json.
+  #
+  # @param string property
+  # @return string
   def pkg(property)
     value = options['custom'][property.to_s]
     Sass::Script::Value::String.new(value)
   end
 
+  # Get the current year.
+  #
+  # @return string
   def year()
     t = Time.now
     Sass::Script::Value::String.new(t.strftime("%Y"))

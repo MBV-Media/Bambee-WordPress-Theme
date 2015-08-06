@@ -7,35 +7,39 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 - [npm grunt](http://gruntjs.com/)
 - [composer](https://getcomposer.org/)
 
-# Run this
+# Install dependencies
+You can either run
 ```
-bundle install
-npm install
-bower install
-composer install
-grunt
+  bundle install
+  npm install
+  bower install
+  composer install
+```
+or let yeoman do all the work for you (full documentation [here](https://github.com/MBV-Media/generator-bambee))
+```
+  yo bambee
 ```
 
 # Developing
 ## Watch mode
 Watches every change being made and run belonging task.
 ```
-grunt --watch
+  grunt --watch
 ```
 ## Developement mode
 Create source maps for minified `css` and `js` files
 ```
-grunt --devMode
+  grunt --devMode
 ```
 
 # Customizing
 ## Changing theme name
 To **change theme name**, edit `name` property in `package.json` . This name will be used for themes folder and `Theme Name` in `style.css`.
 ```
-{
-  "name": "bambee",
-  ...
-}
+  {
+    "name": "bambee",
+    ...
+  }
 ```
 
 # Grunt tasks

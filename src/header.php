@@ -48,7 +48,7 @@ $short_lang = $short_lang[0];
 
             <section class="top-bar-section">
                 <?php
-                $menu = wp_nav_menu(
+                echo wp_nav_menu(
                         array(
                                 'container' => 'ul',
                                 'theme_location' => 'header-menu',
@@ -57,7 +57,6 @@ $short_lang = $short_lang[0];
                                 'echo' => false,
                         )
                 );
-                echo $menu;
                 ?>
             </section>
         </nav>

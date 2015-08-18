@@ -55,7 +55,6 @@ $short_lang = $short_lang[0];
                                 'link_before' => '<span>',
                                 'link_after' => '</span>',
                                 'echo' => false,
-                            /*'fallback_cb' => ''*/
                         )
                 );
                 echo $menu;

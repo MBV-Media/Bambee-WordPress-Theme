@@ -56,6 +56,24 @@ class BambeeWebsite {
     public $styles = array();
 
     /**
+     * @since 1.1.0
+     * @var string
+     */
+    protected $commentPaginationNextText = '';
+
+    /**
+     * @since 1.1.0
+     * @var string
+     */
+    protected $commentPaginationPrevText = '';
+
+    /**
+     * @since 1.1.0
+     * @var string
+     */
+    protected $commentPaginationPageTemplate = '<li>%s</li>';
+
+    /**
      * @since 1.0.0
      * @return void
      */
@@ -63,6 +81,12 @@ class BambeeWebsite {
         $this->coreData = AdminPage::ap_get_option( 'coredata' );
         $this->globalData = AdminPage::ap_get_option( 'globaldata' );
         $this->mobileDetect = new MobileDetect();
+        if ( empty( $this->commentPaginationNextText ) ) {
+            $this->commentPaginationNextText = __( 'Weiter &raquo;', TextDomain );
+        }
+        if ( empty( $this->commentPaginationPrevText ) ) {
+            $this->commentPaginationPrevText = __( '&laquo; Zurück', TextDomain );
+        }
 
         add_shortcode( 'page-link', array( $this, 'shortcodeGetLink' ) );
         add_shortcode( 'coredata', array( $this, 'shortcodeCoredata' ) );
@@ -300,21 +324,21 @@ class BambeeWebsite {
     /**
      * Display comments pagination.
      *
-     * @since 1.0.0
+     * @since 1.1.0
      * @return void
      */
-    public function commentPages() {
+    public function commentPagination() {
         $pagination = paginate_comments_links( array(
                 'echo' => false,
                 'mid_size' => 2,
                 'end_size' => 3,
                 'type' => 'array',
                 'add_fragment' => '',
-                'prev_text' => __( 'Weiter', TextDomain ),
-                'next_text' => __( 'Zurück', TextDomain ),
+                'next_text' => $this->commentPaginationNextText,
+                'prev_text' => $this->commentPaginationPrevText,
         ) );
 
-        $paginationPages = '<div class="pages">';
+        $paginationPages = '';
         $paginationPrev = '';
         $paginationNext = '';
 
@@ -322,19 +346,14 @@ class BambeeWebsite {
             $count = 0;
 
             foreach ( $pagination as $pageData ) {
-                if ( is_numeric( strip_tags( $pageData ) ) || strip_tags( $pageData ) == '&hellip;' ) {
-                    $paginationPages .= ' ' . $pageData . ' ';
+                if ( is_numeric( strip_tags( $pageData ) )
+                        || strip_tags( $pageData ) === '&hellip;' ) {
+                    $paginationPages .= sprintf( $this->commentPaginationPageTemplate, $pageData );
                 } else {
                     if ( $count > 0 ) {
-                        $paginationNext = '
-                            <div class="page-next button secondary right">
-                                ' . $pageData . '
-                            </div>';
+                        $paginationNext = $pageData;
                     } else {
-                        $paginationPrev = '
-                            <div class="page-prev button secondary">
-                                ' . $pageData . '
-                            </div>';
+                        $paginationPrev = $pageData;
                     }
                 }
 
@@ -342,13 +361,22 @@ class BambeeWebsite {
             }
         }
 
-        $paginationPages .= '</div>';
-
         $template = new ThemeView( '/partials/comment-pages.php', array(
                 'pagination_prev' => $paginationPrev,
                 'pagination_pages' => $paginationPages,
                 'pagination_next' => $paginationNext
         ) );
         echo $template->render();
+    }
+
+    /**
+     * Display comments pagination.
+     *
+     * @deprecated since 1.1.0
+     * @since 1.0.0
+     * @return void
+     */
+    public function commentPages() {
+        return $this->commentPagination();
     }
 }

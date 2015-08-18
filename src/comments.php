@@ -1,42 +1,36 @@
-<?php if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && 'comments.php' == basename( $_SERVER['SCRIPT_FILENAME'] ) ) : ?>
-    <?php die( 'Die Datei "comments.php" kann nicht direkt aufgerufen werden.' ); ?>
+<?php if ( !empty( $_SERVER['SCRIPT_FILENAME'] )
+        && 'comments.php' == basename( $_SERVER['SCRIPT_FILENAME'] ) ) : ?>
+    <?php die( __( 'The file "comments.php" can not be accessed directly.', TextDomain ) ); ?>
 <?php endif; ?>
 
-<?php
-global $bambeeWebsite;
-?>
+<?php global $bambeeWebsite; ?>
 
+<div class="comment-form">
+    <?php comment_form( array(
+            'title_reply' => '',
+            'comment_notes_before' => '',
+            'comment_notes_after' => __(
+                    'Die mit * gekennzeichneten Felder sind Pflichtfelder.',
+                    TextDomain
+            ),
+            'label_submit' => __( 'Beitrag senden', TextDomain ),
+    ) ); ?>
+</div>
 
-    <section class="comment-form">
-        <?php comment_form( array(
-            'comment_notes_after' => '<div class="pflichtfelder">*' . __( 'Pflichtfelder', TextDomain ) . '</div>',
-            'label_submit'        => __( 'Beitrag senden', TextDomain )
-        ) ); ?>
-        <div class="clear"></div>
-    </section>
-
-<?php if ( have_comments() ) { ?>
-    <div class="pageination">
-        <div
-            class="comment_navigate"><?php paginate_comments_links(); ?></div>
-    </div>
+<?php if ( have_comments() ) : ?>
+    <?php $bambeeWebsite->commentPagination(); ?>
     <section class="comments">
         <div class="sideline"></div>
-        <ul class="commentlist">
+        <ul class="comment-list">
             <?php
-            $comments = array_reverse( $comments );
-
             wp_list_comments( array(
-                'style'       => 'ul',
-                'avatar_size' => 0,
-                'per_page'    => 5
-            ), $comments );
+                    'style' => 'ul',
+                    'avatar_size' => 0,
+                    'per_page' => get_option( 'comments_per_page' ),
+                    'callback' => array( $bambeeWebsite, 'commentList' ),
+            ), array_reverse( $comments ) );
             ?>
         </ul>
-        <!-- .commentlist -->
-    </section><!-- kommentare -->
-    <div class="pageination">
-        <div
-            class="comment_navigate"><?php paginate_comments_links(); ?></div>
-    </div>
-<?php } ?>
+    </section>
+    <?php $bambeeWebsite->commentPagination(); ?>
+<?php endif; ?>

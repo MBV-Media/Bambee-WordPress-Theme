@@ -19,14 +19,14 @@ use Inc\AdminPage;
 class BambeeAdmin {
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     public $coreDataFields = array();
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     public $globalDataFields = array();
 

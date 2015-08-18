@@ -19,8 +19,8 @@ namespace Inc;
 class MottoDays {
 
     /**
-     * @var int
      * @since 1.0.0
+     * @var int
      */
     public $weekday = 0;
 

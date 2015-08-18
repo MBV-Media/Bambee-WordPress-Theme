@@ -24,14 +24,14 @@ namespace Inc;
 class ThemeView {
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     private $args;
 
     /**
-     * @var string
      * @since 1.0.0
+     * @var string
      */
     private $file;
 

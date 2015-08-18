@@ -20,38 +20,38 @@ use Inc\ThemeView;
 class BambeeWebsite {
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     public $coreData = array();
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     public $globalData = array();
 
     /**
-     * @var null|MobileDetect
      * @since 1.0.0
+     * @var null|MobileDetect
      */
     public $mobileDetect = null;
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     public $scripts = array();
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     public $localizedScripts = array();
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     public $styles = array();
 

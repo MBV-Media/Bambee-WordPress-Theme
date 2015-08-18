@@ -19,32 +19,32 @@ use Inc\MottoDays;
 class Bambee {
 
     /**
-     * @var null|MottoDays
      * @since 1.0.0
+     * @var null|MottoDays
      */
     public $mottoDays = null;
 
     /**
-     * @var int
      * @since 1.0.0
+     * @var int
      */
     public $postThumbnailWidth = 624;
 
     /**
-     * @var int
      * @since 1.0.0
+     * @var int
      */
     public $postThumbnailHeight = 9999;
 
     /**
-     * @var boolean
      * @since 1.0.0
+     * @var boolean
      */
     public $postThumbnailCrop = false;
 
     /**
-     * @var array
      * @since 1.0.0
+     * @var array
      */
     private $additionalMenus = array();
 

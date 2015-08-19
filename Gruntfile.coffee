@@ -90,6 +90,17 @@ module.exports = (grunt) ->
             'bower_components/html5shiv/dist/html5shiv.js'
           ]
 
+    notify:
+      copy:
+        options:
+          message: 'Copy task finished running.'
+      cssmin:
+        options:
+          message: 'Compass and cssmin task finished running.'
+      uglify:
+        options:
+          message: 'CoffeeScript and uglify task finished running.'
+
     watch:
       options:
         livereload: yes
@@ -100,6 +111,7 @@ module.exports = (grunt) ->
         ]
         tasks: [
           'copy'
+          'notify:copy'
         ]
       compass:
         files: [
@@ -122,6 +134,7 @@ module.exports = (grunt) ->
         ]
         tasks: [
           'cssmin'
+          'notify:cssmin'
         ]
       uglify:
         files: [
@@ -130,6 +143,7 @@ module.exports = (grunt) ->
         ]
         tasks: [
           'uglify'
+          'notify:uglify'
         ]
 
   # Register tasks

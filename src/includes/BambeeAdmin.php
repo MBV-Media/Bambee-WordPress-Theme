@@ -36,8 +36,17 @@ class BambeeAdmin {
      */
     public function __construct() {
         # Core data page
-        $core_data_fields = array_merge(
+        $coreDataFields = array_merge(
                 array(
+                        'coreDataDescription' => array(
+                                'type' => 'label',
+                                'title' => 'Shortcodes',
+                                'description' => __(
+                                        'You can use the [coredata]key[coredata]' .
+                                        ' shortcode to display the core data field inside a post.',
+                                        TextDomain
+                                )
+                        ),
                         'address' => array(
                                 'type' => 'textarea',
                                 'title' => __( 'Address', TextDomain ),
@@ -56,10 +65,10 @@ class BambeeAdmin {
                 ),
                 $this->coreDataFields
         );
-        if ( !empty( $core_data_fields ) ) {
+        if ( !empty( $coreDataFields ) ) {
             $coreDataPage = new AdminPage( array(
                     'location' => 'menu',
-                    'fields' => $core_data_fields,
+                    'fields' => $coreDataFields,
                     'id' => 'core-data',
                     'pageTitle' => __( 'Core data', TextDomain ),
                     'menuName' => __( 'Core data', TextDomain ),
@@ -70,9 +79,23 @@ class BambeeAdmin {
 
         # Global data page
         if ( !empty( $this->globalDataFields ) ) {
+            $globalDataFields = array_merge(
+                    array(
+                            'globalDataDescription' => array(
+                                    'type' => 'label',
+                                    'title' => 'Shortcodes',
+                                    'description' => __(
+                                            'You can use the [globaldata]key[globaldata]' .
+                                            ' shortcode to display the global data field inside a post.',
+                                            TextDomain
+                                    )
+                            ),
+                    ),
+                    $this->globalDataFields
+            );
             $globalFieldPage = new AdminPage( array(
                     'location' => 'menu',
-                    'fields' => $this->globalDataFields,
+                    'fields' => $globalDataFields,
                     'id' => 'global-data',
                     'pageTitle' => __( 'Global data', TextDomain ),
                     'menuName' => __( 'Global data', TextDomain ),

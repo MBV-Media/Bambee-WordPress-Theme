@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bambee\n"
-"POT-Creation-Date: 2015-08-19 14:19+0100\n"
-"PO-Revision-Date: 2015-08-19 14:20+0100\n"
+"POT-Creation-Date: 2015-08-19 15:32+0100\n"
+"PO-Revision-Date: 2015-08-19 15:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: Marcel Kempf <marcel.kempf93@gmail.com>\n"
 "Language: de_DE\n"
@@ -48,23 +48,39 @@ msgstr "Galerien"
 msgid "Gallery"
 msgstr "Galerie"
 
-#: includes/BambeeAdmin.php:43
+#: includes/BambeeAdmin.php:41
+msgid ""
+"You can use the [globaldata]key[globaldata] shortcode to display the global "
+"data field inside a post."
+msgstr ""
+"Sie können den [globaldata]key[globaldata] shortcode benutzen, um Globale "
+"Texte innerhalb eines Posts anzuzeigen."
+
+#: includes/BambeeAdmin.php:42
+msgid ""
+"You can use the [coredata]key[coredata] shortcode to display the core data "
+"field inside a post."
+msgstr ""
+"Sie können den [coredata]key[coredata] shortcode benutzen, um Stammdaten "
+"innerhalb eines Posts anzuzeigen."
+
+#: includes/BambeeAdmin.php:45
 msgid "Address"
 msgstr "Adresse"
 
-#: includes/BambeeAdmin.php:48
+#: includes/BambeeAdmin.php:50
 msgid "E-Mail address"
 msgstr "E-Mail Adresse"
 
-#: includes/BambeeAdmin.php:53
+#: includes/BambeeAdmin.php:55
 msgid "Phone"
 msgstr "Telefon"
 
-#: includes/BambeeAdmin.php:64 includes/BambeeAdmin.php:65
+#: includes/BambeeAdmin.php:66 includes/BambeeAdmin.php:67
 msgid "Core data"
 msgstr "Stammdaten"
 
-#: includes/BambeeAdmin.php:77 includes/BambeeAdmin.php:78
+#: includes/BambeeAdmin.php:79 includes/BambeeAdmin.php:80
 msgid "Global data"
 msgstr "Globale Texte"
 

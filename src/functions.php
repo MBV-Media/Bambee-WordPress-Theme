@@ -18,8 +18,13 @@ use Lib\CustomAdmin;
 use Lib\CustomWebsite;
 
 $bambee = new CustomBambee();
-if ( is_admin() ) {
-    $bambeeWebsite = new CustomAdmin();
-} else {
-    $bambeeWebsite = new CustomWebsite();
+$bambeeWebsite = null;
+add_action( 'init', 'loadBambee' );
+function loadBambee() {
+    global $bambeeWebsite;
+    if ( is_admin() ) {
+        $bambeeWebsite = new CustomAdmin();
+    } else {
+        $bambeeWebsite = new CustomWebsite();
+    }
 }

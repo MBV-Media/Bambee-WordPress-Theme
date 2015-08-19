@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Bambee\n"
+"POT-Creation-Date: 2015-08-19 14:19+0100\n"
+"PO-Revision-Date: 2015-08-19 14:20+0100\n"
+"Last-Translator: \n"
+"Language-Team: Marcel Kempf <marcel.kempf93@gmail.com>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.8\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: comments.php:3
+msgid "The file \"comments.php\" can not be accessed directly."
+msgstr "Auf die Datei \"comments.php\" kann nicht direkt zugegriffen werden."
+
+#: comments.php:13
+msgid "The fields marked with * are required."
+msgstr "Die mit * gekennzeichneten Felder sind Pflichtfelder."
+
+#: comments.php:16
+msgid "Send comment"
+msgstr "Beitrag senden"
+
+#: includes/AdminPage.php:791
+msgid "Choose Image"
+msgstr "Bild auswählen"
+
+#: includes/Bambee.php:69
+msgid "Header Menu"
+msgstr "Header Menu"
+
+#: includes/Bambee.php:70
+msgid "Footer Menu"
+msgstr "Footer Menu"
+
+#: includes/Bambee.php:88
+msgid "Galleries"
+msgstr "Galerien"
+
+#: includes/Bambee.php:89
+msgid "Gallery"
+msgstr "Galerie"
+
+#: includes/BambeeAdmin.php:43
+msgid "Address"
+msgstr "Adresse"
+
+#: includes/BambeeAdmin.php:48
+msgid "E-Mail address"
+msgstr "E-Mail Adresse"
+
+#: includes/BambeeAdmin.php:53
+msgid "Phone"
+msgstr "Telefon"
+
+#: includes/BambeeAdmin.php:64 includes/BambeeAdmin.php:65
+msgid "Core data"
+msgstr "Stammdaten"
+
+#: includes/BambeeAdmin.php:77 includes/BambeeAdmin.php:78
+msgid "Global data"
+msgstr "Globale Texte"
+
+#: includes/BambeeWebsite.php:85
+msgid "Next &raquo;"
+msgstr "Weiter &raquo;"
+
+#: includes/BambeeWebsite.php:88
+msgid "&laquo; Prev"
+msgstr "&laquo; Zurück"
+
+#: partials/comment-list.php:8
+msgid "Author: "
+msgstr "Verfasser:"
+
+#: partials/comment-list.php:13
+msgid "at"
+msgstr "am"
+
+#: partials/comment-list.php:33
+msgid "Your comment is awaiting moderation."
+msgstr "Ihr Kommentar wartet auf Freischaltung."

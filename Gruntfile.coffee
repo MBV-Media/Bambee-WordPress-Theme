@@ -1,87 +1,102 @@
 module.exports = (grunt) ->
   # Load grunt tasks automatically
   require('load-grunt-tasks')(grunt)
+
+  pkg = grunt.file.readJSON 'package.json'
+  appConfig =
+    src: 'src'
+    dist: '../themes/' + pkg.name
+
   grunt.initConfig
-    pkg: grunt.file.readJSON 'package.json'
+    appConfig: appConfig
+
     clean:
       options:
         force: yes
       build:
         src: [
-          '../themes/<%= pkg.name %>'
+          '<%= appConfig.dist %>'
         ]
+
     copy:
       dist:
         files: [
           expand: yes
-          cwd: 'src/'
+          cwd: '<%= appConfig.src %>/'
           src: [
             '**/**/*'
             '!**/**/*.{scss,coffee}'
           ]
-          dest: '../themes/<%= pkg.name %>/'
+          dest: '<%= appConfig.dist %>/'
           filter: 'isFile'
         ]
+
     scsslint:
       options:
         config: 'config/.scss-lint.yml'
       dist: [
-        'src/**/**/*.scss'
+        '<%= appConfig.src %>/**/**/*.scss'
       ]
+
     compass:
       dist:
         options:
           config: 'config/config.rb'
+
     coffeelint:
       options:
         configFile: 'config/coffeelint.json'
-      src: ['src/js/**/**/*.coffee']
+      src: ['<%= appConfig.src %>/js/**/**/*.coffee']
+
     coffee:
       dist:
         expand: yes
-        cwd: 'src/js'
+        cwd: '<%= appConfig.src %>/js'
         src: ['**/**/*.coffee']
-        dest: '../themes/<%= pkg.name %>/js/'
+        dest: '<%= appConfig.dist %>/js/'
         ext: '.js'
+
     cssmin:
       dist:
         options:
           keepSpecialComments: 0
           sourceMap: grunt.option 'devMode'
         files:
-          '../themes/<%= pkg.name %>/css/vendor.min.css': [
+          '<%= appConfig.dist %>/css/vendor.min.css': [
             'bower_components/normalize-css/normalize.css'
           ]
-          '../themes/<%= pkg.name %>/css/main.min.css': [
-            '../themes/<%= pkg.name %>/css/main.css'
+          '<%= appConfig.dist %>/css/main.min.css': [
+            '<%= appConfig.dist %>/css/main.css'
           ]
+
     uglify:
       dist:
         options:
           sourceMap: grunt.option 'devMode'
         files:
-          '../themes/<%= pkg.name %>/js/main.min.js': [
-            '../themes/<%= pkg.name %>/js/modules/**/**/*.js'
-            '../themes/<%= pkg.name %>/js/services/**/**/*.js'
-            '../themes/<%= pkg.name %>/js/partials/**/**/*.js'
-            '../themes/<%= pkg.name %>/js/main.js'
+          '<%= appConfig.dist %>/js/main.min.js': [
+            '<%= appConfig.dist %>/js/modules/**/**/*.js'
+            '<%= appConfig.dist %>/js/services/**/**/*.js'
+            '<%= appConfig.dist %>/js/partials/**/**/*.js'
+            '<%= appConfig.dist %>/js/main.js'
           ]
-          '../themes/<%= pkg.name %>/js/vendor.min.js': [
-            '../themes/<%= pkg.name %>/js/vendor/**/**/*.js'
+          '<%= appConfig.dist %>/js/vendor.min.js': [
+            '<%= appConfig.dist %>/js/vendor/**/**/*.js'
             'bower_components/modernizr/modernizr.js'
             'bower_components/foundation/js/foundation.js'
           ]
-          '../themes/<%= pkg.name %>/js/vendor/ie.min.js': [
+          '<%= appConfig.dist %>/js/vendor/ie.min.js': [
             'bower_components/respond/src/respond.js'
             'bower_components/html5shiv/dist/html5shiv.js'
           ]
+
     watch:
       options:
         livereload: yes
       copy:
         files: [
-          'src/**/**/*'
-          '!src/**/**/*.{scss,coffee}'
+          '<%= appConfig.src %>/**/**/*'
+          '!<%= appConfig.src %>/**/**/*.{scss,coffee}'
         ]
         tasks: [
           'copy'
@@ -102,16 +117,16 @@ module.exports = (grunt) ->
         ]
       cssmin:
         files: [
-          '../themes/<%= pkg.name %>/css/**/**/*.css'
-          '!../themes/<%= pkg.name %>/css/**/**/*.min.css'
+          '<%= appConfig.dist %>/css/**/**/*.css'
+          '!<%= appConfig.dist %>/css/**/**/*.min.css'
         ]
         tasks: [
           'cssmin'
         ]
       uglify:
         files: [
-          '../themes/<%= pkg.name %>/js/**/**/*.js'
-          '!../themes/<%= pkg.name %>/js/**/**/*.min.js'
+          '<%= appConfig.dist %>/js/**/**/*.js'
+          '!<%= appConfig.dist %>/js/**/**/*.min.js'
         ]
         tasks: [
           'uglify'

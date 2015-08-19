@@ -38,11 +38,21 @@ class BambeeAdmin {
         # Core data page
         $core_data_fields = array_merge(
                 array(
-                        'clubname' => array( 'type' => 'textarea', 'title' => 'Clubname', 'default' => '' ),
-                        'zeiten' => array( 'type' => 'textarea', 'title' => 'Öffnungszeiten', 'default' => '', 'multilang' => true ),
-                        'adresse' => array( 'type' => 'textarea', 'title' => 'Adresse', 'default' => '' ),
-                        'email' => array( 'type' => 'textarea', 'title' => 'E-Mail Adresse', 'default' => '' ),
-                        'telefon' => array( 'type' => 'textarea', 'title' => 'Telefon', 'default' => '' ),
+                        'address' => array(
+                                'type' => 'textarea',
+                                'title' => __( 'Address', TextDomain ),
+                                'default' => ''
+                        ),
+                        'email' => array(
+                                'type' => 'textarea',
+                                'title' => __( 'E-Mail address', TextDomain ),
+                                'default' => ''
+                        ),
+                        'phone' => array(
+                                'type' => 'textarea',
+                                'title' => __( 'Phone', TextDomain ),
+                                'default' => ''
+                        ),
                 ),
                 $this->coreDataFields
         );
@@ -50,24 +60,24 @@ class BambeeAdmin {
             $coreDataPage = new AdminPage( array(
                     'location' => 'menu',
                     'fields' => $core_data_fields,
-                    'id' => 'coredata',
-                    'pageTitle' => 'Stammdaten',
-                    'menuName' => 'Stammdaten',
+                    'id' => 'core-data',
+                    'pageTitle' => __( 'Core data', TextDomain ),
+                    'menuName' => __( 'Core data', TextDomain ),
                     'position' => 50,
-                    'icon' => get_template_directory_uri() . '/includes/img/icons/stammdaten.png',
+                    'icon' => get_template_directory_uri() . '/includes/img/icons/core-data.png',
             ) );
         }
 
         # Global data page
-        if ( !empty( $this->global_fields ) ) {
+        if ( !empty( $this->globalDataFields ) ) {
             $globalFieldPage = new AdminPage( array(
                     'location' => 'menu',
-                    'fields' => $this->global_fields,
-                    'id' => 'globaldata',
-                    'pageTitle' => 'Globale Texte',
-                    'menuName' => 'Globale Texte',
+                    'fields' => $this->globalDataFields,
+                    'id' => 'global-data',
+                    'pageTitle' => __( 'Global data', TextDomain ),
+                    'menuName' => __( 'Global data', TextDomain ),
                     'position' => 51,
-                    'icon' => get_template_directory_uri() . '/includes/img/icons/stammdaten.png',
+                    'icon' => get_template_directory_uri() . '/includes/img/icons/global-data.png',
             ) );
         }
 

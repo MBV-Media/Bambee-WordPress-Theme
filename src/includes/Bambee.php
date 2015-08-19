@@ -45,7 +45,6 @@ class Bambee {
      * @return void
      */
     public function __construct() {
-
         # Thumbnail-Support
         add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size( $this->postThumbnailWidth, $this->postThumbnailHeight, $this->postThumbnailCrop );

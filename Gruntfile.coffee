@@ -1,4 +1,6 @@
 module.exports = (grunt) ->
+  # Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt)
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     clean:
@@ -114,18 +116,6 @@ module.exports = (grunt) ->
         tasks: [
           'uglify'
         ]
-
-
-  # Load Npm tasks
-  grunt.loadNpmTasks 'grunt-contrib-clean'
-  grunt.loadNpmTasks 'grunt-contrib-copy'
-  grunt.loadNpmTasks 'grunt-scss-lint'
-  grunt.loadNpmTasks 'grunt-contrib-compass'
-  grunt.loadNpmTasks 'grunt-coffeelint'
-  grunt.loadNpmTasks 'grunt-contrib-coffee'
-  grunt.loadNpmTasks 'grunt-contrib-cssmin'
-  grunt.loadNpmTasks 'grunt-contrib-uglify'
-  grunt.loadNpmTasks 'grunt-contrib-watch'
 
   # Register tasks
   grunt.registerTask 'default', ->

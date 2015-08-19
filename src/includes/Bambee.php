@@ -7,8 +7,6 @@
 namespace Inc;
 
 
-use Inc\MottoDays;
-
 /**
  * The class representing both website (user frontend) and WordPress admin.
  *
@@ -17,12 +15,6 @@ use Inc\MottoDays;
  * @licence MIT
  */
 class Bambee {
-
-    /**
-     * @since 1.0.0
-     * @var null|MottoDays
-     */
-    public $mottoDays = null;
 
     /**
      * @since 1.0.0
@@ -53,7 +45,6 @@ class Bambee {
      * @return void
      */
     public function __construct() {
-        $this->mottoDays = new MottoDays();
 
         # Thumbnail-Support
         add_theme_support( 'post-thumbnails' );

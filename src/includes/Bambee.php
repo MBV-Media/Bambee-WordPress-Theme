@@ -28,25 +28,25 @@ class Bambee {
      * @since 1.0.0
      * @var int
      */
-    public $postThumbnailWidth = 624;
+    protected $postThumbnailWidth = 624;
 
     /**
      * @since 1.0.0
      * @var int
      */
-    public $postThumbnailHeight = 9999;
+    protected $postThumbnailHeight = 9999;
 
     /**
      * @since 1.0.0
      * @var boolean
      */
-    public $postThumbnailCrop = false;
+    protected $postThumbnailCrop = false;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $additionalMenus = array();
+    protected $additionalMenus = array();
 
     /**
      * @since 1.0.0

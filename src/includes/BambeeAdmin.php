@@ -22,13 +22,13 @@ class BambeeAdmin {
      * @since 1.0.0
      * @var array
      */
-    public $coreDataFields = array();
+    protected $coreDataFields = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    public $globalDataFields = array();
+    protected $globalDataFields = array();
 
     /**
      * @since 1.0.0

@@ -27,13 +27,13 @@ class ThemeView {
      * @since 1.0.0
      * @var array
      */
-    private $args;
+    protected $args;
 
     /**
      * @since 1.0.0
      * @var string
      */
-    private $file;
+    protected $file;
 
     /**
      * @since 1.0.0

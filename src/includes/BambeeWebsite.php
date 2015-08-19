@@ -41,19 +41,19 @@ class BambeeWebsite {
      * @since 1.0.0
      * @var array
      */
-    public $scripts = array();
+    protected $scripts = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    public $localizedScripts = array();
+    protected $localizedScripts = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    public $styles = array();
+    protected $styles = array();
 
     /**
      * @since 1.1.0

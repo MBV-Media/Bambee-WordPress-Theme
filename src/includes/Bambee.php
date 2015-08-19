@@ -95,17 +95,24 @@ class Bambee {
     public function _createPostTypes() {
         register_post_type( 'gallery', array(
                         'labels' => array(
-                                'name' => __( 'Galerien' ),
-                                'singular_name' => __( 'Galerie' )
+                                'name' => __( 'Galleries', TextDomain ),
+                                'singular_name' => __( 'Gallery', TextDomain )
                         ),
                         'taxonomies' => array( 'category' ),
-                        'menu_icon' => get_template_directory_uri() . '/includes/img/icons/galerie.png',
+                        'menu_icon' => get_template_directory_uri() . '/includes/img/icons/gallery.png',
                         'public' => true,
                         'has_archiv' => true,
-                        'show_ui' => true, // UI in admin panel
+                        'show_ui' => true,
                         'capability_type' => 'post',
                         'hierarchical' => true,
-                        'supports' => array( 'title', 'editor', 'thumbnail', 'trackbacks', 'custom-fields', 'revisions' ),
+                        'supports' => array(
+                                'title',
+                                'editor',
+                                'thumbnail',
+                                'trackbacks',
+                                'custom-fields',
+                                'revisions'
+                        ),
                         'taxonomies' => array( 'category' ),
                         'exclude_from_search' => true,
                         'publicly_queryable' => true,

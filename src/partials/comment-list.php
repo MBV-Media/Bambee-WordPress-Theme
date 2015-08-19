@@ -5,7 +5,7 @@
             <?php
             printf(
                     '%s <span class="comment-author fn">%s</span>',
-                    __( 'Verfasser: ', TextDomain ),
+                    __( 'Author: ', TextDomain ),
                     get_comment_author_link()
             );
             ?>
@@ -17,7 +17,7 @@
                 comment_reply_link(
                         array_merge( $arguments, array(
                                 'reply_text' => '<span class="inner"></span>',
-                                'add_below' => $add_below,
+                                'add_below' => $addBelow,
                                 'depth' => $depth,
                                 'max_depth' => $arguments['max_depth'],
                         ) )

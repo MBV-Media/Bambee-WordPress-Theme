@@ -82,10 +82,10 @@ class BambeeWebsite {
         $this->globalData = AdminPage::ap_get_option( 'globaldata' );
         $this->mobileDetect = new MobileDetect();
         if ( empty( $this->commentPaginationNextText ) ) {
-            $this->commentPaginationNextText = __( 'Weiter &raquo;', TextDomain );
+            $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
         }
         if ( empty( $this->commentPaginationPrevText ) ) {
-            $this->commentPaginationPrevText = __( '&laquo; Zurück', TextDomain );
+            $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         }
 
         add_shortcode( 'page-link', array( $this, 'shortcodeGetLink' ) );
@@ -316,7 +316,7 @@ class BambeeWebsite {
                 'arguments' => $args,
                 'depth' => $depth,
                 'tag' => $tag,
-                'add_below' => $addBelow
+                'addBelow' => $addBelow
         ) );
         echo $commentListTemplate->render();
     }
@@ -361,10 +361,10 @@ class BambeeWebsite {
             }
         }
 
-        $template = new ThemeView( '/partials/comment-pages.php', array(
-                'pagination_prev' => $paginationPrev,
-                'pagination_pages' => $paginationPages,
-                'pagination_next' => $paginationNext
+        $template = new ThemeView( '/partials/comment-pagination.php', array(
+                'paginationPrev' => $paginationPrev,
+                'paginationPages' => $paginationPages,
+                'paginationNext' => $paginationNext
         ) );
         echo $template->render();
     }

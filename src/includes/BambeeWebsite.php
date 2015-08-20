@@ -316,7 +316,7 @@ class BambeeWebsite {
             'arguments' => $args,
             'depth' => $depth,
             'tag' => $tag,
-            'addBelow' => $addBelow
+            'addBelow' => $addBelow,
         ) );
         echo $commentListTemplate->render();
     }
@@ -365,7 +365,7 @@ class BambeeWebsite {
         $template = new ThemeView( '/partials/comment-pagination.php', array(
             'paginationPrev' => $paginationPrev,
             'paginationPages' => $paginationPages,
-            'paginationNext' => $paginationNext
+            'paginationNext' => $paginationNext,
         ) );
         echo $template->render();
     }

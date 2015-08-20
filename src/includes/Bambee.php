@@ -67,7 +67,7 @@ class Bambee {
         $menus = array_merge(
             array(
                 'header-menu' => __( 'Header Menu' ),
-                'footer-menu' => __( 'Footer Menu' )
+                'footer-menu' => __( 'Footer Menu' ),
             ),
             $this->additionalMenus
         );
@@ -86,7 +86,7 @@ class Bambee {
         register_post_type( 'gallery', array(
                 'labels' => array(
                     'name' => __( 'Galleries', TextDomain ),
-                    'singular_name' => __( 'Gallery', TextDomain )
+                    'singular_name' => __( 'Gallery', TextDomain ),
                 ),
                 'taxonomies' => array( 'category' ),
                 'menu_icon' => get_template_directory_uri() . '/includes/img/icons/gallery.png',
@@ -101,12 +101,12 @@ class Bambee {
                     'thumbnail',
                     'trackbacks',
                     'custom-fields',
-                    'revisions'
+                    'revisions',
                 ),
                 'taxonomies' => array( 'category' ),
                 'exclude_from_search' => true,
                 'publicly_queryable' => true,
-                'excerpt' => true
+                'excerpt' => true,
             )
         );
 

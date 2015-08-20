@@ -45,22 +45,22 @@ class BambeeAdmin {
                         'You can use the [coredata]key[coredata]' .
                         ' shortcode to display the core data field inside a post.',
                         TextDomain
-                    )
+                    ),
                 ),
                 'address' => array(
                     'type' => 'textarea',
                     'title' => __( 'Address', TextDomain ),
-                    'default' => ''
+                    'default' => '',
                 ),
                 'email' => array(
                     'type' => 'textarea',
                     'title' => __( 'E-Mail address', TextDomain ),
-                    'default' => ''
+                    'default' => '',
                 ),
                 'phone' => array(
                     'type' => 'textarea',
                     'title' => __( 'Phone', TextDomain ),
-                    'default' => ''
+                    'default' => '',
                 ),
             ),
             $this->coreDataFields
@@ -88,7 +88,7 @@ class BambeeAdmin {
                             'You can use the [globaldata]key[globaldata]' .
                             ' shortcode to display the global data field inside a post.',
                             TextDomain
-                        )
+                        ),
                     ),
                 ),
                 $this->globalDataFields

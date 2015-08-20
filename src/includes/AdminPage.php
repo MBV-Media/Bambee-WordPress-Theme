@@ -1,10 +1,10 @@
 <?php namespace Inc;
 
 
-/* * **********************************
- * Author: shennemann
- * Erstellt am: 20.11.2013 11:49
- * ********************************** */
+    /* * **********************************
+     * Author: shennemann
+     * Erstellt am: 20.11.2013 11:49
+     * ********************************** */
 
 /**
  * Creates a new AdminPage
@@ -203,8 +203,8 @@ class AdminPage {
      */
     public function __construct( $args ) {
         if ( empty( $args )
-                || ( empty( $args['slug'] ) && empty( $args['id'] ) )
-                || ( empty( $args['fields'] ) && empty( $args['include'] ) )
+            || ( empty( $args['slug'] ) && empty( $args['id'] ) )
+            || ( empty( $args['fields'] ) && empty( $args['include'] ) )
         ) {
             exit( 'Class Adminpage: Required Args missing' );
         }
@@ -416,7 +416,7 @@ class AdminPage {
                 <?php ap_do_option_view(); ?>
             <?php } ?>
         </div>
-    <?php
+        <?php
     }
 
     /**
@@ -425,7 +425,7 @@ class AdminPage {
     public function ap_do_option_view() {
         ?>
         <form method="post"
-                action="<?= $this->form_action ?>"<?= ( !empty( $this->form_id ) ? ' id="' . $this->form_id . '"' : '' ) ?>>
+            action="<?= $this->form_action ?>"<?= ( !empty( $this->form_id ) ? ' id="' . $this->form_id . '"' : '' ) ?>>
             <?php
             if ( !empty( $this->include ) && file_exists( $this->include ) ) {
                 include( $this->include );
@@ -464,8 +464,8 @@ class AdminPage {
              */
             function addEditlistItem(id) {
                 var hiddenField = jQuery('#editlist_' + id),
-                        selectField = jQuery('#editlist_select_' + id),
-                        insertField = jQuery('#editlist_insert_' + id);
+                    selectField = jQuery('#editlist_select_' + id),
+                    insertField = jQuery('#editlist_insert_' + id);
                 // Check if exists
                 var sidebarExists = false;
                 for (var i = 0; i < selectField.children().length; i += 1) {
@@ -496,7 +496,7 @@ class AdminPage {
              */
             function removeEditlistItem(id) {
                 var hiddenField = jQuery('#editlist_' + id),
-                        selectField = jQuery('#editlist_select_' + id);
+                    selectField = jQuery('#editlist_select_' + id);
 
                 for (var i = selectField.children().length - 1; i >= 0; i -= 1) {
                     if (selectField.children()[i].selected) {
@@ -592,7 +592,7 @@ class AdminPage {
                 display: inline-block;
             }
         </style>
-    <?php
+        <?php
     }
 
 
@@ -709,9 +709,9 @@ class AdminPage {
 
                 case 'wysiwyg':
                     $settings = array(
-                            'wpautop' => !empty( $args['autop'] ) ? $args['autop'] : false,
-                            'textarea_name' => $name,
-                            'textarea_rows' => !empty( $args['rows'] ) ? $args['rows'] : 15,
+                        'wpautop' => !empty( $args['autop'] ) ? $args['autop'] : false,
+                        'textarea_name' => $name,
+                        'textarea_rows' => !empty( $args['rows'] ) ? $args['rows'] : 15,
                     );
 
                     $content = str_replace( PHP_EOL . PHP_EOL, PHP_EOL . "&nbsp;" . PHP_EOL, $value );

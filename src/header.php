@@ -17,7 +17,7 @@ $short_lang = $short_lang[0];
 <head>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
     <meta name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 
     <title><?php bloginfo( 'name' ); ?><?php wp_title( '|', true, 'left' ); ?></title>
     <?php wp_enqueue_script( 'comment-reply' ); ?>
@@ -49,13 +49,13 @@ $short_lang = $short_lang[0];
             <section class="top-bar-section">
                 <?php
                 echo wp_nav_menu(
-                        array(
-                                'container' => 'ul',
-                                'theme_location' => 'header-menu',
-                                'link_before' => '<span>',
-                                'link_after' => '</span>',
-                                'echo' => false,
-                        )
+                    array(
+                        'container' => 'ul',
+                        'theme_location' => 'header-menu',
+                        'link_before' => '<span>',
+                        'link_after' => '</span>',
+                        'echo' => false,
+                    )
                 );
                 ?>
             </section>

@@ -170,8 +170,8 @@ class BambeeWebsite {
      */
     public function shortcodeRow( $args, $content = '' ) {
         $content = sprintf(
-                '<div class="row">%s<div class="clear"></div></div>',
-                $content
+            '<div class="row">%s<div class="clear"></div></div>',
+            $content
         );
         return apply_filters( 'the_content', $content );
     }
@@ -206,9 +206,9 @@ class BambeeWebsite {
         }
 
         $content = sprintf(
-                '<div class="%s">%s</div>',
-                $class,
-                $content
+            '<div class="%s">%s</div>',
+            $class,
+            $content
         );
 
         return apply_filters( 'the_content', $content );
@@ -256,11 +256,11 @@ class BambeeWebsite {
         if ( !empty( $this->scripts ) ) {
             foreach ( $this->scripts as $script ) {
                 wp_enqueue_script(
-                        $script['handle'],
-                        isset( $script['src'] ) ? $script['src'] : '',
-                        isset( $script['deps'] ) ? $script['deps'] : '',
-                        isset( $script['ver'] ) ? $script['ver'] : '',
-                        isset( $script['in_footer'] ) ? $script['in_footer'] : ''
+                    $script['handle'],
+                    isset( $script['src'] ) ? $script['src'] : '',
+                    isset( $script['deps'] ) ? $script['deps'] : '',
+                    isset( $script['ver'] ) ? $script['ver'] : '',
+                    isset( $script['in_footer'] ) ? $script['in_footer'] : ''
                 );
             }
         }
@@ -269,9 +269,9 @@ class BambeeWebsite {
         if ( !empty( $this->localizedScripts ) ) {
             foreach ( $this->localizedScripts as $localized_script ) {
                 wp_localize_script(
-                        $localized_script['handle'],
-                        $localized_script['name'],
-                        $localized_script['data']
+                    $localized_script['handle'],
+                    $localized_script['name'],
+                    $localized_script['data']
                 );
             }
         }
@@ -280,11 +280,11 @@ class BambeeWebsite {
         if ( !empty( $this->styles ) ) {
             foreach ( $this->styles as $style ) {
                 wp_enqueue_style(
-                        $style['handle'],
-                        $style['src'],
-                        isset( $style['deps'] ) ? $style['deps'] : '',
-                        isset( $style['ver'] ) ? $style['ver'] : '',
-                        isset( $style['media'] ) ? $style['media'] : 'all'
+                    $style['handle'],
+                    $style['src'],
+                    isset( $style['deps'] ) ? $style['deps'] : '',
+                    isset( $style['ver'] ) ? $style['ver'] : '',
+                    isset( $style['media'] ) ? $style['media'] : 'all'
                 );
             }
         }
@@ -312,11 +312,11 @@ class BambeeWebsite {
         }
 
         $commentListTemplate = new ThemeView( '/partials/comment-list.php', array(
-                'comment' => $comment,
-                'arguments' => $args,
-                'depth' => $depth,
-                'tag' => $tag,
-                'addBelow' => $addBelow
+            'comment' => $comment,
+            'arguments' => $args,
+            'depth' => $depth,
+            'tag' => $tag,
+            'addBelow' => $addBelow
         ) );
         echo $commentListTemplate->render();
     }
@@ -329,13 +329,13 @@ class BambeeWebsite {
      */
     public function commentPagination() {
         $pagination = paginate_comments_links( array(
-                'echo' => false,
-                'mid_size' => 2,
-                'end_size' => 3,
-                'type' => 'array',
-                'add_fragment' => '',
-                'next_text' => $this->commentPaginationNextText,
-                'prev_text' => $this->commentPaginationPrevText,
+            'echo' => false,
+            'mid_size' => 2,
+            'end_size' => 3,
+            'type' => 'array',
+            'add_fragment' => '',
+            'next_text' => $this->commentPaginationNextText,
+            'prev_text' => $this->commentPaginationPrevText,
         ) );
 
         $paginationPages = '';
@@ -347,7 +347,8 @@ class BambeeWebsite {
 
             foreach ( $pagination as $pageData ) {
                 if ( is_numeric( strip_tags( $pageData ) )
-                        || strip_tags( $pageData ) === '&hellip;' ) {
+                    || strip_tags( $pageData ) === '&hellip;'
+                ) {
                     $paginationPages .= sprintf( $this->commentPaginationPageTemplate, $pageData );
                 } else {
                     if ( $count > 0 ) {
@@ -362,9 +363,9 @@ class BambeeWebsite {
         }
 
         $template = new ThemeView( '/partials/comment-pagination.php', array(
-                'paginationPrev' => $paginationPrev,
-                'paginationPages' => $paginationPages,
-                'paginationNext' => $paginationNext
+            'paginationPrev' => $paginationPrev,
+            'paginationPages' => $paginationPages,
+            'paginationNext' => $paginationNext
         ) );
         echo $template->render();
     }

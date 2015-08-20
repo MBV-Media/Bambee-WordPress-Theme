@@ -65,11 +65,11 @@ class Bambee {
      */
     public function _registerMenus() {
         $menus = array_merge(
-                array(
-                        'header-menu' => __( 'Header Menu' ),
-                        'footer-menu' => __( 'Footer Menu' )
-                ),
-                $this->additionalMenus
+            array(
+                'header-menu' => __( 'Header Menu' ),
+                'footer-menu' => __( 'Footer Menu' )
+            ),
+            $this->additionalMenus
         );
 
         register_nav_menus( $menus );
@@ -84,30 +84,30 @@ class Bambee {
      */
     public function _createPostTypes() {
         register_post_type( 'gallery', array(
-                        'labels' => array(
-                                'name' => __( 'Galleries', TextDomain ),
-                                'singular_name' => __( 'Gallery', TextDomain )
-                        ),
-                        'taxonomies' => array( 'category' ),
-                        'menu_icon' => get_template_directory_uri() . '/includes/img/icons/gallery.png',
-                        'public' => true,
-                        'has_archiv' => true,
-                        'show_ui' => true,
-                        'capability_type' => 'post',
-                        'hierarchical' => true,
-                        'supports' => array(
-                                'title',
-                                'editor',
-                                'thumbnail',
-                                'trackbacks',
-                                'custom-fields',
-                                'revisions'
-                        ),
-                        'taxonomies' => array( 'category' ),
-                        'exclude_from_search' => true,
-                        'publicly_queryable' => true,
-                        'excerpt' => true
-                )
+                'labels' => array(
+                    'name' => __( 'Galleries', TextDomain ),
+                    'singular_name' => __( 'Gallery', TextDomain )
+                ),
+                'taxonomies' => array( 'category' ),
+                'menu_icon' => get_template_directory_uri() . '/includes/img/icons/gallery.png',
+                'public' => true,
+                'has_archiv' => true,
+                'show_ui' => true,
+                'capability_type' => 'post',
+                'hierarchical' => true,
+                'supports' => array(
+                    'title',
+                    'editor',
+                    'thumbnail',
+                    'trackbacks',
+                    'custom-fields',
+                    'revisions'
+                ),
+                'taxonomies' => array( 'category' ),
+                'exclude_from_search' => true,
+                'publicly_queryable' => true,
+                'excerpt' => true
+            )
         );
 
         add_post_type_support( 'page', 'excerpt', true );

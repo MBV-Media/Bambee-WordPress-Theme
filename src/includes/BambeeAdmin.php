@@ -37,70 +37,70 @@ class BambeeAdmin {
     public function __construct() {
         # Core data page
         $coreDataFields = array_merge(
-                array(
-                        'coreDataDescription' => array(
-                                'type' => 'label',
-                                'title' => 'Shortcodes',
-                                'description' => __(
-                                        'You can use the [coredata]key[coredata]' .
-                                        ' shortcode to display the core data field inside a post.',
-                                        TextDomain
-                                )
-                        ),
-                        'address' => array(
-                                'type' => 'textarea',
-                                'title' => __( 'Address', TextDomain ),
-                                'default' => ''
-                        ),
-                        'email' => array(
-                                'type' => 'textarea',
-                                'title' => __( 'E-Mail address', TextDomain ),
-                                'default' => ''
-                        ),
-                        'phone' => array(
-                                'type' => 'textarea',
-                                'title' => __( 'Phone', TextDomain ),
-                                'default' => ''
-                        ),
+            array(
+                'coreDataDescription' => array(
+                    'type' => 'label',
+                    'title' => 'Shortcodes',
+                    'description' => __(
+                        'You can use the [coredata]key[coredata]' .
+                        ' shortcode to display the core data field inside a post.',
+                        TextDomain
+                    )
                 ),
-                $this->coreDataFields
+                'address' => array(
+                    'type' => 'textarea',
+                    'title' => __( 'Address', TextDomain ),
+                    'default' => ''
+                ),
+                'email' => array(
+                    'type' => 'textarea',
+                    'title' => __( 'E-Mail address', TextDomain ),
+                    'default' => ''
+                ),
+                'phone' => array(
+                    'type' => 'textarea',
+                    'title' => __( 'Phone', TextDomain ),
+                    'default' => ''
+                ),
+            ),
+            $this->coreDataFields
         );
         if ( !empty( $coreDataFields ) ) {
             $coreDataPage = new AdminPage( array(
-                    'location' => 'menu',
-                    'fields' => $coreDataFields,
-                    'id' => 'core-data',
-                    'pageTitle' => __( 'Core data', TextDomain ),
-                    'menuName' => __( 'Core data', TextDomain ),
-                    'position' => 50,
-                    'icon' => get_template_directory_uri() . '/includes/img/icons/core-data.png',
+                'location' => 'menu',
+                'fields' => $coreDataFields,
+                'id' => 'core-data',
+                'pageTitle' => __( 'Core data', TextDomain ),
+                'menuName' => __( 'Core data', TextDomain ),
+                'position' => 50,
+                'icon' => get_template_directory_uri() . '/includes/img/icons/core-data.png',
             ) );
         }
 
         # Global data page
         if ( !empty( $this->globalDataFields ) ) {
             $globalDataFields = array_merge(
-                    array(
-                            'globalDataDescription' => array(
-                                    'type' => 'label',
-                                    'title' => 'Shortcodes',
-                                    'description' => __(
-                                            'You can use the [globaldata]key[globaldata]' .
-                                            ' shortcode to display the global data field inside a post.',
-                                            TextDomain
-                                    )
-                            ),
+                array(
+                    'globalDataDescription' => array(
+                        'type' => 'label',
+                        'title' => 'Shortcodes',
+                        'description' => __(
+                            'You can use the [globaldata]key[globaldata]' .
+                            ' shortcode to display the global data field inside a post.',
+                            TextDomain
+                        )
                     ),
-                    $this->globalDataFields
+                ),
+                $this->globalDataFields
             );
             $globalFieldPage = new AdminPage( array(
-                    'location' => 'menu',
-                    'fields' => $globalDataFields,
-                    'id' => 'global-data',
-                    'pageTitle' => __( 'Global data', TextDomain ),
-                    'menuName' => __( 'Global data', TextDomain ),
-                    'position' => 51,
-                    'icon' => get_template_directory_uri() . '/includes/img/icons/global-data.png',
+                'location' => 'menu',
+                'fields' => $globalDataFields,
+                'id' => 'global-data',
+                'pageTitle' => __( 'Global data', TextDomain ),
+                'menuName' => __( 'Global data', TextDomain ),
+                'position' => 51,
+                'icon' => get_template_directory_uri() . '/includes/img/icons/global-data.png',
             ) );
         }
 

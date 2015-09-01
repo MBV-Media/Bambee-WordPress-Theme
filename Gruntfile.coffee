@@ -158,6 +158,6 @@ module.exports = (grunt) ->
       'cssmin'
       'uglify'
     ]
-    if grunt.option('watch')
+    if grunt.option('devMode') or grunt.option('watch')
       taskList.push 'watch'
     grunt.task.run taskList

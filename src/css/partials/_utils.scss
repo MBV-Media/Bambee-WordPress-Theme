@@ -1,0 +1,45 @@
+.alignleft {
+  display: inline;
+  margin-right: 1.5em;
+  float: left;
+}
+
+.alignright {
+  display: inline;
+  margin-left: 1.5em;
+  float: right;
+}
+
+.aligncenter {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  clear: both;
+}
+
+table {
+  &.aligncenter {
+    display: table;
+  }
+}
+
+.wp-caption {
+  margin-bottom: 1.5em;
+  text-align: center;
+  padding-top: 5px;
+
+  img {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+  }
+
+  p {
+    &.wp-caption-text {
+      line-height: 1.5;
+      font-size: 10px;
+      margin: 0;
+    }
+  }
+}
+

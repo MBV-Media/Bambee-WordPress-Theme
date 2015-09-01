@@ -1,0 +1,23 @@
+@mixin bambee-arrow($direction, $color, $size) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+
+  @if $direction == up {
+    border-left: rem-calc($size) solid transparent;
+    border-right: rem-calc($size) solid transparent;
+    border-bottom: rem-calc($size) solid $color;
+  } @else if $direction == right {
+    border-top: rem-calc($size) solid transparent;
+    border-bottom: rem-calc($size) solid transparent;
+    border-left: rem-calc($size) solid $color;
+  } @else if $direction == down {
+    border-left: rem-calc($size) solid transparent;
+    border-right: rem-calc($size) solid transparent;
+    border-top: rem-calc($size) solid $color;
+  } @else if $direction == left {
+    border-top: rem-calc($size) solid transparent;
+    border-bottom: rem-calc($size) solid transparent;
+    border-right: rem-calc($size) solid $color;
+  }
+}

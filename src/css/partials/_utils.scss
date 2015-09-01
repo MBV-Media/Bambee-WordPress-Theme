@@ -81,4 +81,22 @@ blockquote {
   }
 }
 
+<<<<<<< HEAD
 >>>>>>> Add WordPress WYSIWYG editor styles. Closes #4
+=======
+.arrow-up {
+  @include bambee-arrow(up, $body-font-color, 8)
+}
+
+.arrow-right {
+  @include bambee-arrow(right, $body-font-color, 8)
+}
+
+.arrow-down {
+  @include bambee-arrow(down, $body-font-color, 8)
+}
+
+.arrow-left {
+  @include bambee-arrow(left, $body-font-color, 8)
+}
+>>>>>>> Add CSS classes and SASS mixins for arrows. Closes #3

@@ -27,6 +27,12 @@ $short_lang = $short_lang[0];
 
     <?php wp_head(); ?>
 
+    <!--[if IE 7]>
+    <script type="text/javascript">
+        window.location = "http://whatbrowser.org/";
+    </script>
+    <![endif]-->
+
     <!--[if lt IE 9 ]>
     <script type="text/javascript" src="<?php echo ThemeUrl; ?>/js/vendor/ie.min.js"></script>
     <![endif]-->

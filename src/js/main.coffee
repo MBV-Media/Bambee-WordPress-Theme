@@ -13,14 +13,6 @@
 'use strict'
 
 jQuery ($) ->
-  ###*
-    * Log "Everything loaded".
-    *
-    * @since 1.0.0
-    * @return {void}
-  ###
-  onReady = ->
-    console.log 'Everything loaded'
 
   ###*
     * Initialize modules/plugins/etc.
@@ -30,15 +22,7 @@ jQuery ($) ->
   ###
   init = ->
     $(document).foundation()
-    initEvents()
-
-  ###*
-    * Initialize global events.
-    *
-    * @since 1.0.0
-    * @return {void}
-  ###
-  initEvents = ->
-    $(window).load onReady
+    bodyEls = document.getElementsByTagName 'body'
+    bodyEls[0].classList.remove 'no-js'
 
   init()

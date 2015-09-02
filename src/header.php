@@ -33,7 +33,8 @@ $short_lang = $short_lang[0];
 </head>
 <body <?php body_class( 'no-js' ); ?>>
 <script>
-    jQuery('body').removeClass('no-js');
+    var bodyEls = document.getElementsByTagName( 'body' );
+    bodyEls[0].classList.remove('no-js');
 </script>
 <div class="wrapper">
     <header class="header-main" role="banner">

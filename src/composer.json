@@ -2,6 +2,7 @@
   "minimum-stability": "dev",
   "require": {
     "r4c00n/magic-meta-box": "*",
+    "r4c00n/magic-admin-page": "1.0",
     "mobiledetect/mobiledetectlib": "*"
   },
   "autoload": {

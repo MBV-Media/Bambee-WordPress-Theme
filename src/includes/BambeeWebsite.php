@@ -8,6 +8,7 @@ namespace Inc;
 
 
 use Detection\MobileDetect;
+use MagicAdminPage\MagicAdminPage;
 use Inc\ThemeView;
 
 /**
@@ -78,8 +79,8 @@ class BambeeWebsite {
      * @return void
      */
     public function __construct() {
-        $this->coreData = AdminPage::ap_get_option( 'coredata' );
-        $this->globalData = AdminPage::ap_get_option( 'globaldata' );
+        $this->coreData = MagicAdminPage::getOption( 'core-data' );
+        $this->globalData = MagicAdminPage::getOption( 'global-data' );
         $this->mobileDetect = new MobileDetect();
         if ( empty( $this->commentPaginationNextText ) ) {
             $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
@@ -132,7 +133,6 @@ class BambeeWebsite {
         if ( empty( $content ) || empty( $this->coreData[$content] ) ) {
             return '';
         }
-
         return nl2br( $this->coreData[$content] );
     }
 

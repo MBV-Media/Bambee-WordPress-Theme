@@ -7,7 +7,7 @@
 namespace Inc;
 
 
-use Inc\AdminPage;
+use MagicAdminPage\MagicAdminPage;
 
 /**
  * The class representing the WordPress Admin.
@@ -36,10 +36,17 @@ class BambeeAdmin {
      */
     public function __construct() {
         # Core data page
+        $coreDataPage = new MagicAdminPage(
+            'core-data',
+            __( 'Core data', TextDomain ),
+            __( 'Core data', TextDomain ),
+            50,
+            get_template_directory_uri() . '/includes/img/icons/core-data.png'
+        );
         $coreDataFields = array_merge(
             array(
                 'coreDataDescription' => array(
-                    'type' => 'label',
+                    'type' => 'description',
                     'title' => 'Shortcodes',
                     'description' => __(
                         'You can use the [coredata]key[coredata]' .
@@ -50,35 +57,32 @@ class BambeeAdmin {
                 'address' => array(
                     'type' => 'textarea',
                     'title' => __( 'Address', TextDomain ),
-                    'default' => '',
+                    'multilang' => true,
                 ),
                 'email' => array(
                     'type' => 'textarea',
                     'title' => __( 'E-Mail address', TextDomain ),
-                    'default' => '',
+                    'multilang' => true,
                 ),
                 'phone' => array(
                     'type' => 'textarea',
                     'title' => __( 'Phone', TextDomain ),
-                    'default' => '',
+                    'multilang' => true,
                 ),
             ),
             $this->coreDataFields
         );
-        if ( !empty( $coreDataFields ) ) {
-            $coreDataPage = new AdminPage( array(
-                'location' => 'menu',
-                'fields' => $coreDataFields,
-                'id' => 'core-data',
-                'pageTitle' => __( 'Core data', TextDomain ),
-                'menuName' => __( 'Core data', TextDomain ),
-                'position' => 50,
-                'icon' => get_template_directory_uri() . '/includes/img/icons/core-data.png',
-            ) );
-        }
+        $coreDataPage->addFields( $coreDataFields );
 
         # Global data page
         if ( !empty( $this->globalDataFields ) ) {
+            $globalDataPage = new MagicAdminPage(
+                'global-data',
+                __( 'Global data', TextDomain ),
+                __( 'Global data', TextDomain ),
+                51,
+                get_template_directory_uri() . '/includes/img/icons/global-data.png'
+            );
             $globalDataFields = array_merge(
                 array(
                     'globalDataDescription' => array(
@@ -93,15 +97,7 @@ class BambeeAdmin {
                 ),
                 $this->globalDataFields
             );
-            $globalFieldPage = new AdminPage( array(
-                'location' => 'menu',
-                'fields' => $globalDataFields,
-                'id' => 'global-data',
-                'pageTitle' => __( 'Global data', TextDomain ),
-                'menuName' => __( 'Global data', TextDomain ),
-                'position' => 51,
-                'icon' => get_template_directory_uri() . '/includes/img/icons/global-data.png',
-            ) );
+            $globalDataPage->addFields( $globalDataFields );
         }
 
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );

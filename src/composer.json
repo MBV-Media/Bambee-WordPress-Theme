@@ -1,7 +1,7 @@
 {
   "minimum-stability": "dev",
   "require": {
-    "gloeckchen/magic-meta-box": "*",
+    "r4c00n/magic-meta-box": "*",
     "mobiledetect/mobiledetectlib": "*"
   },
   "autoload": {

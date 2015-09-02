@@ -57,17 +57,14 @@ class BambeeAdmin {
                 'address' => array(
                     'type' => 'textarea',
                     'title' => __( 'Address', TextDomain ),
-                    'multilang' => true,
                 ),
                 'email' => array(
                     'type' => 'textarea',
                     'title' => __( 'E-Mail address', TextDomain ),
-                    'multilang' => true,
                 ),
                 'phone' => array(
                     'type' => 'textarea',
                     'title' => __( 'Phone', TextDomain ),
-                    'multilang' => true,
                 ),
             ),
             $this->coreDataFields

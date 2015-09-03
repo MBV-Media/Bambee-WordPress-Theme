@@ -7,7 +7,7 @@
 namespace Lib;
 
 
-use Inc\BambeeWebsite;
+use MBVMedia\BambeeWebsite;
 
 /**
  * The class representing the website (user frontend).

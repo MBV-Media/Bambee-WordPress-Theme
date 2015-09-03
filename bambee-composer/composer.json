@@ -1,0 +1,14 @@
+{
+  "name": "mbv-media/bambee-composer",
+  "minimum-stability": "dev",
+  "require": {
+    "r4c00n/magic-meta-box": "1.3",
+    "r4c00n/magic-admin-page": "1.0",
+    "mobiledetect/mobiledetectlib": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "MBVMedia\\": "src/MBVMedia"
+    }
+  }
+}

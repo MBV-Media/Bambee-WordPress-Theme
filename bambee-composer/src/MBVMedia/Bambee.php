@@ -4,7 +4,7 @@
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
-namespace Inc;
+namespace MBVMedia;
 
 
 /**

@@ -4,12 +4,12 @@
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
-namespace Inc;
+namespace MBVMedia;
 
 
 use Detection\MobileDetect;
 use MagicAdminPage\MagicAdminPage;
-use Inc\ThemeView;
+use MBVMedia\ThemeView;
 
 /**
  * The class representing the website (user frontend).

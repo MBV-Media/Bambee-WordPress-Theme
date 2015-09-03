@@ -7,7 +7,7 @@
 namespace Lib;
 
 
-use Inc\BambeeAdmin;
+use MBVMedia\BambeeAdmin;
 
 /**
  * The class representing the WordPress Admin.

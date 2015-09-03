@@ -7,7 +7,7 @@
 namespace Lib;
 
 
-use Inc\Bambee;
+use MBVMedia\Bambee;
 
 /**
  * The class representing both website (user frontend) and WordPress admin.

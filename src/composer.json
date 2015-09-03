@@ -1,13 +1,16 @@
 {
   "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "../bambee-composer"
+    }
+  ],
   "require": {
-    "r4c00n/magic-meta-box": "1.3",
-    "r4c00n/magic-admin-page": "1.0",
-    "mobiledetect/mobiledetectlib": "*"
+    "mbv-media/bambee-composer": "*"
   },
   "autoload": {
     "psr-4": {
-      "Inc\\": "includes/",
       "Lib\\": "lib/"
     }
   }

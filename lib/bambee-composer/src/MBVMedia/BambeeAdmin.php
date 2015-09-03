@@ -35,8 +35,8 @@ class BambeeAdmin {
      * @return void
      */
     public function __construct() {
-        $subDir = str_replace( get_stylesheet_directory(), '', dirname( __FILE__ ) );
-        $componentUrl = get_stylesheet_directory_uri() . $subDir;
+        $subDir = str_replace( ThemeDir, '', dirname( __FILE__ ) );
+        $componentUrl = ThemeUrl . $subDir;
 
         # Core data page
         $coreDataPage = new MagicAdminPage(
@@ -110,6 +110,6 @@ class BambeeAdmin {
      * @return void
      */
     public function _enqueueCss() {
-        wp_enqueue_style( 'custom_css', get_template_directory_uri() . '/css/admin.css' );
+        wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.css' );
     }
 }

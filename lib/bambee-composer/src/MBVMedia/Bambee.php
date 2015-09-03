@@ -83,8 +83,8 @@ class Bambee {
      * @return void
      */
     public function _createPostTypes() {
-        $subDir = str_replace( get_stylesheet_directory(), '', dirname( __FILE__ ) );
-        $componentUrl = get_stylesheet_directory_uri() . $subDir;
+        $subDir = str_replace( ThemeDir, '', dirname( __FILE__ ) );
+        $componentUrl = ThemeUrl . $subDir;
 
         register_post_type( 'gallery', array(
                 'labels' => array(

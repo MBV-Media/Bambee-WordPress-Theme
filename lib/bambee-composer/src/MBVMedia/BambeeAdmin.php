@@ -110,6 +110,6 @@ class BambeeAdmin {
      * @return void
      */
     public function _enqueueCss() {
-        wp_enqueue_style( 'custom_css', get_template_directory_uri() . '/css/admin/admin.css' );
+        wp_enqueue_style( 'custom_css', get_template_directory_uri() . '/css/admin.css' );
     }
 }

@@ -3,7 +3,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "../bambee-composer"
+      "url": "../lib/bambee-composer"
     }
   ],
   "require": {

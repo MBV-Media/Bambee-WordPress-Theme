@@ -170,7 +170,7 @@ class BambeeWebsite {
      */
     public function shortcodeRow( $args, $content = '' ) {
         $content = sprintf(
-            '<div class="row">%s<div class="clear"></div></div>',
+            '<div class="row">%s</div>',
             $content
         );
         return apply_filters( 'the_content', $content );

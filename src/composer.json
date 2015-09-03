@@ -2,8 +2,8 @@
   "minimum-stability": "dev",
   "repositories": [
     {
-      "type": "vcs",
-      "url": "../lib/bambee-composer"
+      "type": "artifact",
+      "url": "../lib/bambee-composer/"
     }
   ],
   "require": {

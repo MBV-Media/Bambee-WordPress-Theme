@@ -83,13 +83,16 @@ class Bambee {
      * @return void
      */
     public function _createPostTypes() {
+        $subDir = str_replace( get_stylesheet_directory(), '', dirname( __FILE__ ) );
+        $componentUrl = get_stylesheet_directory_uri() . $subDir;
+
         register_post_type( 'gallery', array(
                 'labels' => array(
                     'name' => __( 'Galleries', TextDomain ),
                     'singular_name' => __( 'Gallery', TextDomain ),
                 ),
                 'taxonomies' => array( 'category' ),
-                'menu_icon' => get_template_directory_uri() . '/includes/img/icons/gallery.png',
+                'menu_icon' => $componentUrl . '/img/icons/gallery.png',
                 'public' => true,
                 'has_archiv' => true,
                 'show_ui' => true,

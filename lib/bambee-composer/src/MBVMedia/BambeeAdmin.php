@@ -35,13 +35,16 @@ class BambeeAdmin {
      * @return void
      */
     public function __construct() {
+        $subDir = str_replace( get_stylesheet_directory(), '', dirname( __FILE__ ) );
+        $componentUrl = get_stylesheet_directory_uri() . $subDir;
+
         # Core data page
         $coreDataPage = new MagicAdminPage(
             'core-data',
             __( 'Core data', TextDomain ),
             __( 'Core data', TextDomain ),
             50,
-            get_template_directory_uri() . '/includes/img/icons/core-data.png'
+            $componentUrl . '/img/icons/core-data.png'
         );
         $coreDataFields = array_merge(
             array(
@@ -78,7 +81,7 @@ class BambeeAdmin {
                 __( 'Global data', TextDomain ),
                 __( 'Global data', TextDomain ),
                 51,
-                get_template_directory_uri() . '/includes/img/icons/global-data.png'
+                $componentUrl . '/img/icons/global-data.png'
             );
             $globalDataFields = array_merge(
                 array(

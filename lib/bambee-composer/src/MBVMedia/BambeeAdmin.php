@@ -69,6 +69,11 @@ class BambeeAdmin {
                     'type' => 'textarea',
                     'title' => __( 'Phone', TextDomain ),
                 ),
+                'googleTrackingCode' => array(
+                    'type' => 'text',
+                    'title' => __( 'Google Tracking-Code', TextDomain ),
+                    'default' => 'UA-XXXXX-X',
+                ),
             ),
             $this->coreDataFields
         );

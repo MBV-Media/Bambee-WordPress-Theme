@@ -99,6 +99,7 @@ class BambeeWebsite {
         add_filter( 'show_admin_bar', '__return_false' );
 
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
+        add_action( 'wp_footer', array( $this, '_wpFooter' ) );
     }
 
     /**
@@ -381,5 +382,19 @@ class BambeeWebsite {
      */
     public function commentPages() {
         return $this->commentPagination();
+    }
+
+    public function _wpFooter() {
+        $googleTrackingCode = do_shortcode('[coredata]googleTrackingCode[/coredata]');
+        ?>
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+                function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+                e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+                e.src='https://www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','<?php echo $googleTrackingCode; ?>','auto');ga('send','pageview');
+        </script>
+        <?php
     }
 }

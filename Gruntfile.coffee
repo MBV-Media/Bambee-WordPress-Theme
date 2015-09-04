@@ -1,3 +1,3 @@
 module.exports = (grunt) ->
-  BambeeGrunt = require './lib/bambee-grunt'
+  BambeeGrunt = require 'bambee-grunt'
   bambeeGrunt = new BambeeGrunt grunt

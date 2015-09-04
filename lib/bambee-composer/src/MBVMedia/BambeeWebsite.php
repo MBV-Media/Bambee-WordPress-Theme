@@ -169,11 +169,11 @@ class BambeeWebsite {
      *    [row]Hello World![/row]
      */
     public function shortcodeRow( $args, $content = '' ) {
-        $class = $args['class'] ? $args['class'] : '';
+        $class = isset($args['class']) ? $args['class'] : '';
         $content = sprintf(
             '<div class="row %s">%s</div>',
-            $content,
-            $class
+            $class,
+            $content
         );
         return apply_filters( 'the_content', $content );
     }

@@ -14,7 +14,7 @@ sass_dir = "src"
 css_dir= '../themes/' + pkg['name']
 images_dir = '../themes/' + pkg['name'] + '/img'
 add_import_path "bower_components/foundation/scss"
-add_import_path "lib/bambee-sass"
+add_import_path "bower_components/bambee-sass"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed

@@ -1,20 +1,14 @@
 .alignleft {
   display: inline;
-<<<<<<< HEAD
   margin-right: 1.5em;
-=======
   margin-right: rem-calc(1.5);
->>>>>>> Add WordPress WYSIWYG editor styles. Closes #4
   float: left;
 }
 
 .alignright {
   display: inline;
-<<<<<<< HEAD
   margin-left: 1.5em;
-=======
   margin-left: rem-calc(1.5);
->>>>>>> Add WordPress WYSIWYG editor styles. Closes #4
   float: right;
 }
 
@@ -32,15 +26,12 @@ table {
 }
 
 .wp-caption {
-<<<<<<< HEAD
   margin-bottom: 1.5em;
   text-align: center;
   padding-top: 5px;
-=======
   margin-bottom: rem-calc(1.5);
   text-align: center;
   padding-top: rem-calc(5);
->>>>>>> Add WordPress WYSIWYG editor styles. Closes #4
 
   img {
     border: 0 none;
@@ -51,18 +42,13 @@ table {
   p {
     &.wp-caption-text {
       line-height: 1.5;
-<<<<<<< HEAD
       font-size: 10px;
-=======
       font-size: rem-calc(10);
->>>>>>> Add WordPress WYSIWYG editor styles. Closes #4
       margin: 0;
     }
   }
 }
 
-<<<<<<< HEAD
-=======
 blockquote {
   &.left {
     margin-right: rem-calc(20);
@@ -81,9 +67,6 @@ blockquote {
   }
 }
 
-<<<<<<< HEAD
->>>>>>> Add WordPress WYSIWYG editor styles. Closes #4
-=======
 .arrow-up {
   @include bambee-arrow(up, $body-font-color, 8)
 }
@@ -99,4 +82,3 @@ blockquote {
 .arrow-left {
   @include bambee-arrow(left, $body-font-color, 8)
 }
->>>>>>> Add CSS classes and SASS mixins for arrows. Closes #3

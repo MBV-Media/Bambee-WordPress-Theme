@@ -38,6 +38,9 @@ $short_lang = $short_lang[0];
     <![endif]-->
 </head>
 <body <?php body_class( 'no-js' ); ?>>
+<script>
+    jQuery ( 'body' ).removeClass ( 'no-js' );
+</script>
 <div class="wrapper">
     <header class="header-main" role="banner">
         <nav class="top-bar" data-topbar role="navigation">

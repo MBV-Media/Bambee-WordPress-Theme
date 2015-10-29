@@ -22,7 +22,5 @@ jQuery ($) ->
   ###
   init = ->
     $(document).foundation()
-    bodyEls = document.getElementsByTagName 'body'
-    bodyEls[0].classList.remove 'no-js'
 
   init()

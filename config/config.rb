@@ -13,7 +13,7 @@ sass_dir = "src"
 # javascripts_dir = "javascripts"
 css_dir= '../themes/' + pkg['name']
 images_dir = '../themes/' + pkg['name'] + '/img'
-add_import_path "bower_components/foundation/scss"
+add_import_path "bower_components/foundation-sites/scss"
 add_import_path "bower_components/bambee-sass"
 
 # You can select your preferred output style here (can be overridden via the command line):

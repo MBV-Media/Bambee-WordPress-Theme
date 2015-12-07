@@ -83,8 +83,7 @@ class Bambee {
      * @return void
      */
     public function _createPostTypes() {
-        $subDir = str_replace( ThemeDir, '', dirname( __FILE__ ) );
-        $componentUrl = ThemeUrl . $subDir;
+        $componentUrl = Bambee::getComponentUrl();
 
         register_post_type( 'gallery', array(
                 'labels' => array(
@@ -114,5 +113,20 @@ class Bambee {
         );
 
         add_post_type_support( 'page', 'excerpt', true );
+    }
+
+    /**
+     * Returns url to compentents of bambee
+     *
+     * @return mixed
+     */
+    static function getComponentUrl() {
+        // fix for windows path
+        $fixedAbsPath = str_replace( '\\', '/', ABSPATH );
+        $fixedDirName = str_replace( '\\', '/', dirname( __FILE__ ) );
+        // replace absolute path with url
+        $componentUrl = str_replace( $fixedAbsPath, get_bloginfo( 'wpurl' ) . '/', $fixedDirName );
+
+        return $componentUrl;
     }
 }

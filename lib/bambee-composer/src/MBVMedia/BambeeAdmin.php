@@ -35,8 +35,7 @@ class BambeeAdmin {
      * @return void
      */
     public function __construct() {
-        $subDir = str_replace( ThemeDir, '', dirname( __FILE__ ) );
-        $componentUrl = ThemeUrl . $subDir;
+        $componentUrl = Bambee::getComponentUrl();
 
         # Core data page
         $coreDataPage = new MagicAdminPage(

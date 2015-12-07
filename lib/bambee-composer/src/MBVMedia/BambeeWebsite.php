@@ -170,7 +170,7 @@ class BambeeWebsite {
      *    [row]Hello World![/row]
      */
     public function shortcodeRow( $args, $content = '' ) {
-        $class = isset($args['class']) ? $args['class'] : '';
+        $class = isset( $args['class'] ) ? $args['class'] : '';
         $content = sprintf(
             '<div class="row %s">%s</div>',
             $class,
@@ -385,16 +385,26 @@ class BambeeWebsite {
     }
 
     public function _wpFooter() {
-        $googleTrackingCode = do_shortcode('[coredata]googleTrackingCode[/coredata]');
-        ?>
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-                function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-                e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-                e.src='https://www.google-analytics.com/analytics.js';
-                r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','<?php echo $googleTrackingCode; ?>','auto');ga('send','pageview');
-        </script>
-        <?php
+        $googleTrackingCode = do_shortcode( '[coredata]googleTrackingCode[/coredata]' );
+        if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {
+            ?>
+            <script>
+                (function (b, o, i, l, e, r) {
+                    b.GoogleAnalyticsObject = l;
+                    b[l] || (b[l] =
+                        function () {
+                            (b[l].q = b[l].q || []).push(arguments)
+                        });
+                    b[l].l = +new Date;
+                    e = o.createElement(i);
+                    r = o.getElementsByTagName(i)[0];
+                    e.src = 'https://www.google-analytics.com/analytics.js';
+                    r.parentNode.insertBefore(e, r)
+                }(window, document, 'script', 'ga'));
+                ga('create', '<?php echo $googleTrackingCode; ?>', 'auto');
+                ga('send', 'pageview');
+            </script>
+            <?php
+        }
     }
 }

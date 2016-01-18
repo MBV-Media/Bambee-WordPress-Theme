@@ -6,9 +6,9 @@
         <div class="small-12 columns">
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <header>
-                    <h1 class="headline title">
+                    <h2 class="headline title">
                         <?php the_title(); ?>
-                    </h1>
+                    </h2>
                 </header>
                 <?php the_content(); ?>
                 <div class="clearfix"></div>

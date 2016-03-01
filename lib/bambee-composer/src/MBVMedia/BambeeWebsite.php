@@ -9,6 +9,7 @@ namespace MBVMedia;
 
 use Detection\MobileDetect;
 use MagicAdminPage\MagicAdminPage;
+use MBVMedia\Lib\BambeeShortcode;
 use MBVMedia\ThemeView;
 
 /**
@@ -88,6 +89,8 @@ class BambeeWebsite {
         if ( empty( $this->commentPaginationPrevText ) ) {
             $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         }
+
+        BambeeShortcode::loadShortcodes();
 
         add_shortcode( 'page-link', array( $this, 'shortcodeGetLink' ) );
         add_shortcode( 'coredata', array( $this, 'shortcodeCoredata' ) );

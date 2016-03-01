@@ -9,7 +9,9 @@
   },
   "autoload": {
     "psr-4": {
-      "MBVMedia\\": "src/MBVMedia"
+      "MBVMedia\\": "src/MBVMedia",
+      "MBVMedia\\Lib\\": "src/MBVMedia/lib",
+      "MBVMedia\\Lib\\Shortcode\\": "src/MBVMedia/lib/shortcode"
     }
   }
 }

@@ -20,6 +20,12 @@ use MBVMedia\Lib\BambeeShortcode;
  */
 class PageLink extends BambeeShortcode {
 
+    public function __construct() {
+        $this->setSupportedAtts( array(
+                'id' => ''
+        ) );
+    }
+
     public function handleShortcode( array $atts = array(), $content = '' ) {
         $id = $atts['id'];
         return get_permalink( $id );

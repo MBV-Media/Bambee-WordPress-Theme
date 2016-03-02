@@ -26,6 +26,12 @@ use MBVMedia\Lib\BambeeShortcode;
  */
 class Row extends BambeeShortcode {
 
+    public function __construct() {
+        $this->setSupportedAtts( array(
+                'class' => ''
+        ) );
+    }
+
     public function handleShortcode( array $atts = array(), $content = '' ) {
         $class = isset( $atts['class'] ) ? $atts['class'] : '';
         $content = sprintf(

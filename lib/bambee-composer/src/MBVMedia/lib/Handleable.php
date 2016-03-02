@@ -10,5 +10,5 @@ namespace MBVMedia\Lib;
 
 
 interface Handleable {
-    public function handleShortcode(array $args = array(), $content = '');
+    public function handleShortcode( array $atts = array(), $content = '');
 }

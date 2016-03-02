@@ -11,6 +11,32 @@ namespace MBVMedia\Lib;
 abstract class BambeeShortcode implements Handleable {
 
     /**
+     * @var array
+     */
+    private $supportedAtts;
+
+    /**
+     * BambeeShortcode constructor.
+     */
+    public function __construct() {
+        $this->supportedAtts = array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getSupportedAtts() {
+        return $this->supportedAtts;
+    }
+
+    /**
+     * @param array $supportedAtts
+     */
+    public function setSupportedAtts( array $supportedAtts ) {
+        $this->supportedAtts = $supportedAtts;
+    }
+
+    /**
      * @param array $locationInfo
      */
     public static function loadShortcodes( array $locationInfo ) {
@@ -45,16 +71,20 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
-     * @param array $args
+     * @param array $atts
      * @param string $content
      * @return mixed
      */
-    public static function doShortcode( $args = array(), $content = '' ) {
+    public static function doShortcode( $atts = array(), $content = '' ) {
         $shortcodeObject = new static();
-        if ( !is_array( $args ) ) {
-            $args = array();
+        if ( !is_array( $atts ) ) {
+            $atts = array();
         }
-        return $shortcodeObject->handleShortcode( $args, $content );
+
+        $supportedAtts = $shortcodeObject->getSupportedAtts();
+        $atts = shortcode_atts( $supportedAtts, $atts, '');
+
+        return $shortcodeObject->handleShortcode( $atts, $content );
     }
 
     /**

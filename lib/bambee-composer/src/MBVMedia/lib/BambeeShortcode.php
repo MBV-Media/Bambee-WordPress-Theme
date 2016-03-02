@@ -10,23 +10,18 @@ namespace MBVMedia\Lib;
  */
 abstract class BambeeShortcode implements Handleable {
 
-    public static function loadShortcodes() {
-        $shortcodePath = dirname( __FILE__ ) . '/Shortcode/';
-        $shortcodeFolder = scandir( $shortcodePath );
-        foreach ($shortcodeFolder as $shortcodeFile) {
-            if ( !is_dir( $shortcodePath . $shortcodeFile ) ) {
-                $class = '\MBVMedia\Lib\Shortcode\\' . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
-                if ( is_callable( array( $class, 'addShortcode' ) ) ) {
-                    $class::addShortcode();
-                }
-            }
-        }
+    /**
+     * @param array $locationInfo
+     */
+    public static function loadShortcodes( array $locationInfo ) {
 
-        $shortcodePath = ThemeDir . '/lib/shortcode/';
-        $shortcodeFolder = scandir( $shortcodePath );
-        foreach ($shortcodeFolder as $shortcodeFile) {
-            if ( !is_dir( $shortcodePath . $shortcodeFile ) ) {
-                $class = '\Lib\Shortcode\\' . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
+        $shortcodeFolder = scandir( $locationInfo['path'] );
+
+        foreach ( $shortcodeFolder as $shortcodeFile ) {
+            if ( !is_dir( $locationInfo['path'] . $shortcodeFile ) ) {
+
+                $class = $locationInfo['namespace'] . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
+
                 if ( is_callable( array( $class, 'addShortcode' ) ) ) {
                     $class::addShortcode();
                 }

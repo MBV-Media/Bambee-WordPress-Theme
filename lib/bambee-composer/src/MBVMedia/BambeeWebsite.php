@@ -90,7 +90,14 @@ class BambeeWebsite {
             $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         }
 
-        BambeeShortcode::loadShortcodes();
+        BambeeShortcode::loadShortcodes( array(
+                'path' => dirname( __FILE__ ) . '/lib/shortcode/',
+                'namespace' => '\MBVMedia\Lib\Shortcode\\'
+        ) );
+        BambeeShortcode::loadShortcodes( array(
+                'path' => ThemeDir . '/lib/shortcode/',
+                'namespace' => '\Lib\Shortcode\\'
+        ) );
 
         add_filter( 'show_admin_bar', '__return_false' );
 

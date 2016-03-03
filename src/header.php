@@ -15,6 +15,14 @@ $short_lang = $short_lang[0];
 <!--[if (gte IE 10)|!(IE)]><!-->
 <html lang="<?php echo $short_lang; ?>"><!--<![endif]-->
 <head>
+    <script class="bambee-vars">
+        var bambee = {
+            websiteName: '<?php bloginfo( 'name' ); ?>',
+            websiteUrl: '<?php bloginfo( 'wpurl' ); ?>',
+            themeUrl: '<?php echo ThemeUrl; ?>',
+            isSearch: <?php echo number_format( is_search() ); ?>,
+        };
+    </script>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">

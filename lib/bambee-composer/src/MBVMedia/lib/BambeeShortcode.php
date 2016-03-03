@@ -59,12 +59,12 @@ abstract class BambeeShortcode implements Handleable {
      *
      */
     public static function addShortcode() {
-        $class = get_called_class();
 
         $shortcode = static::getShortcodeAlias();
+
+        $class = get_called_class();
         if ( empty( $shortcode ) ) {
-            $reflect = new \ReflectionClass( $class );
-            $shortcode = strtolower( $reflect->getShortName() );
+            $shortcode = self::getUnqualifiedClassName( $class );
         }
 
         add_shortcode( $shortcode, array( $class, 'doShortcode' ) );
@@ -77,12 +77,10 @@ abstract class BambeeShortcode implements Handleable {
      */
     public static function doShortcode( $atts = array(), $content = '' ) {
         $shortcodeObject = new static();
-        if ( !is_array( $atts ) ) {
-            $atts = array();
-        }
-
         $supportedAtts = $shortcodeObject->getSupportedAtts();
-        $atts = shortcode_atts( $supportedAtts, $atts, '');
+
+        /* TODO: Add shortcode name as argument to shortcode_atts */
+        $atts = shortcode_atts( $supportedAtts, $atts );
 
         return $shortcodeObject->handleShortcode( $atts, $content );
     }
@@ -92,5 +90,13 @@ abstract class BambeeShortcode implements Handleable {
      */
     public static function getShortcodeAlias() {
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    private function getUnqualifiedClassName( $class ) {
+        $reflect = new \ReflectionClass( $class );
+        return strtolower( $reflect->getShortName() );
     }
 }

@@ -51,29 +51,32 @@ $short_lang = $short_lang[0];
 </script>
 <div class="wrapper">
     <header class="header-main" role="banner">
-        <nav class="top-bar" data-topbar role="navigation">
-            <ul class="title-area">
-                <li class="name">
-                    <h1><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-                </li>
-                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-            </ul>
-
-            <section class="top-bar-section">
-                <?php
-                echo wp_nav_menu(
-                    array(
-                        'container' => 'ul',
-                        'theme_location' => 'header-menu',
-                        'link_before' => '<span>',
-                        'link_after' => '</span>',
-                        'echo' => false,
-                    )
-                );
-                ?>
-            </section>
-        </nav>
+        <div class="top-bar">
+            <div class="top-bar-title">
+                <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
+                    <button class="menu-icon dark" type="button" data-toggle></button>
+                </span>
+                <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong>
+            </div>
+            <div id="responsive-menu">
+                <nav class="top-bar-left" role="navigation">
+                    <?php
+                    echo wp_nav_menu(
+                        array(
+                            'container' => 'ul',
+                            'theme_location' => 'header-menu',
+                            'link_before' => '<span>',
+                            'link_after' => '</span>',
+                            'echo' => false,
+                        )
+                    );
+                    ?>
+                </nav>
+                <div class="top-bar-right">
+                    <!--Add more top-bar elements here-->
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- Main -->

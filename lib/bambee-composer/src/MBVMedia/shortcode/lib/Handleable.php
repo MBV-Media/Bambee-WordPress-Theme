@@ -6,7 +6,7 @@
  * Time: 11:43
  */
 
-namespace MBVMedia\Lib;
+namespace MBVMedia\Shortcode\Lib;
 
 
 interface Handleable {

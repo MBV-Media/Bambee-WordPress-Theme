@@ -6,10 +6,10 @@
  * Time: 16:17
  */
 
-namespace MBVMedia\lib\shortcode;
+namespace MBVMedia\Shortcode;
 
 
-use MBVMedia\Lib\BambeeShortcode;
+use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
 /**
  * Load a core_data field.

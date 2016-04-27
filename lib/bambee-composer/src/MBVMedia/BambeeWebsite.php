@@ -9,7 +9,7 @@ namespace MBVMedia;
 
 use Detection\MobileDetect;
 use MagicAdminPage\MagicAdminPage;
-use MBVMedia\Lib\BambeeShortcode;
+use MBVMedia\Shortcode\Lib\BambeeShortcode;
 use MBVMedia\ThemeView;
 
 /**
@@ -91,8 +91,8 @@ class BambeeWebsite {
         }
 
         BambeeShortcode::loadShortcodes( array(
-                'path' => dirname( __FILE__ ) . '/lib/shortcode/',
-                'namespace' => '\MBVMedia\Lib\Shortcode\\'
+                'path' => dirname( __FILE__ ) . '/shortcode/',
+                'namespace' => '\MBVMedia\Shortcode\\'
         ) );
         BambeeShortcode::loadShortcodes( array(
                 'path' => ThemeDir . '/lib/shortcode/',

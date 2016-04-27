@@ -1,8 +1,8 @@
 <?php
-namespace MBVMedia\lib\shortcode;
+namespace MBVMedia\Shortcode;
 
 
-use MBVMedia\Lib\BambeeShortcode;
+use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
 /**
  * Get permalink by id.

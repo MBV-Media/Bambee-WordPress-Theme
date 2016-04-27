@@ -1,6 +1,6 @@
 <?php
 
-namespace MBVMedia\Lib;
+namespace MBVMedia\Shortcode\Lib;
 
 /**
  * Created by PhpStorm.
@@ -50,6 +50,7 @@ abstract class BambeeShortcode implements Handleable {
 
                 if ( is_callable( array( $class, 'addShortcode' ) ) ) {
                     $class::addShortcode();
+//                    $class::extendWysiwyg();
                 }
             }
         }
@@ -95,7 +96,7 @@ abstract class BambeeShortcode implements Handleable {
     /**
      * @return string
      */
-    private function getUnqualifiedClassName( $class ) {
+    private static function getUnqualifiedClassName( $class ) {
         $reflect = new \ReflectionClass( $class );
         return strtolower( $reflect->getShortName() );
     }

@@ -6,10 +6,10 @@
  * Time: 16:50
  */
 
-namespace MBVMedia\lib\shortcode;
+namespace MBVMedia\Shortcode;
 
 
-use MBVMedia\Lib\BambeeShortcode;
+use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
 /**
  * Generate a foundation grid row.

@@ -8,6 +8,7 @@ namespace MBVMedia;
 
 
 use MagicAdminPage\MagicAdminPage;
+use MBVMedia\Lib\BambeeShortcode;
 
 /**
  * The class representing the WordPress Admin.
@@ -105,6 +106,8 @@ class BambeeAdmin {
         }
 
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
+
+        BambeeShortcode::extendWysiwyg();
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace Lib;
 
 
-use MBVMedia\Lib\BambeeShortcode;
+use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
 /**
  * Created by PhpStorm.

@@ -66,6 +66,44 @@ abstract class BambeeShortcode implements Handleable {
         return $shortcodeObject->handleShortcode( $atts, $content );
     }
 
+    public static function addTinyMCEPlugin() {
+        $shortcodeObject = new static();
+        add_action( 'admin_init', array( $shortcodeObject, 'wptuts_buttons' ) );
+        add_action( 'admin_head', array( $shortcodeObject, 'jsData' ) );
+    }
+
+    public function jsData() {
+        $tag = static::getUnqualifiedClassName();
+        ?><script type="text/javascript">
+            if( typeof window.bambeeShortcodes === 'undefined' ) {
+                window.bambeeShortcodes = [];
+            }
+
+            bambeeShortcodes.push({
+                tag: '<?php echo $tag; ?>',
+                plugin: '<?php echo ucfirst( $tag ); ?>'
+            });
+        </script><?php
+    }
+
+    public function wptuts_buttons() {
+        add_filter( "mce_external_plugins", array( $this, "wptuts_add_buttons" ) );
+        add_filter( 'mce_buttons', array( $this, 'wptuts_register_buttons' ) );
+    }
+
+    public function wptuts_add_buttons( $plugin_array ) {
+        $tag = static::getUnqualifiedClassName();
+        $plugin_array[$tag] = get_template_directory_uri() . '/vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/lib/wptuts-plugin.php?tag=' . $tag;
+//        $plugin_array[$tag] = get_template_directory_uri() . '/vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/lib/wptuts-plugin.js';
+        return $plugin_array;
+    }
+
+    function wptuts_register_buttons( $buttons ) {
+        $tag = static::getUnqualifiedClassName();
+        array_push( $buttons, $tag ); // dropcap', 'recentposts
+        return $buttons;
+    }
+
     /**
      * @return string
      */
@@ -76,7 +114,10 @@ abstract class BambeeShortcode implements Handleable {
     /**
      * @return string
      */
-    public static function getUnqualifiedClassName( $class ) {
+    public static function getUnqualifiedClassName( $class = null ) {
+        if( $class === null ) {
+            $class = get_called_class();
+        }
         $reflect = new \ReflectionClass( $class );
         return strtolower( $reflect->getShortName() );
     }

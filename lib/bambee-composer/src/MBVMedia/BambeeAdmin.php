@@ -8,7 +8,7 @@ namespace MBVMedia;
 
 
 use MagicAdminPage\MagicAdminPage;
-use MBVMedia\Lib\BambeeShortcode;
+use MBVMedia\Shortcode\Lib\ShortcodeManager;
 
 /**
  * The class representing the WordPress Admin.
@@ -107,7 +107,19 @@ class BambeeAdmin {
 
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
 
-        BambeeShortcode::extendWysiwyg();
+        $shortcodeManagerBambee = new ShortcodeManager();
+        $shortcodeManagerBambee->collectShortcodes( array(
+                'path' => dirname( __FILE__ ) . '/shortcode/',
+                'namespace' => '\MBVMedia\Shortcode\\'
+        ) );
+        $shortcodeManagerBambee->addTinyMCEPlugin();
+
+        $shortcodeManagerCustom = new ShortcodeManager();
+        $shortcodeManagerCustom->collectShortcodes( array(
+                'path' => ThemeDir . '/lib/shortcode/',
+                'namespace' => '\Lib\Shortcode\\'
+        ) );
+        $shortcodeManagerCustom->addTinyMCEPlugin();
     }
 
     /**

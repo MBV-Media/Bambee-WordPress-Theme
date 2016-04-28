@@ -54,4 +54,13 @@ class ShortcodeManager {
             }
         }
     }
+
+    public function addTinyMCEPlugin() {
+        foreach ( $this->shortcodeList as $shortcode ) {
+            $class = $shortcode['class'];
+            if ( is_callable( array( $class, 'addTinyMCEPlugin' ) ) ) {
+                $class::addTinyMCEPlugin();
+            }
+        }
+    }
 }

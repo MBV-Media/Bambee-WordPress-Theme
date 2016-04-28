@@ -13,6 +13,11 @@ abstract class BambeeShortcode implements Handleable {
     /**
      * @var array
      */
+    private static $shortcodeList = array();
+
+    /**
+     * @var array
+     */
     private $supportedAtts;
 
     /**
@@ -39,19 +44,19 @@ abstract class BambeeShortcode implements Handleable {
     /**
      * @param array $locationInfo
      */
-    public static function loadShortcodes( array $locationInfo ) {
+    public static function collectShortcodes( array $locationInfo ) {
 
-        $shortcodeFolder = scandir( $locationInfo['path'] );
+        $shortcodeDir = scandir( $locationInfo['path'] );
 
-        foreach ( $shortcodeFolder as $shortcodeFile ) {
+        foreach ( $shortcodeDir as $shortcodeFile ) {
             if ( !is_dir( $locationInfo['path'] . $shortcodeFile ) ) {
 
+                $index = count( self::$shortcodeList );
                 $class = $locationInfo['namespace'] . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
 
-                if ( is_callable( array( $class, 'addShortcode' ) ) ) {
-                    $class::addShortcode();
-//                    $class::extendWysiwyg();
-                }
+                self::$shortcodeList[$index]['class'] = $class;
+                self::$shortcodeList[$index]['file'] = $shortcodeFile;
+                self::$shortcodeList[$index]['tag'] = self::getUnqualifiedClassName( $class );
             }
         }
     }
@@ -59,16 +64,28 @@ abstract class BambeeShortcode implements Handleable {
     /**
      *
      */
-    public static function addShortcode() {
+    public static function loadShortcodes() {
+        foreach ( self::$shortcodeList as $shortcode ) {
+            $class = $shortcode['class'];
+            if ( is_callable( array( $class, 'addShortcode' ) ) ) {
+                $class::addShortcode();
+            }
+        }
+    }
 
-        $shortcode = static::getShortcodeAlias();
+    /**
+     *
+     */
+    private static function addShortcode() {
+
+        $tag = static::getShortcodeAlias();
 
         $class = get_called_class();
-        if ( empty( $shortcode ) ) {
-            $shortcode = self::getUnqualifiedClassName( $class );
+        if ( empty( $tag ) ) {
+            $tag = self::getUnqualifiedClassName( $class );
         }
 
-        add_shortcode( $shortcode, array( $class, 'doShortcode' ) );
+        add_shortcode( $tag, array( $class, 'doShortcode' ) );
     }
 
     /**

@@ -9,7 +9,7 @@ namespace MBVMedia;
 
 use Detection\MobileDetect;
 use MagicAdminPage\MagicAdminPage;
-use MBVMedia\Shortcode\Lib\BambeeShortcode;
+use MBVMedia\Shortcode\Lib\ShortcodeManager;
 use MBVMedia\ThemeView;
 
 /**
@@ -90,15 +90,20 @@ class BambeeWebsite {
             $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         }
 
-        BambeeShortcode::collectShortcodes( array(
+        $shortcodeManagerBambee = new ShortcodeManager();
+        $shortcodeManagerBambee->collectShortcodes( array(
                 'path' => dirname( __FILE__ ) . '/shortcode/',
                 'namespace' => '\MBVMedia\Shortcode\\'
         ) );
-        BambeeShortcode::collectShortcodes( array(
+        $shortcodeManagerBambee->loadShortcodes();
+
+        $shortcodeManagerCustom = new ShortcodeManager();
+        $shortcodeManagerCustom->collectShortcodes( array(
                 'path' => ThemeDir . '/lib/shortcode/',
                 'namespace' => '\Lib\Shortcode\\'
         ) );
-        BambeeShortcode::loadShortcodes();
+        $shortcodeManagerCustom->loadShortcodes();
+
 
         add_filter( 'show_admin_bar', '__return_false' );
 

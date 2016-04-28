@@ -13,11 +13,6 @@ abstract class BambeeShortcode implements Handleable {
     /**
      * @var array
      */
-    private static $shortcodeList = array();
-
-    /**
-     * @var array
-     */
     private $supportedAtts;
 
     /**
@@ -42,41 +37,9 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
-     * @param array $locationInfo
-     */
-    public static function collectShortcodes( array $locationInfo ) {
-
-        $shortcodeDir = scandir( $locationInfo['path'] );
-
-        foreach ( $shortcodeDir as $shortcodeFile ) {
-            if ( !is_dir( $locationInfo['path'] . $shortcodeFile ) ) {
-
-                $index = count( self::$shortcodeList );
-                $class = $locationInfo['namespace'] . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
-
-                self::$shortcodeList[$index]['class'] = $class;
-                self::$shortcodeList[$index]['file'] = $shortcodeFile;
-                self::$shortcodeList[$index]['tag'] = self::getUnqualifiedClassName( $class );
-            }
-        }
-    }
-
-    /**
      *
      */
-    public static function loadShortcodes() {
-        foreach ( self::$shortcodeList as $shortcode ) {
-            $class = $shortcode['class'];
-            if ( is_callable( array( $class, 'addShortcode' ) ) ) {
-                $class::addShortcode();
-            }
-        }
-    }
-
-    /**
-     *
-     */
-    private static function addShortcode() {
+    public static function addShortcode() {
 
         $tag = static::getShortcodeAlias();
 
@@ -113,7 +76,7 @@ abstract class BambeeShortcode implements Handleable {
     /**
      * @return string
      */
-    private static function getUnqualifiedClassName( $class ) {
+    public static function getUnqualifiedClassName( $class ) {
         $reflect = new \ReflectionClass( $class );
         return strtolower( $reflect->getShortName() );
     }

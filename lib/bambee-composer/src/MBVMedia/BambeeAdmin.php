@@ -107,19 +107,16 @@ class BambeeAdmin {
 
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
 
-        $shortcodeManagerBambee = new ShortcodeManager();
-        $shortcodeManagerBambee->collectShortcodes( array(
+        $shortcodeManager = new ShortcodeManager();
+        $shortcodeManager->loadShortcodes( array(
                 'path' => dirname( __FILE__ ) . '/shortcode/',
                 'namespace' => '\MBVMedia\Shortcode\\'
         ) );
-        $shortcodeManagerBambee->addTinyMCEPlugin();
-
-        $shortcodeManagerCustom = new ShortcodeManager();
-        $shortcodeManagerCustom->collectShortcodes( array(
+        $shortcodeManager->loadShortcodes( array(
                 'path' => ThemeDir . '/lib/shortcode/',
                 'namespace' => '\Lib\Shortcode\\'
         ) );
-        $shortcodeManagerCustom->addTinyMCEPlugin();
+        $shortcodeManager->extendTinyMCE();
     }
 
     /**

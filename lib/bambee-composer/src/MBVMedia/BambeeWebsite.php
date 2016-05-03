@@ -90,19 +90,16 @@ class BambeeWebsite {
             $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         }
 
-        $shortcodeManagerBambee = new ShortcodeManager();
-        $shortcodeManagerBambee->collectShortcodes( array(
+        $shortcodeManager = new ShortcodeManager();
+        $shortcodeManager->loadShortcodes( array(
                 'path' => dirname( __FILE__ ) . '/shortcode/',
                 'namespace' => '\MBVMedia\Shortcode\\'
         ) );
-        $shortcodeManagerBambee->loadShortcodes();
-
-        $shortcodeManagerCustom = new ShortcodeManager();
-        $shortcodeManagerCustom->collectShortcodes( array(
+        $shortcodeManager->loadShortcodes( array(
                 'path' => ThemeDir . '/lib/shortcode/',
                 'namespace' => '\Lib\Shortcode\\'
         ) );
-        $shortcodeManagerCustom->loadShortcodes();
+        $shortcodeManager->addShortcodes();
 
 
         add_filter( 'show_admin_bar', '__return_false' );

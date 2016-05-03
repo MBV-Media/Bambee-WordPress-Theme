@@ -26,7 +26,7 @@ class ShortcodeManager {
     /**
      * @param array $locationInfo
      */
-    public function collectShortcodes( array $locationInfo ) {
+    public function loadShortcodes( array $locationInfo ) {
 
         $shortcodeDir = scandir( $locationInfo['path'] );
 
@@ -46,7 +46,7 @@ class ShortcodeManager {
     /**
      *
      */
-    public function loadShortcodes() {
+    public function addShortcodes() {
         foreach ( $this->shortcodeList as $shortcode ) {
             $class = $shortcode['class'];
             if ( is_callable( array( $class, 'addShortcode' ) ) ) {
@@ -55,12 +55,56 @@ class ShortcodeManager {
         }
     }
 
-    public function addTinyMCEPlugin() {
-        foreach ( $this->shortcodeList as $shortcode ) {
-            $class = $shortcode['class'];
-            if ( is_callable( array( $class, 'addTinyMCEPlugin' ) ) ) {
-                $class::addTinyMCEPlugin();
-            }
+    /**
+     *
+     */
+    public function extendTinyMCE() {
+        add_action( 'admin_head', array( $this, 'printShortcodeData' ) );
+        add_filter( 'mce_buttons', array( $this, 'tinyMceRegisterButton' ) );
+        add_filter( 'mce_external_plugins', array( $this, 'tinyMceRegisterPlugin' ) );
+    }
+
+    /**
+     *
+     */
+    public function printShortcodeData() {
+        ?>
+        <script type="text/javascript">
+            window.bambeeShortcodeList = [
+                <?php foreach($this->shortcodeList as $shortcode) : ?>
+                <?php $shortcodeObject = new $shortcode['class'](); ?>
+                {
+                    text: '[<?php echo $shortcode['tag']; ?>]',
+                    value: '<?php echo $shortcode['tag']; ?>',
+                    atts: <?php echo json_encode( $shortcodeObject->getSupportedAtts() ); ?>
+                },
+                <?php endforeach; ?>
+            ];
+        </script><?php
+    }
+
+    /**
+     * @param $buttons
+     * @return mixed
+     */
+    public function tinyMceRegisterButton( $buttons ) {
+        global $current_screen; //  WordPress contextual information about where we are.
+
+        $type = $current_screen->post_type;
+
+        if ( is_admin() && ( $type == 'post' || $type == 'page' ) ) {
+            array_push( $buttons, 'separator', 'ShortcodeSelector' );
         }
+
+        return $buttons;
+    }
+
+    /**
+     * @param $pluginArray
+     * @return mixed
+     */
+    public function tinyMceRegisterPlugin( $pluginArray ) {
+        $pluginArray['ShortcodeSelector'] = get_template_directory_uri() . '/vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/lib/tinyMcePlugin.js';
+        return $pluginArray;
     }
 }

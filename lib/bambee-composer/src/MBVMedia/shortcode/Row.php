@@ -27,9 +27,7 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 class Row extends BambeeShortcode {
 
     public function __construct() {
-        $this->setSupportedAtts( array(
-                'class' => ''
-        ) );
+        $this->addAttribute( 'class' );
     }
 
     public function handleShortcode( array $atts = array(), $content = '' ) {

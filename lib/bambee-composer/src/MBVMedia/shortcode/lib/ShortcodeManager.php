@@ -33,12 +33,13 @@ class ShortcodeManager {
         foreach ( $shortcodeDir as $shortcodeFile ) {
             if ( !is_dir( $locationInfo['path'] . $shortcodeFile ) ) {
 
-                $index = count( $this->shortcodeList );
                 $class = $locationInfo['namespace'] . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
 
-                $this->shortcodeList[$index]['class'] = $class;
-                $this->shortcodeList[$index]['file'] = $shortcodeFile;
-                $this->shortcodeList[$index]['tag'] = $class::getUnqualifiedClassName( $class );
+                $this->shortcodeList[] = array(
+                        'class' => $class,
+                        'file' => $shortcodeFile,
+                        'tag' => $class::getUnqualifiedClassName( $class )
+                );
             }
         }
     }
@@ -74,13 +75,14 @@ class ShortcodeManager {
                 <?php foreach($this->shortcodeList as $shortcode) : ?>
                 <?php $shortcodeObject = new $shortcode['class'](); ?>
                 {
-                    text: '[<?php echo $shortcode['tag']; ?>]',
-                    value: '<?php echo $shortcode['tag']; ?>',
-                    atts: <?php echo json_encode( $shortcodeObject->getSupportedAtts() ); ?>
+                    tag: '<?php echo $shortcode['tag']; ?>',
+                    atts: <?php echo json_encode( $shortcodeObject->getSupportedAtts() ); ?>,
+                    descr: '<?php echo $shortcodeObject->getDescription(); ?>'
                 },
                 <?php endforeach; ?>
             ];
-        </script><?php
+        </script>
+        <?php
     }
 
     /**

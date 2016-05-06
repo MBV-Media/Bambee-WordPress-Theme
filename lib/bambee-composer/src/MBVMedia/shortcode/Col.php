@@ -27,12 +27,10 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 class Col extends BambeeShortcode {
 
     public function __construct() {
-        $this->setSupportedAtts( array(
-                'small' => '',
-                'medium' => '',
-                'large' => '',
-                'class' => '',
-        ) );
+        $this->addAttribute( 'small' );
+        $this->addAttribute( 'medium' );
+        $this->addAttribute( 'large' );
+        $this->addAttribute( 'class' );
     }
 
     public function handleShortcode( array $atts = array(), $content = '' ) {

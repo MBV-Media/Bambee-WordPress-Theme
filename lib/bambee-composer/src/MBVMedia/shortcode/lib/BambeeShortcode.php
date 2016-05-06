@@ -16,6 +16,11 @@ abstract class BambeeShortcode implements Handleable {
     private $supportedAtts;
 
     /**
+     * @var string
+     */
+    private $description;
+
+    /**
      * BambeeShortcode constructor.
      */
     public function __construct() {
@@ -30,10 +35,31 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
-     * @param array $supportedAtts
+     * @param $name
+     * @param string $default
+     * @param string $type TinyMCE input type
      */
-    public function setSupportedAtts( array $supportedAtts ) {
-        $this->supportedAtts = $supportedAtts;
+    public function addAttribute( $name, $default = '', $type = 'text' ) {
+//        $this->supportedAtts[$name] = $default;
+        $this->supportedAtts[] = array(
+                'name' => $name,
+                'default' => $default,
+                'type' => $type
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
+     * @param $description
+     */
+    public function setDescription( $description ) {
+        $this->description = $description;
     }
 
     /**
@@ -59,9 +85,13 @@ abstract class BambeeShortcode implements Handleable {
     public static function doShortcode( $atts = array(), $content = '' ) {
         $shortcodeObject = new static();
         $supportedAtts = $shortcodeObject->getSupportedAtts();
+        $defaultAtts = array();
+        foreach ( $supportedAtts as $attribute ) {
+            $defaultAtts[$attribute['name']] = $attribute['default'];
+        }
 
         /* TODO: Add shortcode name as argument to shortcode_atts */
-        $atts = shortcode_atts( $supportedAtts, $atts );
+        $atts = shortcode_atts( $defaultAtts, $atts );
 
         return $shortcodeObject->handleShortcode( $atts, $content );
     }
@@ -77,7 +107,7 @@ abstract class BambeeShortcode implements Handleable {
      * @return string
      */
     public static function getUnqualifiedClassName( $class = null ) {
-        if( $class === null ) {
+        if ( $class === null ) {
             $class = get_called_class();
         }
         $reflect = new \ReflectionClass( $class );

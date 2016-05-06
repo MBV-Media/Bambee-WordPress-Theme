@@ -14,9 +14,7 @@ use Lib\CustomShortcode;
 class Example extends CustomShortcode {
 
     public function __construct() {
-        $this->setSupportedAtts( array(
-                'foo' => 'bar'
-        ) );
+        $this->addAttribute( 'foo', 'bar' );
     }
 
     public function handleShortcode( array $atts = array(), $content = '' ) {

@@ -21,9 +21,7 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 class PageLink extends BambeeShortcode {
 
     public function __construct() {
-        $this->setSupportedAtts( array(
-                'id' => ''
-        ) );
+        $this->addAttribute( 'id' );
     }
 
     public function handleShortcode( array $atts = array(), $content = '' ) {

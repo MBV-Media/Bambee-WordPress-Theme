@@ -43,19 +43,19 @@ class BambeeWebsite {
      * @since 1.0.0
      * @var array
      */
-    protected $scripts = array();
+    private $scripts;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    protected $localizedScripts = array();
+    private $localizedScripts;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    protected $styles = array();
+    private $styles;
 
     /**
      * @since 1.1.0
@@ -83,6 +83,11 @@ class BambeeWebsite {
         $this->coreData = MagicAdminPage::getOption( 'core-data' );
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
         $this->mobileDetect = new MobileDetect();
+
+        $this->scripts =array();
+        $this->localizedScripts = array();
+        $this->styles = array();
+
         if ( empty( $this->commentPaginationNextText ) ) {
             $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
         }
@@ -106,6 +111,59 @@ class BambeeWebsite {
 
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
         add_action( 'wp_footer', array( $this, '_wpFooter' ) );
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $handle
+     * @param $src
+     * @param array $deps
+     * @param bool $ver
+     * @param bool $inFooter
+     */
+    public function addScript( $handle, $src, $deps = array(), $ver = false, $inFooter = false ) {
+        $this->scripts[] = array(
+                'handle' => $handle,
+                'src' => $src,
+                'deps' => $deps,
+                'ver' => $ver,
+                'in_footer' => $inFooter
+        );
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $handle
+     * @param $name
+     * @param array $data
+     */
+    public function addLocalizedScripts( $handle, $name, array $data ) {
+        $this->localizedScripts[] = array(
+                'handle' => $handle,
+                'name' => $name,
+                'data' => $data
+        );
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $handle
+     * @param $src
+     * @param array $deps
+     * @param bool $ver
+     * @param string $media
+     */
+    public function addStyle( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
+        $this->styles[] = array(
+                'handle' => $handle,
+                'src' => $src,
+                'deps' => $deps,
+                'ver' => $ver,
+                'media' => $media
+        );
     }
 
     /**
@@ -151,10 +209,10 @@ class BambeeWebsite {
             foreach ( $this->scripts as $script ) {
                 wp_enqueue_script(
                     $script['handle'],
-                    isset( $script['src'] ) ? $script['src'] : '',
-                    isset( $script['deps'] ) ? $script['deps'] : '',
-                    isset( $script['ver'] ) ? $script['ver'] : '',
-                    isset( $script['in_footer'] ) ? $script['in_footer'] : ''
+                    $script['src'],
+                    $script['deps'],
+                    $script['ver'],
+                    $script['in_footer']
                 );
             }
         }
@@ -176,9 +234,9 @@ class BambeeWebsite {
                 wp_enqueue_style(
                     $style['handle'],
                     $style['src'],
-                    isset( $style['deps'] ) ? $style['deps'] : '',
-                    isset( $style['ver'] ) ? $style['ver'] : '',
-                    isset( $style['media'] ) ? $style['media'] : 'all'
+                    $style['deps'],
+                    $style['ver'],
+                    $style['media']
                 );
             }
         }

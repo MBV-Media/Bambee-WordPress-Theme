@@ -9,9 +9,9 @@
 namespace Lib\Shortcode;
 
 
-use Lib\CustomShortcode;
+use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
-class Example extends CustomShortcode {
+class Example extends BambeeShortcode {
 
     public function __construct() {
         $this->addAttribute( 'foo', 'bar' );

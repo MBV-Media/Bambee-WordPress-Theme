@@ -35,12 +35,6 @@ class BambeeWebsite {
 
     /**
      * @since 1.0.0
-     * @var MobileDetect
-     */
-    public $mobileDetect;
-
-    /**
-     * @since 1.0.0
      * @var array
      */
     private $scripts;
@@ -61,19 +55,19 @@ class BambeeWebsite {
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationNextText;
+    private $commentPaginationNextText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationPrevText;
+    private $commentPaginationPrevText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationPageTemplate;
+    private $commentPaginationPageTemplate;
 
     /**
      * @since 1.0.0
@@ -82,15 +76,20 @@ class BambeeWebsite {
     public function __construct() {
         $this->coreData = MagicAdminPage::getOption( 'core-data' );
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
-        $this->mobileDetect = new MobileDetect();
 
         $this->scripts = array();
         $this->localizedScripts = array();
         $this->styles = array();
 
-        $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
-        $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
-        $this->commentPaginationPageTemplate = '<li>%s</li>';
+        if( empty( $this->commentPaginationNextText ) ) {
+            $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
+        }
+        if( empty( $this->commentPaginationPrevText ) ) {
+            $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
+        }
+        if( empty( $this->commentPaginationPageTemplate ) ) {
+            $this->commentPaginationPageTemplate = '<li>%s</li>';
+        }
 
         $shortcodeManager = new ShortcodeManager();
         $shortcodeManager->loadShortcodes( array(
@@ -149,6 +148,61 @@ class BambeeWebsite {
     public function setGlobalData( $key, $value ) {
         $this->globalData[$key] = $value;
     }
+
+    /**
+     * @since 1.4.0
+     *
+     * @return string
+     */
+    public function getCommentPaginationNextText() {
+        return $this->commentPaginationNextText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param string $commentPaginationNextText
+     */
+    public function setCommentPaginationNextText( $commentPaginationNextText ) {
+        $this->commentPaginationNextText = $commentPaginationNextText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @return string
+     */
+    public function getCommentPaginationPrevText() {
+        return $this->commentPaginationPrevText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param string $commentPaginationPrevText
+     */
+    public function setCommentPaginationPrevText( $commentPaginationPrevText ) {
+        $this->commentPaginationPrevText = $commentPaginationPrevText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @return string
+     */
+    public function getCommentPaginationPageTemplate() {
+        return $this->commentPaginationPageTemplate;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param string $commentPaginationPageTemplate
+     */
+    public function setCommentPaginationPageTemplate( $commentPaginationPageTemplate ) {
+        $this->commentPaginationPageTemplate = $commentPaginationPageTemplate;
+    }
+
 
     /**
      * @since 1.4.0
@@ -290,7 +344,6 @@ class BambeeWebsite {
      */
     public function commentList( $comment, $args, $depth ) {
         $GLOBALS['comment'] = $comment;
-        extract( $args, EXTR_SKIP );
 
         $tag = isset( $args['style'] ) ? $args['style'] : 'li';
         $addBelow = 'comment';

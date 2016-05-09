@@ -28,10 +28,8 @@ $short_lang = $short_lang[0];
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 
     <title><?php bloginfo( 'name' ); ?><?php wp_title( '|', true, 'left' ); ?></title>
-    <?php wp_enqueue_script( 'comment-reply' ); ?>
 
     <link rel="shortcut icon" href="<?php echo ThemeUrl; ?>/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo get_bloginfo( 'stylesheet_url' ); ?>"/>
 
     <?php wp_head(); ?>
 

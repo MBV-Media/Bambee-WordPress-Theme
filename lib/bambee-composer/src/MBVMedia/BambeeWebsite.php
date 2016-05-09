@@ -100,6 +100,12 @@ class BambeeWebsite {
 
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
         add_action( 'wp_footer', array( $this, '_wpFooter' ) );
+
+//        $this->addScript( 'jquery', false );
+        # Grunt livereload (development only)
+        if ( WP_DEBUG ) {
+            $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
+        }
     }
 
     /**
@@ -281,13 +287,6 @@ class BambeeWebsite {
      *    parent::__construct();
      */
     public function _enqueueScripts() {
-        wp_enqueue_script( 'jquery' );
-
-        # Grunt livereload (development only)
-        if ( WP_DEBUG ) {
-            wp_enqueue_script( 'livereload', '//localhost:35729/livereload.js' );
-        }
-
         # Additional scripts
         if ( !empty( $this->scripts ) ) {
             foreach ( $this->scripts as $script ) {

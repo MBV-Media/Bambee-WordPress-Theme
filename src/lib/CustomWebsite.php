@@ -27,23 +27,31 @@ class CustomWebsite extends BambeeWebsite {
 
         # Enqueue additional scripts
         $this->addScript(
-                'vendor-js',
+                'comment-reply',
+                false
+        );
+        $this->addScript(
+                'vendor',
                 ThemeUrl . '/js/vendor.min.js',
                 array( 'jquery' )
         );
         $this->addScript(
-                'main-js',
+                'main',
                 ThemeUrl . '/js/main.min.js',
                 array( 'jquery' )
         );
 
         # Enqueue additional styles
         $this->addStyle(
-                'vendor-css',
+                'theme',
+                get_bloginfo( 'stylesheet_url' )
+        );
+        $this->addStyle(
+                'vendor',
                 ThemeUrl . '/css/vendor.min.css'
         );
         $this->addStyle(
-                'main-css',
+                'main',
                 ThemeUrl . '/css/main.min.css'
         );
     }

@@ -1,4 +1,4 @@
-<li <?php comment_class( empty( $arguments['has_children'] ) ? '' : 'parent' ); ?>
+<<?php echo $tag; ?> <?php comment_class( empty( $arguments['has_children'] ) ? '' : 'parent' ); ?>
     id="comment-<?php comment_ID(); ?>">
     <div class="comment-head">
         <div class="vcard">
@@ -36,4 +36,4 @@
         <?php endif; ?>
         <?php comment_text(); ?>
     </div>
-</li>
+</<?php echo $tag; ?>>

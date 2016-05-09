@@ -25,49 +25,49 @@ class BambeeWebsite {
      * @since 1.0.0
      * @var array
      */
-    private $coreData;
+    private $coreData = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $globalData;
+    private $globalData = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $scripts;
+    private $scripts = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $localizedScripts;
+    private $localizedScripts = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $styles;
+    private $styles = array();
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationNextText;
+    private $commentPaginationNextText = '';
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationPrevText;
+    private $commentPaginationPrevText = '';
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationPageTemplate;
+    private $commentPaginationPageTemplate = '<li>%s</li>';
 
     /**
      * @since 1.0.0
@@ -77,18 +77,11 @@ class BambeeWebsite {
         $this->coreData = MagicAdminPage::getOption( 'core-data' );
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
 
-        $this->scripts = array();
-        $this->localizedScripts = array();
-        $this->styles = array();
-
         if( empty( $this->commentPaginationNextText ) ) {
             $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
         }
         if( empty( $this->commentPaginationPrevText ) ) {
             $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
-        }
-        if( empty( $this->commentPaginationPageTemplate ) ) {
-            $this->commentPaginationPageTemplate = '<li>%s</li>';
         }
 
         $shortcodeManager = new ShortcodeManager();

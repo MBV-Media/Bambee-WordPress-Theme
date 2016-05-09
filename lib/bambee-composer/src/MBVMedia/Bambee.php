@@ -55,12 +55,12 @@ class Bambee {
         add_action( 'init', array( $this, '_createPostTypes' ) );
         add_action( 'init', array( $this, '_registerMenus' ) );
         # Language Text-Domain
-        add_action( 'after_setup_theme', function () {
-            load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
-        }, 10 );
+        add_action( 'after_setup_theme', array( $this, '_loadTextdomain' ), 10 );
     }
 
     /**
+     * @since 1.4.0
+     *
      * @param $slug
      * @param $title
      */
@@ -116,6 +116,13 @@ class Bambee {
         );
 
         add_post_type_support( 'page', 'excerpt', true );
+    }
+
+    /**
+     *
+     */
+    public function _loadTextdomain() {
+        load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
     }
 
     /**

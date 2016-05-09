@@ -38,13 +38,16 @@ class Bambee {
      * @since 1.0.0
      * @var array
      */
-    protected $additionalMenus = array();
+    private $menuList = array();
 
     /**
      * @since 1.0.0
      * @return void
      */
     public function __construct() {
+        $this->addMenu( 'header-menu', __( 'Header Menu' ) );
+        $this->addMenu( 'footer-menu', __( 'Footer Menu' ) );
+
         # Thumbnail-Support
         add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size( $this->postThumbnailWidth, $this->postThumbnailHeight, $this->postThumbnailCrop );
@@ -58,21 +61,21 @@ class Bambee {
     }
 
     /**
+     * @param $slug
+     * @param $title
+     */
+    public function addMenu( $slug, $title ) {
+        $this->menuList[$slug] = $title;
+    }
+
+    /**
      * Register default menus for header and footer.
      *
      * @since 1.0.0
      * @return void
      */
     public function _registerMenus() {
-        $menus = array_merge(
-            array(
-                'header-menu' => __( 'Header Menu' ),
-                'footer-menu' => __( 'Footer Menu' ),
-            ),
-            $this->additionalMenus
-        );
-
-        register_nav_menus( $menus );
+        register_nav_menus( $this->menuList );
     }
 
     /**

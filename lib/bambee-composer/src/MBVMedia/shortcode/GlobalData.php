@@ -28,10 +28,6 @@ class GlobalData extends BambeeShortcode {
 
     public function handleShortcode( array $atts = array(), $content = '' ) {
         global $bambeeWebsite;
-        if ( empty( $content ) || empty( $bambeeWebsite->globalData[$content] ) ) {
-            return '';
-        }
-
-        return $bambeeWebsite->globalData[$content];
+        return $bambeeWebsite->getGlobalData( $content );
     }
 }

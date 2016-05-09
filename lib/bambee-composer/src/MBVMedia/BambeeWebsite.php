@@ -25,19 +25,19 @@ class BambeeWebsite {
      * @since 1.0.0
      * @var array
      */
-    public $coreData = array();
+    private $coreData;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    public $globalData = array();
+    private $globalData;
 
     /**
      * @since 1.0.0
-     * @var null|MobileDetect
+     * @var MobileDetect
      */
-    public $mobileDetect = null;
+    public $mobileDetect;
 
     /**
      * @since 1.0.0
@@ -61,19 +61,19 @@ class BambeeWebsite {
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationNextText = '';
+    protected $commentPaginationNextText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationPrevText = '';
+    protected $commentPaginationPrevText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationPageTemplate = '<li>%s</li>';
+    protected $commentPaginationPageTemplate;
 
     /**
      * @since 1.0.0
@@ -84,16 +84,13 @@ class BambeeWebsite {
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
         $this->mobileDetect = new MobileDetect();
 
-        $this->scripts =array();
+        $this->scripts = array();
         $this->localizedScripts = array();
         $this->styles = array();
 
-        if ( empty( $this->commentPaginationNextText ) ) {
-            $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
-        }
-        if ( empty( $this->commentPaginationPrevText ) ) {
-            $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
-        }
+        $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
+        $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
+        $this->commentPaginationPageTemplate = '<li>%s</li>';
 
         $shortcodeManager = new ShortcodeManager();
         $shortcodeManager->loadShortcodes( array(
@@ -111,6 +108,46 @@ class BambeeWebsite {
 
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
         add_action( 'wp_footer', array( $this, '_wpFooter' ) );
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $key
+     * @return null|string
+     */
+    public function getCoreData( $key ) {
+        return isset( $this->coreData[$key] ) ? $this->coreData[$key] : null;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $key
+     * @param $value
+     */
+    public function setCoreData( $key, $value ) {
+        $this->coreData[$key] = $value;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $key
+     * @return null|string
+     */
+    public function getGlobalData( $key ) {
+        return isset( $this->globalData[$key] ) ? $this->globalData[$key] : null;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $key
+     * @param $value
+     */
+    public function setGlobalData( $key, $value ) {
+        $this->globalData[$key] = $value;
     }
 
     /**
@@ -255,13 +292,8 @@ class BambeeWebsite {
         $GLOBALS['comment'] = $comment;
         extract( $args, EXTR_SKIP );
 
-        if ( 'div' == $args['style'] ) {
-            $tag = 'div';
-            $addBelow = 'comment';
-        } else {
-            $tag = 'li';
-            $addBelow = 'div-comment';
-        }
+        $tag = isset( $args['style'] ) ? $args['style'] : 'li';
+        $addBelow = 'comment';
 
         $commentListTemplate = new ThemeView( '/partials/comment-list.php', array(
             'comment' => $comment,
@@ -322,19 +354,8 @@ class BambeeWebsite {
         echo $template->render();
     }
 
-    /**
-     * Display comments pagination.
-     *
-     * @deprecated since 1.1.0
-     * @since 1.0.0
-     * @return void
-     */
-    public function commentPages() {
-        return $this->commentPagination();
-    }
-
     public function _wpFooter() {
-        $googleTrackingCode = do_shortcode( '[coredata]googleTrackingCode[/coredata]' );
+        $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );
         if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {
             ?>
             <script>

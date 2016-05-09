@@ -83,7 +83,7 @@ class Bambee {
      * @return void
      */
     public function _createPostTypes() {
-        $componentUrl = Bambee::getComponentUrl();
+        $componentUrl = self::getComponentUrl();
 
         register_post_type( 'gallery', array(
                 'labels' => array(
@@ -120,7 +120,7 @@ class Bambee {
      *
      * @return mixed
      */
-    static function getComponentUrl() {
+    public static function getComponentUrl() {
         // fix for windows path
         $fixedAbsPath = str_replace( '\\', '/', ABSPATH );
         $fixedDirName = str_replace( '\\', '/', dirname( __FILE__ ) );

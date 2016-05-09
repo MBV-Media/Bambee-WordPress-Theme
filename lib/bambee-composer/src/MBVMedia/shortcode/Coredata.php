@@ -28,9 +28,6 @@ class CoreData extends BambeeShortcode {
 
     public function handleShortcode( array $atts = array(), $content = '' ) {
         global $bambeeWebsite;
-        if ( empty( $content ) || empty( $bambeeWebsite->coreData[$content] ) ) {
-            return '';
-        }
-        return nl2br( $bambeeWebsite->coreData[$content] );
+        return nl2br( $bambeeWebsite->getCoreData( $content ) );
     }
 }

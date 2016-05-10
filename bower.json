@@ -1,6 +1,6 @@
 {
   "name": "Bambee",
   "dependencies": {
-    "bambee-sass": "./lib/bambee-sass"
+    "bambee-sass": "~1.0.2"
   }
 }

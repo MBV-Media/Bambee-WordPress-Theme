@@ -2,12 +2,7 @@
 
 namespace MBVMedia\Shortcode\Lib;
 
-/**
- * Created by PhpStorm.
- * User: hterhoeven
- * Date: 01.03.2016
- * Time: 11:39
- */
+
 abstract class BambeeShortcode implements Handleable {
 
     /**

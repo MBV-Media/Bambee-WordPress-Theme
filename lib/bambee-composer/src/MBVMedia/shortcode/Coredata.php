@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hterhoeven
- * Date: 01.03.2016
- * Time: 16:17
- */
 
 namespace MBVMedia\Shortcode;
 

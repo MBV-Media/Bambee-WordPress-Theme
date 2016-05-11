@@ -23,31 +23,36 @@ class CustomWebsite extends BambeeWebsite {
      * @return void
      */
     public function __construct() {
+        parent::__construct();
+
         # Enqueue additional scripts
-        $this->scripts = array(
-            array(
-                'handle' => 'vendor-js',
-                'src' => ThemeUrl . '/js/vendor.min.js',
-                'deps' => array( 'jquery' ),
-            ),
-            array(
-                'handle' => 'main-js',
-                'src' => ThemeUrl . '/js/main.min.js',
-                'deps' => array( 'jquery' ),
-            ),
+        $this->addScript(
+                'comment-reply',
+                false
+        );
+        $this->addScript(
+                'vendor',
+                ThemeUrl . '/js/vendor.min.js',
+                array( 'jquery' )
+        );
+        $this->addScript(
+                'main',
+                ThemeUrl . '/js/main.min.js',
+                array( 'jquery' )
         );
 
         # Enqueue additional styles
-        $this->styles = array(
-            array(
-                'handle' => 'vendor-css',
-                'src' => ThemeUrl . '/css/vendor.min.css',
-            ),
-            array(
-                'handle' => 'main-css',
-                'src' => ThemeUrl . '/css/main.min.css',
-            ),
+        $this->addStyle(
+                'theme',
+                get_bloginfo( 'stylesheet_url' )
         );
-        parent::__construct();
+        $this->addStyle(
+                'vendor',
+                ThemeUrl . '/css/vendor.min.css'
+        );
+        $this->addStyle(
+                'main',
+                ThemeUrl . '/css/main.min.css'
+        );
     }
 }

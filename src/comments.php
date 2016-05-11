@@ -25,7 +25,7 @@
         <ul class="comment-list">
             <?php
             wp_list_comments( array(
-                'style' => 'ul',
+                'style' => 'li',
                 'avatar_size' => 0,
                 'per_page' => get_option( 'comments_per_page' ),
                 'callback' => array( $bambeeWebsite, 'commentList' ),

@@ -38,13 +38,16 @@ class Bambee {
      * @since 1.0.0
      * @var array
      */
-    protected $additionalMenus = array();
+    private $menuList = array();
 
     /**
      * @since 1.0.0
      * @return void
      */
     public function __construct() {
+        $this->addMenu( 'header-menu', __( 'Header Menu' ) );
+        $this->addMenu( 'footer-menu', __( 'Footer Menu' ) );
+
         # Thumbnail-Support
         add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size( $this->postThumbnailWidth, $this->postThumbnailHeight, $this->postThumbnailCrop );
@@ -52,9 +55,17 @@ class Bambee {
         add_action( 'init', array( $this, '_createPostTypes' ) );
         add_action( 'init', array( $this, '_registerMenus' ) );
         # Language Text-Domain
-        add_action( 'after_setup_theme', function () {
-            load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
-        }, 10 );
+        add_action( 'after_setup_theme', array( $this, '_loadTextdomain' ), 10 );
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $slug
+     * @param $title
+     */
+    public function addMenu( $slug, $title ) {
+        $this->menuList[$slug] = $title;
     }
 
     /**
@@ -64,15 +75,7 @@ class Bambee {
      * @return void
      */
     public function _registerMenus() {
-        $menus = array_merge(
-            array(
-                'header-menu' => __( 'Header Menu' ),
-                'footer-menu' => __( 'Footer Menu' ),
-            ),
-            $this->additionalMenus
-        );
-
-        register_nav_menus( $menus );
+        register_nav_menus( $this->menuList );
     }
 
     /**
@@ -83,7 +86,7 @@ class Bambee {
      * @return void
      */
     public function _createPostTypes() {
-        $componentUrl = Bambee::getComponentUrl();
+        $componentUrl = self::getComponentUrl();
 
         register_post_type( 'gallery', array(
                 'labels' => array(
@@ -116,11 +119,18 @@ class Bambee {
     }
 
     /**
+     *
+     */
+    public function _loadTextdomain() {
+        load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
+    }
+
+    /**
      * Returns url to compentents of bambee
      *
      * @return mixed
      */
-    static function getComponentUrl() {
+    public static function getComponentUrl() {
         // fix for windows path
         $fixedAbsPath = str_replace( '\\', '/', ABSPATH );
         $fixedDirName = str_replace( '\\', '/', dirname( __FILE__ ) );

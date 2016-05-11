@@ -9,6 +9,7 @@ namespace MBVMedia;
 
 use Detection\MobileDetect;
 use MagicAdminPage\MagicAdminPage;
+use MBVMedia\Shortcode\Lib\ShortcodeManager;
 use MBVMedia\ThemeView;
 
 /**
@@ -24,55 +25,49 @@ class BambeeWebsite {
      * @since 1.0.0
      * @var array
      */
-    public $coreData = array();
+    private $coreData = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    public $globalData = array();
-
-    /**
-     * @since 1.0.0
-     * @var null|MobileDetect
-     */
-    public $mobileDetect = null;
+    private $globalData = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    protected $scripts = array();
+    private $scripts = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    protected $localizedScripts = array();
+    private $localizedScripts = array();
 
     /**
      * @since 1.0.0
      * @var array
      */
-    protected $styles = array();
+    private $styles = array();
 
     /**
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationNextText = '';
+    private $commentPaginationNextText = '';
 
     /**
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationPrevText = '';
+    private $commentPaginationPrevText = '';
 
     /**
      * @since 1.1.0
      * @var string
      */
-    protected $commentPaginationPageTemplate = '<li>%s</li>';
+    private $commentPaginationPageTemplate = '<li>%s</li>';
 
     /**
      * @since 1.0.0
@@ -81,140 +76,183 @@ class BambeeWebsite {
     public function __construct() {
         $this->coreData = MagicAdminPage::getOption( 'core-data' );
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
-        $this->mobileDetect = new MobileDetect();
-        if ( empty( $this->commentPaginationNextText ) ) {
+
+        if( empty( $this->commentPaginationNextText ) ) {
             $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
         }
-        if ( empty( $this->commentPaginationPrevText ) ) {
+        if( empty( $this->commentPaginationPrevText ) ) {
             $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         }
 
-        add_shortcode( 'page-link', array( $this, 'shortcodeGetLink' ) );
-        add_shortcode( 'coredata', array( $this, 'shortcodeCoredata' ) );
-        add_shortcode( 'globaldata', array( $this, 'shortcodeGlobaldata' ) );
+        $shortcodeManager = new ShortcodeManager();
+        $shortcodeManager->loadShortcodes( array(
+                'path' => dirname( __FILE__ ) . '/shortcode/',
+                'namespace' => '\MBVMedia\Shortcode\\'
+        ) );
+        $shortcodeManager->loadShortcodes( array(
+                'path' => ThemeDir . '/lib/shortcode/',
+                'namespace' => '\Lib\Shortcode\\'
+        ) );
+        $shortcodeManager->addShortcodes();
 
-        add_shortcode( 'col', array( $this, 'shortcodeColumn' ) );
-        add_shortcode( 'row', array( $this, 'shortcodeRow' ) );
 
         add_filter( 'show_admin_bar', '__return_false' );
 
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
         add_action( 'wp_footer', array( $this, '_wpFooter' ) );
-    }
 
-    /**
-     * Get permalink by id.
-     *
-     * @since 1.0.0
-     * @param array $args
-     * @return mixed
-     *
-     * @example
-     *  Usage:
-     *    [page-link id=42]
-     */
-    public function shortcodeGetLink( $args ) {
-        $id = $args['id'];
-        return get_permalink( $id );
-    }
-
-    /**
-     * Load a core_data field.
-     *
-     * @since 1.0.0
-     * @param array $args
-     * @param string $content
-     * @return string
-     *
-     * @example
-     *  Usage:
-     *    [coredata]street[/coredata]
-     */
-    public function shortcodeCoredata( $args, $content = '' ) {
-        if ( empty( $content ) || empty( $this->coreData[$content] ) ) {
-            return '';
+        # Grunt livereload (development only)
+        if ( WP_DEBUG ) {
+            $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
-        return nl2br( $this->coreData[$content] );
     }
 
     /**
-     * Load a global_data field.
+     * @since 1.4.0
      *
-     * @since 1.0.0
-     * @param array $args
-     * @param string $content
-     * @return string
-     *
-     * @example
-     *  Usage:
-     *    [globaldata]key[/globaldata]
+     * @param $key
+     * @return null|string
      */
-    public function shortcodeGlobaldata( $args, $content = '' ) {
-        if ( empty( $content ) || empty( $this->globalData[$content] ) ) {
-            return '';
-        }
-
-        return $this->globalData[$content];
+    public function getCoreData( $key ) {
+        return isset( $this->coreData[$key] ) ? $this->coreData[$key] : null;
     }
 
     /**
-     * Generate a foundation grid row.
+     * @since 1.4.0
      *
-     * @since 1.0.0
-     * @param array $args
-     * @param string $content
-     * @return string
-     *
-     * @example
-     *  Usage:
-     *    [row]Hello World![/row]
+     * @param $key
+     * @param $value
      */
-    public function shortcodeRow( $args, $content = '' ) {
-        $class = isset( $args['class'] ) ? $args['class'] : '';
-        $content = sprintf(
-            '<div class="row %s">%s</div>',
-            $class,
-            $content
+    public function setCoreData( $key, $value ) {
+        $this->coreData[$key] = $value;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $key
+     * @return null|string
+     */
+    public function getGlobalData( $key ) {
+        return isset( $this->globalData[$key] ) ? $this->globalData[$key] : null;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $key
+     * @param $value
+     */
+    public function setGlobalData( $key, $value ) {
+        $this->globalData[$key] = $value;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @return string
+     */
+    public function getCommentPaginationNextText() {
+        return $this->commentPaginationNextText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param string $commentPaginationNextText
+     */
+    public function setCommentPaginationNextText( $commentPaginationNextText ) {
+        $this->commentPaginationNextText = $commentPaginationNextText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @return string
+     */
+    public function getCommentPaginationPrevText() {
+        return $this->commentPaginationPrevText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param string $commentPaginationPrevText
+     */
+    public function setCommentPaginationPrevText( $commentPaginationPrevText ) {
+        $this->commentPaginationPrevText = $commentPaginationPrevText;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @return string
+     */
+    public function getCommentPaginationPageTemplate() {
+        return $this->commentPaginationPageTemplate;
+    }
+
+    /**
+     * @since 1.4.0
+     *
+     * @param string $commentPaginationPageTemplate
+     */
+    public function setCommentPaginationPageTemplate( $commentPaginationPageTemplate ) {
+        $this->commentPaginationPageTemplate = $commentPaginationPageTemplate;
+    }
+
+
+    /**
+     * @since 1.4.0
+     *
+     * @param $handle
+     * @param $src
+     * @param array $deps
+     * @param bool $ver
+     * @param bool $inFooter
+     */
+    public function addScript( $handle, $src, $deps = array(), $ver = false, $inFooter = false ) {
+        $this->scripts[] = array(
+                'handle' => $handle,
+                'src' => $src,
+                'deps' => $deps,
+                'ver' => $ver,
+                'in_footer' => $inFooter
         );
-        return apply_filters( 'the_content', $content );
     }
 
     /**
-     * Generate a foundation grid column.
+     * @since 1.4.0
      *
-     * @since 1.0.0
-     * @param array $args
-     * @param string $content
-     * @return string
-     *
-     * @example
-     *  Usage:
-     *    [col small=12 medium=6 large=4]Hello World![/col]
+     * @param $handle
+     * @param $name
+     * @param array $data
      */
-    public function shortcodeColumn( $args, $content = '' ) {
-        $class = 'column ';
-
-        if ( !empty( $args['small'] ) ) {
-            $class .= ' small-' . $args['small'];
-        }
-        if ( !empty( $args['medium'] ) ) {
-            $class .= ' medium-' . $args['medium'];
-        }
-        if ( !empty( $args['large'] ) ) {
-            $class .= ' large-' . $args['large'];
-        }
-
-        if ( !empty( $args['class'] ) ) {
-            $class .= ' ' . $args['class'];
-        }
-
-        $content = sprintf(
-            '<div class="%s">%s</div>',
-            $class,
-            $content
+    public function addLocalizedScripts( $handle, $name, array $data ) {
+        $this->localizedScripts[] = array(
+                'handle' => $handle,
+                'name' => $name,
+                'data' => $data
         );
+    }
 
-        return apply_filters( 'the_content', $content );
+    /**
+     * @since 1.4.0
+     *
+     * @param $handle
+     * @param $src
+     * @param array $deps
+     * @param bool $ver
+     * @param string $media
+     */
+    public function addStyle( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
+        $this->styles[] = array(
+                'handle' => $handle,
+                'src' => $src,
+                'deps' => $deps,
+                'ver' => $ver,
+                'media' => $media
+        );
     }
 
     /**
@@ -248,22 +286,15 @@ class BambeeWebsite {
      *    parent::__construct();
      */
     public function _enqueueScripts() {
-        wp_enqueue_script( 'jquery' );
-
-        # Grunt livereload (development only)
-        if ( WP_DEBUG ) {
-            wp_enqueue_script( 'livereload', '//localhost:35729/livereload.js' );
-        }
-
         # Additional scripts
         if ( !empty( $this->scripts ) ) {
             foreach ( $this->scripts as $script ) {
                 wp_enqueue_script(
                     $script['handle'],
-                    isset( $script['src'] ) ? $script['src'] : '',
-                    isset( $script['deps'] ) ? $script['deps'] : '',
-                    isset( $script['ver'] ) ? $script['ver'] : '',
-                    isset( $script['in_footer'] ) ? $script['in_footer'] : ''
+                    $script['src'],
+                    $script['deps'],
+                    $script['ver'],
+                    $script['in_footer']
                 );
             }
         }
@@ -285,9 +316,9 @@ class BambeeWebsite {
                 wp_enqueue_style(
                     $style['handle'],
                     $style['src'],
-                    isset( $style['deps'] ) ? $style['deps'] : '',
-                    isset( $style['ver'] ) ? $style['ver'] : '',
-                    isset( $style['media'] ) ? $style['media'] : 'all'
+                    $style['deps'],
+                    $style['ver'],
+                    $style['media']
                 );
             }
         }
@@ -304,15 +335,9 @@ class BambeeWebsite {
      */
     public function commentList( $comment, $args, $depth ) {
         $GLOBALS['comment'] = $comment;
-        extract( $args, EXTR_SKIP );
 
-        if ( 'div' == $args['style'] ) {
-            $tag = 'div';
-            $addBelow = 'comment';
-        } else {
-            $tag = 'li';
-            $addBelow = 'div-comment';
-        }
+        $tag = isset( $args['style'] ) ? $args['style'] : 'li';
+        $addBelow = 'comment';
 
         $commentListTemplate = new ThemeView( '/partials/comment-list.php', array(
             'comment' => $comment,
@@ -373,19 +398,8 @@ class BambeeWebsite {
         echo $template->render();
     }
 
-    /**
-     * Display comments pagination.
-     *
-     * @deprecated since 1.1.0
-     * @since 1.0.0
-     * @return void
-     */
-    public function commentPages() {
-        return $this->commentPagination();
-    }
-
     public function _wpFooter() {
-        $googleTrackingCode = do_shortcode( '[coredata]googleTrackingCode[/coredata]' );
+        $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );
         if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {
             ?>
             <script>

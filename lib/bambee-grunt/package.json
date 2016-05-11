@@ -1,6 +1,6 @@
 {
   "name": "bambee-grunt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Abstract class representing the Gruntfile. Provides methods to customize Grunt tasks.",
   "author": "MBV-Media <info@mbv-media.com>",
   "license": "MIT",

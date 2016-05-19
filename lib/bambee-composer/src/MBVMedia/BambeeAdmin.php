@@ -20,103 +20,69 @@ use MBVMedia\Shortcode\Lib\ShortcodeManager;
 class BambeeAdmin {
 
     /**
-     * @since 1.0.0
-     * @var array
+     * @since 1.4.2
+     * @var Bambee
      */
-    protected $coreDataFields = array();
+    private $bambee;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    protected $globalDataFields = array();
+    private $coreDataFieldList;
+
+    /**
+     * @since 1.0.0
+     * @var array
+     */
+    private $globalDataFieldList;
 
     /**
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
-        $componentUrl = Bambee::getComponentUrl();
+    public function __construct( Bambee $bambee ) {
 
-        # Core data page
-        $coreDataPage = new MagicAdminPage(
-            'core-data',
-            __( 'Core data', TextDomain ),
-            __( 'Core data', TextDomain ),
-            50,
-            $componentUrl . '/img/icons/core-data.png'
-        );
-        $coreDataFields = array_merge(
-            array(
-                'coreDataDescription' => array(
-                    'type' => 'description',
-                    'title' => 'Shortcodes',
-                    'description' => __(
-                        'You can use the [coredata]key[coredata]' .
-                        ' shortcode to display the core data field inside a post.',
-                        TextDomain
-                    ),
-                ),
-                'address' => array(
-                    'type' => 'textarea',
-                    'title' => __( 'Address', TextDomain ),
-                ),
-                'email' => array(
-                    'type' => 'textarea',
-                    'title' => __( 'E-Mail address', TextDomain ),
-                ),
-                'phone' => array(
-                    'type' => 'textarea',
-                    'title' => __( 'Phone', TextDomain ),
-                ),
-                'googleTrackingCode' => array(
-                    'type' => 'text',
-                    'title' => __( 'Google Tracking-Code', TextDomain ),
-                    'default' => 'UA-XXXXX-X',
-                ),
-            ),
-            $this->coreDataFields
-        );
-        $coreDataPage->addFields( $coreDataFields );
+        $this->bambee = $bambee;
 
-        # Global data page
-        if ( !empty( $this->globalDataFields ) ) {
-            $globalDataPage = new MagicAdminPage(
-                'global-data',
-                __( 'Global data', TextDomain ),
-                __( 'Global data', TextDomain ),
-                51,
-                $componentUrl . '/img/icons/global-data.png'
-            );
-            $globalDataFields = array_merge(
-                array(
-                    'globalDataDescription' => array(
-                        'type' => 'label',
-                        'title' => 'Shortcodes',
-                        'description' => __(
-                            'You can use the [globaldata]key[globaldata]' .
-                            ' shortcode to display the global data field inside a post.',
-                            TextDomain
-                        ),
-                    ),
-                ),
-                $this->globalDataFields
-            );
-            $globalDataPage->addFields( $globalDataFields );
-        }
+        $this->coreDataFieldList = array();
+
+        $this->globalDataFieldList = array();
+
+        $this->setupCoreData();
+
+        $this->setupGlobalData();
 
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
+        add_action( 'init', array( $this, '_initActionCallback' ) );
+    }
 
-        $shortcodeManager = new ShortcodeManager();
-        $shortcodeManager->loadShortcodes( array(
-                'path' => dirname( __FILE__ ) . '/shortcode/',
-                'namespace' => '\MBVMedia\Shortcode\\'
-        ) );
-        $shortcodeManager->loadShortcodes( array(
-                'path' => ThemeDir . '/lib/shortcode/',
-                'namespace' => '\Lib\Shortcode\\'
-        ) );
-        $shortcodeManager->extendTinyMCE();
+    /**
+     * @since 1.4.2
+     * @return Bambee
+     */
+    public function getBambee() {
+        return $this->bambee;
+    }
+
+    /**
+     * @since 1.4.2
+     *
+     * @param $tag
+     * @param array $args   @see MagicAdminPage
+     */
+    public function addCoreDataField( $tag, array $args ) {
+        $this->coreDataFieldList[$tag] = $args;
+    }
+
+    /**
+     * @since 1.4.2
+     *
+     * @param $tag
+     * @param array $args
+     */
+    public function addGlobalDataField( $tag, array $args ) {
+        $this->globalDataFieldList[$tag] = $args;
     }
 
     /**
@@ -127,5 +93,93 @@ class BambeeAdmin {
      */
     public function _enqueueCss() {
         wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.css' );
+    }
+
+    /**
+     *
+     * @since 1.4.2
+     */
+    private function setupCoreData() {
+
+        $this->addCoreDataField( 'coreDataDescription', array(
+            'type' => 'description',
+            'title' => 'Shortcodes',
+            'description' => __(
+                'You can use the [coredata]key[coredata]' .
+                ' shortcode to display the core data field inside a post.',
+                TextDomain
+            ),
+        ) );
+
+        $this->addCoreDataField( 'address', array(
+            'type' => 'textarea',
+            'title' => __( 'Address', TextDomain ),
+        ) );
+
+        $this->addCoreDataField( 'email', array(
+            'type' => 'textarea',
+            'title' => __( 'E-Mail address', TextDomain ),
+        ) );
+
+        $this->addCoreDataField( 'phone', array(
+            'type' => 'textarea',
+            'title' => __( 'Phone', TextDomain ),
+        ) );
+
+        $this->addCoreDataField( 'googleTrackingCode', array(
+            'type' => 'text',
+            'title' => __( 'Google Tracking-Code', TextDomain ),
+            'default' => 'UA-XXXXX-X',
+        ) );
+    }
+
+    /**
+     *
+     * @since 1.4.2
+     */
+    private function setupGlobalData() {
+
+        $this->addGlobalDataField( 'globalDataDescription', array(
+            'type' => 'label',
+            'title' => 'Shortcodes',
+            'description' => __(
+                'You can use the [globaldata]key[globaldata] '.
+                ' shortcode to display the global data field inside a post.',
+                TextDomain
+            ),
+        ) );
+    }
+
+    /**
+     *
+     * @since 1.4.2
+     */
+    public function _initActionCallback() {
+
+        $componentUrl = $this->bambee->getComponentUrl();
+
+        # Core data page
+        $coreDataPage = new MagicAdminPage(
+            'core-data',
+            __( 'Core data', TextDomain ),
+            __( 'Core data', TextDomain ),
+            50,
+            $componentUrl . '/img/icons/core-data.png'
+        );
+
+        $coreDataPage->addFields( $this->coreDataFieldList );
+
+        # Global data page
+        if ( count( $this->globalDataFieldList ) > 1 ) {
+
+            $globalDataPage = new MagicAdminPage(
+                'global-data',
+                __( 'Global data', TextDomain ),
+                __( 'Global data', TextDomain ),
+                51,
+                $componentUrl . '/img/icons/global-data.png'
+            );
+            $globalDataPage->addFields( $this->globalDataFieldList );
+        }
     }
 }

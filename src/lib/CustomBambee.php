@@ -25,4 +25,20 @@ class CustomBambee extends Bambee {
     public function __construct() {
         parent::__construct();
     }
+
+    /**
+     *
+     * @since 1.4.2
+     */
+    public static function run() {
+        global $bambee;
+
+        $bambee = new CustomBambee();
+
+        if ( is_admin() ) {
+            CustomAdmin::run( $bambee );
+        } else {
+            CustomWebsite::run( $bambee );
+        }
+    }
 }

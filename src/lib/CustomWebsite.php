@@ -22,37 +22,28 @@ class CustomWebsite extends BambeeWebsite {
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct( CustomBambee $bambee ) {
+        parent::__construct( $bambee );
+    }
+
+    /**
+     * @since 1.4.2
+     *
+     * @param CustomBambee $bambee
+     */
+    public static function run( CustomBambee $bambee ) {
+        global $bambeeWebsite;
+
+        $bambeeWebsite = new CustomWebsite( $bambee );
 
         # Enqueue additional scripts
-        $this->addScript(
-                'comment-reply',
-                false
-        );
-        $this->addScript(
-                'vendor',
-                ThemeUrl . '/js/vendor.min.js',
-                array( 'jquery' )
-        );
-        $this->addScript(
-                'main',
-                ThemeUrl . '/js/main.min.js',
-                array( 'jquery' )
-        );
+        $bambeeWebsite->addScript( 'comment-reply', false );
+        $bambeeWebsite->addScript( 'vendor', ThemeUrl . '/js/vendor.min.js', array( 'jquery' ) );
+        $bambeeWebsite->addScript( 'main', ThemeUrl . '/js/main.min.js', array( 'jquery' ) );
 
         # Enqueue additional styles
-        $this->addStyle(
-                'theme',
-                get_bloginfo( 'stylesheet_url' )
-        );
-        $this->addStyle(
-                'vendor',
-                ThemeUrl . '/css/vendor.min.css'
-        );
-        $this->addStyle(
-                'main',
-                ThemeUrl . '/css/main.min.css'
-        );
+        $bambeeWebsite->addStyle( 'theme', get_bloginfo( 'stylesheet_url' ) );
+        $bambeeWebsite->addStyle( 'vendor', ThemeUrl . '/css/vendor.min.css' );
+        $bambeeWebsite->addStyle( 'main', ThemeUrl . '/css/main.min.css' );
     }
 }

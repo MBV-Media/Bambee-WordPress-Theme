@@ -8,6 +8,7 @@ namespace MBVMedia;
 
 
 use Detection\MobileDetect;
+use Lib\CustomBambee;
 use MagicAdminPage\MagicAdminPage;
 use MBVMedia\Shortcode\Lib\ShortcodeManager;
 use MBVMedia\ThemeView;
@@ -25,86 +26,92 @@ class BambeeWebsite {
      * @since 1.0.0
      * @var array
      */
-    private $coreData = array();
+    private $coreData;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $globalData = array();
+    private $globalData;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $scripts = array();
+    private $scripts;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $localizedScripts = array();
+    private $localizedScripts;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $styles = array();
+    private $styles;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationNextText = '';
+    private $commentPaginationNextText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationPrevText = '';
+    private $commentPaginationPrevText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationPageTemplate = '<li>%s</li>';
+    private $commentPaginationPageTemplate;
+
+    /**
+     * @var Bambee
+     */
+    private $bambee;
 
     /**
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
+    public function __construct( Bambee $bambee ) {
+
+        $this->bambee = $bambee;
+
         $this->coreData = MagicAdminPage::getOption( 'core-data' );
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
 
-        if( empty( $this->commentPaginationNextText ) ) {
-            $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
-        }
-        if( empty( $this->commentPaginationPrevText ) ) {
-            $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
-        }
+        $this->scripts = array();
+        $this->localizedScripts = array();
+        $this->styles = array();
 
-        $shortcodeManager = new ShortcodeManager();
-        $shortcodeManager->loadShortcodes( array(
-                'path' => dirname( __FILE__ ) . '/shortcode/',
-                'namespace' => '\MBVMedia\Shortcode\\'
-        ) );
-        $shortcodeManager->loadShortcodes( array(
-                'path' => ThemeDir . '/lib/shortcode/',
-                'namespace' => '\Lib\Shortcode\\'
-        ) );
-        $shortcodeManager->addShortcodes();
-
-
-        add_filter( 'show_admin_bar', '__return_false' );
+        $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
+        $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
+        $this->commentPaginationPageTemplate = '<li>%s</li>';
 
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
         add_action( 'wp_footer', array( $this, '_wpFooter' ) );
+
+        add_filter( 'show_admin_bar', '__return_false' );
 
         # Grunt livereload (development only)
         if ( WP_DEBUG ) {
             $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
+    }
+
+    /**
+     * @since 1.4.2
+     *
+     * @return Bambee
+     */
+    public function getBambee() {
+        return $this->bambee;
     }
 
     /**
@@ -228,7 +235,7 @@ class BambeeWebsite {
      * @param $name
      * @param array $data
      */
-    public function addLocalizedScripts( $handle, $name, array $data ) {
+    public function addLocalizedScript( $handle, $name, array $data ) {
         $this->localizedScripts[] = array(
                 'handle' => $handle,
                 'name' => $name,
@@ -395,9 +402,12 @@ class BambeeWebsite {
             'paginationPages' => $paginationPages,
             'paginationNext' => $paginationNext,
         ) );
-        echo $template->render();
+        return $template->render();
     }
 
+    /**
+     *
+     */
     public function _wpFooter() {
         $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );
         if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {

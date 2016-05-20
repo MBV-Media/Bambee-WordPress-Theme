@@ -26,16 +26,14 @@ class BambeeAdmin {
     private $bambee;
 
     /**
-     * @since 1.0.0
-     * @var array
+     * @var MagicAdminPage
      */
-    private $coreDataFieldList;
+    private $coreDataPage;
 
     /**
-     * @since 1.0.0
-     * @var array
+     * @var MagicAdminPage
      */
-    private $globalDataFieldList;
+    private $globalDataPage;
 
     /**
      * @since 1.0.0
@@ -45,16 +43,37 @@ class BambeeAdmin {
 
         $this->bambee = $bambee;
 
-        $this->coreDataFieldList = array();
-
-        $this->globalDataFieldList = array();
+        $this->loadDependencies();
 
         $this->setupCoreData();
 
         $this->setupGlobalData();
 
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
-        add_action( 'init', array( $this, '_initActionCallback' ) );
+    }
+
+    /**
+     *
+     */
+    private function loadDependencies() {
+
+        $componentUrl = $this->bambee->getComponentUrl();
+
+        $this->coreDataPage = new MagicAdminPage(
+            'core-data',
+            __( 'Core data', TextDomain ),
+            __( 'Core data', TextDomain ),
+            50,
+            $componentUrl . '/img/icons/core-data.png'
+        );
+
+        $this->globalDataPage = new MagicAdminPage(
+            'global-data',
+            __( 'Global data', TextDomain ),
+            __( 'Global data', TextDomain ),
+            51,
+            $componentUrl . '/img/icons/global-data.png'
+        );
     }
 
     /**
@@ -63,26 +82,6 @@ class BambeeAdmin {
      */
     public function getBambee() {
         return $this->bambee;
-    }
-
-    /**
-     * @since 1.4.2
-     *
-     * @param $tag
-     * @param array $args   @see MagicAdminPage
-     */
-    public function addCoreDataField( $tag, array $args ) {
-        $this->coreDataFieldList[$tag] = $args;
-    }
-
-    /**
-     * @since 1.4.2
-     *
-     * @param $tag
-     * @param array $args
-     */
-    public function addGlobalDataField( $tag, array $args ) {
-        $this->globalDataFieldList[$tag] = $args;
     }
 
     /**
@@ -101,35 +100,33 @@ class BambeeAdmin {
      */
     private function setupCoreData() {
 
-        $this->addCoreDataField( 'coreDataDescription', array(
-            'type' => 'description',
-            'title' => 'Shortcodes',
-            'description' => __(
-                'You can use the [coredata]key[coredata]' .
-                ' shortcode to display the core data field inside a post.',
-                TextDomain
+        $this->coreDataPage->addFields( array(
+            'coreDataDescription' => array(
+                'type' => 'description',
+                'title' => 'Shortcodes',
+                'description' => __(
+                    'You can use the [coredata]key[coredata]' .
+                    ' shortcode to display the core data field inside a post.',
+                    TextDomain
+                ),
             ),
-        ) );
-
-        $this->addCoreDataField( 'address', array(
-            'type' => 'textarea',
-            'title' => __( 'Address', TextDomain ),
-        ) );
-
-        $this->addCoreDataField( 'email', array(
-            'type' => 'textarea',
-            'title' => __( 'E-Mail address', TextDomain ),
-        ) );
-
-        $this->addCoreDataField( 'phone', array(
-            'type' => 'textarea',
-            'title' => __( 'Phone', TextDomain ),
-        ) );
-
-        $this->addCoreDataField( 'googleTrackingCode', array(
-            'type' => 'text',
-            'title' => __( 'Google Tracking-Code', TextDomain ),
-            'default' => 'UA-XXXXX-X',
+            'address' => array(
+                'type' => 'textarea',
+                'title' => __( 'Address', TextDomain ),
+            ),
+            'email' => array(
+                'type' => 'textarea',
+                'title' => __( 'E-Mail address', TextDomain ),
+            ),
+            'phone' => array(
+                'type' => 'textarea',
+                'title' => __( 'Phone', TextDomain ),
+            ),
+            'googleTrackingCode' => array(
+                'type' => 'text',
+                'title' => __( 'Google Tracking-Code', TextDomain ),
+                'default' => 'UA-XXXXX-X',
+            )
         ) );
     }
 
@@ -139,11 +136,12 @@ class BambeeAdmin {
      */
     private function setupGlobalData() {
 
-        $this->addGlobalDataField( 'globalDataDescription', array(
+        $this->globalDataPage->addField( array(
+            'name' => 'globalDataDescription',
             'type' => 'label',
             'title' => 'Shortcodes',
             'description' => __(
-                'You can use the [globaldata]key[globaldata] '.
+                'You can use the [globaldata]key[globaldata] ' .
                 ' shortcode to display the global data field inside a post.',
                 TextDomain
             ),
@@ -151,35 +149,30 @@ class BambeeAdmin {
     }
 
     /**
-     *
-     * @since 1.4.2
+     * @return MagicAdminPage
      */
-    public function _initActionCallback() {
+    public function getCoreDataPage() {
+        return $this->coreDataPage;
+    }
 
-        $componentUrl = $this->bambee->getComponentUrl();
+    /**
+     * @param MagicAdminPage $coreDataPage
+     */
+    public function setCoreDataPage( MagicAdminPage $coreDataPage ) {
+        $this->coreDataPage = $coreDataPage;
+    }
 
-        # Core data page
-        $coreDataPage = new MagicAdminPage(
-            'core-data',
-            __( 'Core data', TextDomain ),
-            __( 'Core data', TextDomain ),
-            50,
-            $componentUrl . '/img/icons/core-data.png'
-        );
+    /**
+     * @return MagicAdminPage
+     */
+    public function getGlobalDataPage() {
+        return $this->globalDataPage;
+    }
 
-        $coreDataPage->addFields( $this->coreDataFieldList );
-
-        # Global data page
-        if ( count( $this->globalDataFieldList ) > 1 ) {
-
-            $globalDataPage = new MagicAdminPage(
-                'global-data',
-                __( 'Global data', TextDomain ),
-                __( 'Global data', TextDomain ),
-                51,
-                $componentUrl . '/img/icons/global-data.png'
-            );
-            $globalDataPage->addFields( $this->globalDataFieldList );
-        }
+    /**
+     * @param MagicAdminPage $globalDataPage
+     */
+    public function setGlobalDataPage( MagicAdminPage $globalDataPage ) {
+        $this->globalDataPage = $globalDataPage;
     }
 }

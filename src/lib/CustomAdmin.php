@@ -35,14 +35,15 @@ class CustomAdmin extends BambeeAdmin {
         global $bambeeWebsite;
 
         $bambeeWebsite = new CustomAdmin( $bambee );
-        $bambeeWebsite->addGlobalDataField('test', array(
-            'type' => 'label',
-            'title' => 'Shortcodes',
-            'description' => __(
-                'You can use the [globaldata]key[globaldata] '.
-                ' shortcode to display the global data field inside a post.',
-                TextDomain
-            ),
-        ));
+
+        $bambeeWebsite->getCoreDataPage()->register();
+
+        $bambeeWebsite->getBambee()->getShortcodeManager()->extendTinyMCE();
+
+        /**
+         * If you set up custom fields to the globalDataPage
+         * uncomment the following line.
+         */
+        //$bambeeWebsite->getGlobalDataPage()->register();
     }
 }

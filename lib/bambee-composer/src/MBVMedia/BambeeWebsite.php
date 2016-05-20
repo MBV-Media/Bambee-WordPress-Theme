@@ -128,30 +128,10 @@ class BambeeWebsite {
      * @since 1.4.0
      *
      * @param $key
-     * @param $value
-     */
-    public function setCoreData( $key, $value ) {
-        $this->coreData[$key] = $value;
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
      * @return null|string
      */
     public function getGlobalData( $key ) {
         return isset( $this->globalData[$key] ) ? $this->globalData[$key] : null;
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
-     * @param $value
-     */
-    public function setGlobalData( $key, $value ) {
-        $this->globalData[$key] = $value;
     }
 
     /**

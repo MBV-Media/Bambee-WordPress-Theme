@@ -7,6 +7,7 @@
 namespace Lib;
 
 
+use MagicAdminPage\MagicAdminPage;
 use MBVMedia\BambeeWebsite;
 
 /**
@@ -35,6 +36,8 @@ class CustomWebsite extends BambeeWebsite {
         global $bambeeWebsite;
 
         $bambeeWebsite = new CustomWebsite( $bambee );
+
+        $bambeeWebsite->getBambee()->getShortcodeManager()->addShortcodes();
 
         # Enqueue additional scripts
         $bambeeWebsite->addScript( 'comment-reply', false );

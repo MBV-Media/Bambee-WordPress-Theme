@@ -69,9 +69,6 @@ class Bambee {
 
         $this->postTypeList = array();
 
-        $this->addMenu( 'header-menu', __( 'Header Menu' ) );
-        $this->addMenu( 'footer-menu', __( 'Footer Menu' ) );
-
         $componentUrl = $this->getComponentUrl();
         $this->addPostType( 'gallery', array(
             'labels' => array(
@@ -113,13 +110,6 @@ class Bambee {
             ThemeDir . '/lib/shortcode/',
             '\Lib\Shortcode\\'
         );
-
-        if( is_admin() ) {
-            $this->shortcodeManager->extendTinyMCE();
-        }
-        else {
-            $this->shortcodeManager->addShortcodes();
-        }
     }
 
     /**

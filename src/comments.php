@@ -19,19 +19,24 @@
     </div>
 
 <?php if ( have_comments() ) : ?>
-    <?php $bambeeWebsite->commentPagination(); ?>
+    <?php $pagination = $bambeeWebsite->commentPagination(); ?>
+    <?php echo $pagination; ?>
     <section class="comments">
         <div class="sideline"></div>
         <ul class="comment-list">
             <?php
+            $comments = get_comments( array(
+                'post_id' => get_the_ID(),
+                'status' => 'approve'
+            ) );
             wp_list_comments( array(
-                'style' => 'li',
+                'style' => 'ul',
                 'avatar_size' => 0,
                 'per_page' => get_option( 'comments_per_page' ),
                 'callback' => array( $bambeeWebsite, 'commentList' ),
-            ), array_reverse( $comments ) );
+            ), $comments );
             ?>
         </ul>
     </section>
-    <?php $bambeeWebsite->commentPagination(); ?>
+    <?php echo $pagination; ?>
 <?php endif; ?>

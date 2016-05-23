@@ -323,7 +323,7 @@ class BambeeWebsite {
     public function commentList( $comment, $args, $depth ) {
         $GLOBALS['comment'] = $comment;
 
-        $tag = isset( $args['style'] ) ? $args['style'] : 'li';
+        $tag = ( 'div' == $args['style'] ) ? 'div' : 'li';
         $addBelow = 'comment';
 
         $commentListTemplate = new ThemeView( '/partials/comment-list.php', array(

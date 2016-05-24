@@ -23,6 +23,11 @@ use MBVMedia\ThemeView;
 class BambeeWebsite {
 
     /**
+     * @var Bambee
+     */
+    private $bambee;
+
+    /**
      * @since 1.0.0
      * @var array
      */
@@ -71,11 +76,6 @@ class BambeeWebsite {
     private $commentPaginationPageTemplate;
 
     /**
-     * @var Bambee
-     */
-    private $bambee;
-
-    /**
      * @since 1.0.0
      * @return void
      */
@@ -93,11 +93,6 @@ class BambeeWebsite {
         $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
         $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         $this->commentPaginationPageTemplate = '<li>%s</li>';
-
-        add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
-        add_action( 'wp_footer', array( $this, '_wpFooter' ) );
-
-        add_filter( 'show_admin_bar', '__return_false' );
 
         # Grunt livereload (development only)
         if ( WP_DEBUG ) {
@@ -188,6 +183,20 @@ class BambeeWebsite {
         $this->commentPaginationPageTemplate = $commentPaginationPageTemplate;
     }
 
+    /**
+     *
+     */
+    public function addActions() {
+        add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
+        add_action( 'wp_footer', array( $this, '_wpFooter' ) );
+    }
+
+    /**
+     *
+     */
+    public function addFilter() {
+        add_filter( 'show_admin_bar', '__return_false' );
+    }
 
     /**
      * @since 1.4.0
@@ -343,6 +352,14 @@ class BambeeWebsite {
      * @return void
      */
     public function commentPagination() {
+        echo $this->getCommentPagination();
+    }
+
+    /**
+     * @since 1.4.2
+     * @return string
+     */
+    public function getCommentPagination() {
         $pagination = paginate_comments_links( array(
             'echo' => false,
             'mid_size' => 2,

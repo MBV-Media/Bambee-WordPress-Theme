@@ -36,14 +36,14 @@ class CustomAdmin extends BambeeAdmin {
 
         $bambeeWebsite = new CustomAdmin( $bambee );
 
+        $bambeeWebsite->addActions();
+
         $bambeeWebsite->getCoreDataPage()->register();
 
-        $bambeeWebsite->getBambee()->getShortcodeManager()->extendTinyMCE();
-
-        /**
-         * If you set up custom fields to the globalDataPage
-         * uncomment the following line.
-         */
+        /* If you set up custom fields to the globalDataPage */
+        /* uncomment the following line. */
         //$bambeeWebsite->getGlobalDataPage()->register();
+
+        $bambee->getShortcodeManager()->extendTinyMCE();
     }
 }

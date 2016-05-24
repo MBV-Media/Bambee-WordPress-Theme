@@ -26,11 +26,13 @@ class BambeeAdmin {
     private $bambee;
 
     /**
+     * @since 1.4.2
      * @var MagicAdminPage
      */
     private $coreDataPage;
 
     /**
+     * @since 1.4.2
      * @var MagicAdminPage
      */
     private $globalDataPage;
@@ -48,8 +50,6 @@ class BambeeAdmin {
         $this->setupCoreData();
 
         $this->setupGlobalData();
-
-        add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
     }
 
     /**
@@ -76,12 +76,8 @@ class BambeeAdmin {
         );
     }
 
-    /**
-     * @since 1.4.2
-     * @return Bambee
-     */
-    public function getBambee() {
-        return $this->bambee;
+    public function addActions() {
+        add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
     }
 
     /**
@@ -146,6 +142,14 @@ class BambeeAdmin {
                 TextDomain
             ),
         ) );
+    }
+
+    /**
+     * @since 1.4.2
+     * @return Bambee
+     */
+    public function getBambee() {
+        return $this->bambee;
     }
 
     /**

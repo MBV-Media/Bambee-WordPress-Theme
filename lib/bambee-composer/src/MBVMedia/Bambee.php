@@ -96,11 +96,6 @@ class Bambee {
             'excerpt' => true,
         ) );
 
-        add_post_type_support( 'page', 'excerpt', true );
-
-        add_action( 'init', array( $this, '_initActionCallback' ) );
-        add_action( 'after_setup_theme', array( $this, '_loadTextdomain' ), 10 );
-
         $this->shortcodeManager = new ShortcodeManager();
         $this->shortcodeManager->loadShortcodes(
             dirname( __FILE__ ) . '/shortcode/',
@@ -157,8 +152,18 @@ class Bambee {
         add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size( $this->postThumbnailWidth, $this->postThumbnailHeight, $this->postThumbnailCrop );
 
+        add_post_type_support( 'page', 'excerpt', true );
+
         $this->registerMenus();
         $this->registerPostTypes();
+    }
+
+    /**
+     *
+     */
+    public function addActions() {
+        add_action( 'init', array( $this, '_initActionCallback' ) );
+        add_action( 'after_setup_theme', array( $this, '_loadTextdomain' ), 10 );
     }
 
     /**

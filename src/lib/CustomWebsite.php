@@ -32,12 +32,14 @@ class CustomWebsite extends BambeeWebsite {
      *
      * @param CustomBambee $bambee
      */
-    public static function run( CustomBambee $bambee ) {
+    public static function run( $bambee ) {
         global $bambeeWebsite;
 
         $bambeeWebsite = new CustomWebsite( $bambee );
 
-        $bambeeWebsite->getBambee()->getShortcodeManager()->addShortcodes();
+        $bambee->getShortcodeManager()->addShortcodes();
+
+        $bambeeWebsite->addActions();
 
         # Enqueue additional scripts
         $bambeeWebsite->addScript( 'comment-reply', false );

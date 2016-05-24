@@ -38,6 +38,8 @@ class CustomBambee extends Bambee {
         $bambee->addMenu( 'header-menu', __( 'Header Menu' ) );
         $bambee->addMenu( 'footer-menu', __( 'Footer Menu' ) );
 
+        $bambee->addActions();
+
         if ( is_admin() ) {
             CustomAdmin::run( $bambee );
         } else {

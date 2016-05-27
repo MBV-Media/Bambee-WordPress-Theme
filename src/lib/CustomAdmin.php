@@ -38,11 +38,11 @@ class CustomAdmin extends BambeeAdmin {
 
         $bambeeWebsite->addActions();
 
-        $bambeeWebsite->getCoreDataPage()->register();
+        $bambeeWebsite->setupCoreDataPage();
 
         /* If you set up custom fields to the globalDataPage */
         /* uncomment the following line. */
-        //$bambeeWebsite->getGlobalDataPage()->register();
+        //$bambeeWebsite->setGlobalDataPage();
 
         $bambee->getShortcodeManager()->extendTinyMCE();
     }

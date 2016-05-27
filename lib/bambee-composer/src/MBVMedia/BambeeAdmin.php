@@ -46,10 +46,6 @@ class BambeeAdmin {
         $this->bambee = $bambee;
 
         $this->loadDependencies();
-
-        $this->setupCoreData();
-
-        $this->setupGlobalData();
     }
 
     /**
@@ -94,7 +90,7 @@ class BambeeAdmin {
      *
      * @since 1.4.2
      */
-    private function setupCoreData() {
+    public function setupCoreDataPage() {
 
         $this->coreDataPage->addFields( array(
             'coreDataDescription' => array(
@@ -130,7 +126,7 @@ class BambeeAdmin {
      *
      * @since 1.4.2
      */
-    private function setupGlobalData() {
+    private function setupGlobalDataPage() {
 
         $this->globalDataPage->addField( array(
             'name' => 'globalDataDescription',

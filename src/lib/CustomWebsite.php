@@ -27,12 +27,13 @@ class CustomWebsite extends BambeeWebsite {
         parent::__construct( $bambee );
     }
 
+
     /**
      * @since 1.4.2
      *
      * @param CustomBambee $bambee
      */
-    public static function run( $bambee ) {
+    public static function run( CustomBambee $bambee ) {
         global $bambeeWebsite;
 
         $bambeeWebsite = new CustomWebsite( $bambee );
@@ -43,8 +44,8 @@ class CustomWebsite extends BambeeWebsite {
 
         # Enqueue additional scripts
         $bambeeWebsite->addScript( 'comment-reply', false );
-        $bambeeWebsite->addScript( 'vendor', ThemeUrl . '/js/vendor.min.js', array( 'jquery' ) );
-        $bambeeWebsite->addScript( 'main', ThemeUrl . '/js/main.min.js', array( 'jquery' ) );
+        $bambeeWebsite->addScript( 'vendor', ThemeUrl . '/js/vendor.min.js', array( 'jquery' ), false, true );
+        $bambeeWebsite->addScript( 'main', ThemeUrl . '/js/main.min.js', array( 'jquery' ), false, true );
 
         # Enqueue additional styles
         $bambeeWebsite->addStyle( 'theme', get_bloginfo( 'stylesheet_url' ) );

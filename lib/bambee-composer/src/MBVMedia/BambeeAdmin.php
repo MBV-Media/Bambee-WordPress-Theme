@@ -42,34 +42,7 @@ class BambeeAdmin {
      * @return void
      */
     public function __construct( Bambee $bambee ) {
-
         $this->bambee = $bambee;
-
-        $this->loadDependencies();
-    }
-
-    /**
-     *
-     */
-    private function loadDependencies() {
-
-        $componentUrl = $this->bambee->getComponentUrl();
-
-        $this->coreDataPage = new MagicAdminPage(
-            'core-data',
-            __( 'Core data', TextDomain ),
-            __( 'Core data', TextDomain ),
-            50,
-            $componentUrl . '/img/icons/core-data.png'
-        );
-
-        $this->globalDataPage = new MagicAdminPage(
-            'global-data',
-            __( 'Global data', TextDomain ),
-            __( 'Global data', TextDomain ),
-            51,
-            $componentUrl . '/img/icons/global-data.png'
-        );
     }
 
     public function addActions() {
@@ -91,6 +64,16 @@ class BambeeAdmin {
      * @since 1.4.2
      */
     public function setupCoreDataPage() {
+
+        $componentUrl = $this->bambee->getComponentUrl();
+
+        $this->coreDataPage = new MagicAdminPage(
+            'core-data',
+            __( 'Core data', TextDomain ),
+            __( 'Core data', TextDomain ),
+            50,
+            $componentUrl . '/img/icons/core-data.png'
+        );
 
         $this->coreDataPage->addFields( array(
             'coreDataDescription' => array(
@@ -127,6 +110,16 @@ class BambeeAdmin {
      * @since 1.4.2
      */
     private function setupGlobalDataPage() {
+
+        $componentUrl = $this->bambee->getComponentUrl();
+
+        $this->globalDataPage = new MagicAdminPage(
+            'global-data',
+            __( 'Global data', TextDomain ),
+            __( 'Global data', TextDomain ),
+            51,
+            $componentUrl . '/img/icons/global-data.png'
+        );
 
         $this->globalDataPage->addField( array(
             'name' => 'globalDataDescription',

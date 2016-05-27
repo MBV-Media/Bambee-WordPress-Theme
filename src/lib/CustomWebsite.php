@@ -29,6 +29,8 @@ class CustomWebsite extends BambeeWebsite {
 
 
     /**
+     * This is where the magic begins.
+     *
      * @since 1.4.2
      *
      * @param CustomBambee $bambee

@@ -13,18 +13,4 @@ define( 'TextDomain', 'bambee' );
 define( 'ThemeDir', get_stylesheet_directory() );
 define( 'ThemeUrl', get_stylesheet_directory_uri() );
 
-use Lib\CustomBambee;
-use Lib\CustomAdmin;
-use Lib\CustomWebsite;
-
-$bambee = new CustomBambee();
-$bambeeWebsite = null;
-add_action( 'init', 'loadBambee' );
-function loadBambee() {
-    global $bambeeWebsite;
-    if ( is_admin() ) {
-        $bambeeWebsite = new CustomAdmin();
-    } else {
-        $bambeeWebsite = new CustomWebsite();
-    }
-}
+\Lib\CustomBambee::run();

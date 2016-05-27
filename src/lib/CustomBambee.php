@@ -27,6 +27,7 @@ class CustomBambee extends Bambee {
     }
 
     /**
+     * This is where the magic begins.
      *
      * @since 1.4.2
      */

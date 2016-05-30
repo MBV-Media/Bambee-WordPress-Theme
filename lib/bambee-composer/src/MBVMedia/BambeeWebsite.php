@@ -187,6 +187,7 @@ class BambeeWebsite {
      *
      */
     public function addActions() {
+        add_action( 'wpcf7_before_send_mail', array( $this, '_cf7SetRecipient' ) );
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
         add_action( 'wp_footer', array( $this, '_wpFooter' ) );
     }
@@ -249,6 +250,24 @@ class BambeeWebsite {
                 'ver' => $ver,
                 'media' => $media
         );
+    }
+
+    /**
+     * @since 1.4.2
+     *
+     * @param $cf7
+     */
+    public function _cf7SetRecipient( $cf7 ) {
+        $mail = $cf7->prop( 'mail' );
+
+        if( !empty($mail['recipient']) ) {
+            return;
+        }
+
+        $mail['recipient'] = get_bloginfo( 'admin_email' );
+        $cf7->set_properties( array(
+            'mail' => $mail
+        ) );
     }
 
     /**

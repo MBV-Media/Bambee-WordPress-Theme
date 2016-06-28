@@ -43,6 +43,7 @@ class CustomWebsite extends BambeeWebsite {
         $bambee->getShortcodeManager()->addShortcodes();
 
         $bambeeWebsite->addActions();
+        $bambeeWebsite->disableEmojis();
 
         # Enqueue additional scripts
         $bambeeWebsite->addScript( 'comment-reply', false );

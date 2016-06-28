@@ -69,6 +69,36 @@ class Bambee {
 
         $this->postTypeList = array();
 
+        $this->shortcodeManager = new ShortcodeManager();
+        $this->shortcodeManager->loadShortcodes(
+            dirname( __FILE__ ) . '/shortcode/',
+            '\MBVMedia\Shortcode\\'
+        );
+        $this->shortcodeManager->loadShortcodes(
+            ThemeDir . '/lib/shortcode/',
+            '\Lib\Shortcode\\'
+        );
+    }
+
+    /**
+     * Set up the theme configuration
+     */
+    public function setupTheme() {
+
+        add_theme_support( 'custom-logo', array(
+            'width' => 300,
+            'height' => 200,
+            'flex-width' => true,
+            'flex-height' => true,
+        ) );
+
+        add_theme_support( 'custom-header', array(
+            'width' => 1200,
+            'height' => 450,
+            'flex-width' => true,
+            'flex-height' => true,
+        ) );
+
         $componentUrl = $this->getComponentUrl();
         $this->addPostType( 'gallery', array(
             'labels' => array(
@@ -95,16 +125,6 @@ class Bambee {
             'publicly_queryable' => true,
             'excerpt' => true,
         ) );
-
-        $this->shortcodeManager = new ShortcodeManager();
-        $this->shortcodeManager->loadShortcodes(
-            dirname( __FILE__ ) . '/shortcode/',
-            '\MBVMedia\Shortcode\\'
-        );
-        $this->shortcodeManager->loadShortcodes(
-            ThemeDir . '/lib/shortcode/',
-            '\Lib\Shortcode\\'
-        );
     }
 
     /**

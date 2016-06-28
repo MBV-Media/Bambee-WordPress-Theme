@@ -36,6 +36,8 @@ class CustomBambee extends Bambee {
 
         $bambee = new CustomBambee();
 
+        $bambee->setupTheme();
+
         $bambee->addMenu( 'header-menu', __( 'Header Menu' ) );
         $bambee->addMenu( 'footer-menu', __( 'Footer Menu' ) );
 

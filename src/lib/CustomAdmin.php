@@ -39,6 +39,7 @@ class CustomAdmin extends BambeeAdmin {
         $bambeeWebsite = new CustomAdmin( $bambee );
 
         $bambeeWebsite->addActions();
+        $bambeeWebsite->addFilters();
 
         $bambeeWebsite->setupCoreDataPage();
 

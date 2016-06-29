@@ -49,6 +49,10 @@ class BambeeAdmin {
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
     }
 
+    public function addFilters() {
+        add_filter( 'upload_mimes', array( $this, '_addMimeTypes' ) );
+    }
+
     /**
      * Enqueue the CSS.
      *
@@ -57,6 +61,11 @@ class BambeeAdmin {
      */
     public function _enqueueCss() {
         wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.css' );
+    }
+
+    public function _addMimeTypes( $mimes ) {
+        $mimes['svg'] = 'image/svg+xml';
+        return $mimes;
     }
 
     /**

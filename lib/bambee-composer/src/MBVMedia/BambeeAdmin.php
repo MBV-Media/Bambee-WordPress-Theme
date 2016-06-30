@@ -54,21 +54,6 @@ class BambeeAdmin {
     }
 
     /**
-     * Enqueue the CSS.
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function _enqueueCss() {
-        wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.css' );
-    }
-
-    public function _addMimeTypes( $mimes ) {
-        $mimes['svg'] = 'image/svg+xml';
-        return $mimes;
-    }
-
-    /**
      *
      * @since 1.4.2
      */
@@ -176,5 +161,34 @@ class BambeeAdmin {
      */
     public function setGlobalDataPage( MagicAdminPage $globalDataPage ) {
         $this->globalDataPage = $globalDataPage;
+    }
+
+
+    /**
+     * Action-hook callbacks
+     */
+
+    /**
+     * Enqueue the CSS.
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function _enqueueCss() {
+        wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.css' );
+    }
+
+
+    /**
+     * Filter-hook callbacks
+     */
+
+    /**
+     * @param $mimes
+     * @return mixed
+     */
+    public function _addMimeTypes( $mimes ) {
+        $mimes['svg'] = 'image/svg+xml';
+        return $mimes;
     }
 }

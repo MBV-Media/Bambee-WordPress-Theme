@@ -252,99 +252,12 @@ class BambeeWebsite {
         );
     }
 
-    /**
-     * @since 1.4.2
-     *
-     * @param $cf7
-     */
-    public function _cf7SetRecipient( $cf7 ) {
-        $mail = $cf7->prop( 'mail' );
-
-        if( !empty($mail['recipient']) ) {
-            return;
-        }
-
-        $mail['recipient'] = get_bloginfo( 'admin_email' );
-        $cf7->set_properties( array(
-            'mail' => $mail
-        ) );
-    }
-
     public function disableEmojis() {
         remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
         remove_action( 'wp_print_styles', 'print_emoji_styles' );
         remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
         remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
         remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-    }
-
-    /**
-     * Enqueue the CSS and JS.
-     * Additional CSS and JS can be loaded via the class properties
-     * 'styles' and 'scripts' in the child class constructor.
-     * JS files can be localized via the class property 'localizedScripts'
-     * in the child class constructor.
-     *
-     * @since 1.0.0
-     * @return void
-     *
-     * @example
-     *  Usage:
-     *    $this->styles = array(
-     *      'handle' => 'style-css',
-     *      'src' => 'url/to/style.css'
-     *    );
-     *    $this->scripts = array(
-     *      'handle' => 'script-js',
-     *      'src' => 'url/to/script.js',
-     *      'deps' => array( 'jquery' )
-     *    );
-     *    $this->localizedScripts = array(
-     *      'handle' => 'script-js',
-     *      'name' => 'localized',
-     *      'data' => array(
-     *          'alertText' => __( 'An error occurred!' )
-     *      )
-     *    );
-     *    parent::__construct();
-     */
-    public function _enqueueScripts() {
-        # Additional scripts
-        if ( !empty( $this->scripts ) ) {
-            foreach ( $this->scripts as $script ) {
-                wp_enqueue_script(
-                    $script['handle'],
-                    $script['src'],
-                    $script['deps'],
-                    $script['ver'],
-                    $script['in_footer']
-                );
-            }
-        }
-
-        # Localize scripts
-        if ( !empty( $this->localizedScripts ) ) {
-            foreach ( $this->localizedScripts as $localized_script ) {
-                wp_localize_script(
-                    $localized_script['handle'],
-                    $localized_script['name'],
-                    $localized_script['data']
-                );
-            }
-        }
-
-        # Additional styles
-        if ( !empty( $this->styles ) ) {
-            foreach ( $this->styles as $style ) {
-                wp_enqueue_style(
-                    $style['handle'],
-                    $style['src'],
-                    $style['deps'],
-                    $style['ver'],
-                    $style['media']
-                );
-            }
-        }
     }
 
     /**
@@ -427,6 +340,97 @@ class BambeeWebsite {
             'paginationNext' => $paginationNext,
         ) );
         return $template->render();
+    }
+
+
+    /**
+     * Action-hook callbacks
+     */
+
+    /**
+     * @since 1.4.2
+     *
+     * @param $cf7
+     */
+    public function _cf7SetRecipient( $cf7 ) {
+        $mail = $cf7->prop( 'mail' );
+
+        if( !empty($mail['recipient']) ) {
+            return;
+        }
+
+        $mail['recipient'] = get_bloginfo( 'admin_email' );
+        $cf7->set_properties( array(
+            'mail' => $mail
+        ) );
+    }
+
+    /**
+     * Enqueue the CSS and JS.
+     * Additional CSS and JS can be loaded via the class properties
+     * 'styles' and 'scripts' in the child class constructor.
+     * JS files can be localized via the class property 'localizedScripts'
+     * in the child class constructor.
+     *
+     * @since 1.0.0
+     * @return void
+     *
+     * @example
+     *  Usage:
+     *    $this->styles = array(
+     *      'handle' => 'style-css',
+     *      'src' => 'url/to/style.css'
+     *    );
+     *    $this->scripts = array(
+     *      'handle' => 'script-js',
+     *      'src' => 'url/to/script.js',
+     *      'deps' => array( 'jquery' )
+     *    );
+     *    $this->localizedScripts = array(
+     *      'handle' => 'script-js',
+     *      'name' => 'localized',
+     *      'data' => array(
+     *          'alertText' => __( 'An error occurred!' )
+     *      )
+     *    );
+     */
+    public function _enqueueScripts() {
+        # Additional scripts
+        if ( !empty( $this->scripts ) ) {
+            foreach ( $this->scripts as $script ) {
+                wp_enqueue_script(
+                    $script['handle'],
+                    $script['src'],
+                    $script['deps'],
+                    $script['ver'],
+                    $script['in_footer']
+                );
+            }
+        }
+
+        # Localize scripts
+        if ( !empty( $this->localizedScripts ) ) {
+            foreach ( $this->localizedScripts as $localized_script ) {
+                wp_localize_script(
+                    $localized_script['handle'],
+                    $localized_script['name'],
+                    $localized_script['data']
+                );
+            }
+        }
+
+        # Additional styles
+        if ( !empty( $this->styles ) ) {
+            foreach ( $this->styles as $style ) {
+                wp_enqueue_style(
+                    $style['handle'],
+                    $style['src'],
+                    $style['deps'],
+                    $style['ver'],
+                    $style['media']
+                );
+            }
+        }
     }
 
     /**

@@ -85,46 +85,7 @@ class Bambee {
      */
     public function setupTheme() {
 
-        add_theme_support( 'custom-logo', array(
-            'width' => 300,
-            'height' => 200,
-            'flex-width' => true,
-            'flex-height' => true,
-        ) );
 
-        add_theme_support( 'custom-header', array(
-            'width' => 1200,
-            'height' => 450,
-            'flex-width' => true,
-            'flex-height' => true,
-        ) );
-
-        $componentUrl = $this->getComponentUrl();
-        $this->addPostType( 'gallery', array(
-            'labels' => array(
-                'name' => __( 'Galleries', TextDomain ),
-                'singular_name' => __( 'Gallery', TextDomain ),
-            ),
-            'taxonomies' => array( 'category' ),
-            'menu_icon' => $componentUrl . '/img/icons/gallery.png',
-            'public' => true,
-            'has_archiv' => true,
-            'show_ui' => true,
-            'capability_type' => 'post',
-            'hierarchical' => true,
-            'supports' => array(
-                'title',
-                'editor',
-                'thumbnail',
-                'trackbacks',
-                'custom-fields',
-                'revisions',
-            ),
-            'taxonomies' => array( 'category' ),
-            'exclude_from_search' => true,
-            'publicly_queryable' => true,
-            'excerpt' => true,
-        ) );
     }
 
     /**
@@ -164,26 +125,9 @@ class Bambee {
 
     /**
      *
-     * @since 1.4.2
-     */
-    public function _initActionCallback() {
-
-        # Thumbnail-Support
-        add_theme_support( 'post-thumbnails' );
-        set_post_thumbnail_size( $this->postThumbnailWidth, $this->postThumbnailHeight, $this->postThumbnailCrop );
-
-        add_post_type_support( 'page', 'excerpt', true );
-
-        $this->registerMenus();
-        $this->registerPostTypes();
-    }
-
-    /**
-     *
      */
     public function addActions() {
-        add_action( 'init', array( $this, '_initActionCallback' ) );
-        add_action( 'after_setup_theme', array( $this, '_loadTextdomain' ), 10 );
+        add_action( 'after_setup_theme', array( $this, '_setupTheme' ), 10 );
     }
 
     /**
@@ -233,14 +177,6 @@ class Bambee {
     }
 
     /**
-     *
-     * @since 1.4.2
-     */
-    public function _loadTextdomain() {
-        load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
-    }
-
-    /**
      * Returns url to compentents of bambee
      *
      * @return mixed
@@ -253,5 +189,68 @@ class Bambee {
         $componentUrl = str_replace( $fixedAbsPath, get_bloginfo( 'wpurl' ) . '/', $fixedDirName );
 
         return $componentUrl;
+    }
+
+
+    /**
+     * Action-hook callbacks
+     */
+
+    /**
+     *
+     * @since 1.4.2
+     */
+    public function _setupTheme() {
+
+        load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
+
+        # Thumbnail-Support
+        add_theme_support( 'post-thumbnails' );
+        set_post_thumbnail_size( $this->postThumbnailWidth, $this->postThumbnailHeight, $this->postThumbnailCrop );
+
+        add_theme_support( 'custom-logo', array(
+            'width' => 300,
+            'height' => 200,
+            'flex-width' => true,
+            'flex-height' => true,
+        ) );
+
+        add_theme_support( 'custom-header', array(
+            'width' => 1200,
+            'height' => 450,
+            'flex-width' => true,
+            'flex-height' => true,
+        ) );
+
+        add_post_type_support( 'page', 'excerpt', true );
+
+        $componentUrl = $this->getComponentUrl();
+        $this->addPostType( 'gallery', array(
+            'labels' => array(
+                'name' => __( 'Galleries', TextDomain ),
+                'singular_name' => __( 'Gallery', TextDomain ),
+            ),
+            'taxonomies' => array( 'category' ),
+            'menu_icon' => $componentUrl . '/img/icons/gallery.png',
+            'public' => true,
+            'has_archiv' => true,
+            'show_ui' => true,
+            'capability_type' => 'post',
+            'hierarchical' => true,
+            'supports' => array(
+                'title',
+                'editor',
+                'thumbnail',
+                'trackbacks',
+                'custom-fields',
+                'revisions',
+            ),
+            'exclude_from_search' => true,
+            'publicly_queryable' => true,
+            'excerpt' => true,
+        ) );
+
+        $this->registerMenus();
+        $this->registerPostTypes();
     }
 }

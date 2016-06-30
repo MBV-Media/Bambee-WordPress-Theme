@@ -17,7 +17,7 @@ use MBVMedia\Shortcode\Lib\ShortcodeManager;
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
-class BambeeAdmin {
+abstract class BambeeAdmin {
 
     /**
      * @since 1.4.2

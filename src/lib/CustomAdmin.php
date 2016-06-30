@@ -26,11 +26,11 @@ class CustomAdmin extends BambeeAdmin {
         parent::__construct( $bambee );
     }
 
-    private function addActions() {
+    public function addActions() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
     }
 
-    private function addFilters() {
+    public function addFilters() {
         add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
     }
 

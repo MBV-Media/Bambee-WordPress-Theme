@@ -27,10 +27,7 @@ class CustomWebsite extends BambeeWebsite {
         parent::__construct( $bambee );
     }
 
-    /**
-     *
-     */
-    private function addActions() {
+    public function addActions() {
         add_action( 'init', array( $this, 'disableEmojis' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueueLocalizeScripts' ) );
@@ -39,10 +36,7 @@ class CustomWebsite extends BambeeWebsite {
         add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
     }
 
-    /**
-     *
-     */
-    private function addFilters() {
+    public function addFilters() {
         add_filter( 'show_admin_bar', '__return_false' );
     }
 

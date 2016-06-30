@@ -26,11 +26,12 @@ class CustomBambee extends Bambee {
         parent::__construct();
     }
 
-    /**
-     *
-     */
-    private function addActions() {
+    public function addActions() {
         add_action( 'after_setup_theme', array( $this, 'actionAfterSetupTheme' ) );
+    }
+
+    public function addFilters() {
+        // TODO: Implement addFilters() method.
     }
 
     /**
@@ -60,6 +61,7 @@ class CustomBambee extends Bambee {
         $bambee->addMenu( 'footer-menu', __( 'Footer Menu' ) );
 
         $bambee->addActions();
+        $bambee->addFilters();
 
         if ( is_admin() ) {
             CustomAdmin::run( $bambee );

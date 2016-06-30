@@ -20,7 +20,7 @@ use MBVMedia\ThemeView;
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
-abstract class BambeeWebsite {
+abstract class BambeeWebsite extends BambeeBase {
 
     /**
      * @var Bambee

@@ -45,14 +45,6 @@ class BambeeAdmin {
         $this->bambee = $bambee;
     }
 
-    public function addActions() {
-        add_action( 'admin_enqueue_scripts', array( $this, '_enqueueCss' ) );
-    }
-
-    public function addFilters() {
-        add_filter( 'upload_mimes', array( $this, '_addMimeTypes' ) );
-    }
-
     /**
      *
      * @since 1.4.2
@@ -174,7 +166,7 @@ class BambeeAdmin {
      * @since 1.0.0
      * @return void
      */
-    public function _enqueueCss() {
+    public function enqueueStyles() {
         wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.css' );
     }
 
@@ -187,7 +179,7 @@ class BambeeAdmin {
      * @param $mimes
      * @return mixed
      */
-    public function _addMimeTypes( $mimes ) {
+    public function addSvgMediaSupport( $mimes ) {
         $mimes['svg'] = 'image/svg+xml';
         return $mimes;
     }

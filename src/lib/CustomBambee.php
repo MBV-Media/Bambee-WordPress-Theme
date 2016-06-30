@@ -30,13 +30,20 @@ class CustomBambee extends Bambee {
      *
      */
     private function addActions() {
-        add_action( 'after_setup_theme', array( $this, 'loadThemeTextdomain' ) );
-        add_action( 'after_setup_theme', array( $this, 'addThemeSupportPostThumbnails' ) );
-        add_action( 'after_setup_theme', array( $this, 'addThemeSupportCustomLogo' ) );
-        add_action( 'after_setup_theme', array( $this, 'addThemeSupportCustomHeader' ) );
-        add_action( 'after_setup_theme', array( $this, 'addPostTypeSupportExcerpt' ) );
-        add_action( 'after_setup_theme', array( $this, 'registerMenus' ) );
-        add_action( 'after_setup_theme', array( $this, 'registerPostTypes' ) );
+        add_action( 'after_setup_theme', array( $this, 'actionAfterSetupTheme' ) );
+    }
+
+    /**
+     *
+     */
+    public function actionAfterSetupTheme() {
+        $this->loadThemeTextdomain();
+        $this->addThemeSupportPostThumbnails();
+        $this->addThemeSupportCustomLogo();
+        $this->addThemeSupportCustomHeader();
+        $this->addPostTypeSupportExcerpt();
+        $this->registerMenus();
+        $this->registerPostTypes();
     }
 
     /**

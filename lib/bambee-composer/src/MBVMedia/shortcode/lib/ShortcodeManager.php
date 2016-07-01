@@ -32,7 +32,7 @@ class ShortcodeManager {
                 $this->shortcodeList[] = array(
                         'class' => $class,
                         'file' => $shortcodeFile,
-                        'tag' => $class::getUnqualifiedClassName( $class )
+                        'tag' => $class::getShortcodeAlias()
                 );
             }
         }

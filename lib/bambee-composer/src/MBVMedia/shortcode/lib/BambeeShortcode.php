@@ -95,7 +95,7 @@ abstract class BambeeShortcode implements Handleable {
      * @return string
      */
     public static function getShortcodeAlias() {
-        return '';
+        return self::getUnqualifiedClassName();
     }
 
     /**

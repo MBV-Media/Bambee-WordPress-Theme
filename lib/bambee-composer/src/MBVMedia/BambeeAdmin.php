@@ -38,6 +38,11 @@ abstract class BambeeAdmin extends BambeeBase {
     private $globalDataPage;
 
     /**
+     * @var integer
+     */
+    private $postPerPageLimit;
+
+    /**
      * @since 1.0.0
      * @return void
      */
@@ -89,6 +94,8 @@ abstract class BambeeAdmin extends BambeeBase {
                 'default' => 'UA-XXXXX-X',
             )
         ) );
+
+        $this->postPerPageLimit = 50;
     }
 
     /**
@@ -155,6 +162,13 @@ abstract class BambeeAdmin extends BambeeBase {
         $this->globalDataPage = $globalDataPage;
     }
 
+    /**
+     * @param integer $postPerPageLitmit
+     */
+    public function setPostPerPageLimit( $postPerPageLitmit ) {
+        $this->postPerPageLimit = $postPerPageLitmit;
+    }
+
 
     /**
      * Action-hook callbacks
@@ -182,5 +196,10 @@ abstract class BambeeAdmin extends BambeeBase {
     public function addSvgMediaSupport( $mimes ) {
         $mimes['svg'] = 'image/svg+xml';
         return $mimes;
+    }
+
+
+    public function modifyPostPerPageLimit( $option, $default = 20 ) {
+        return $this->postPerPageLimit;
     }
 }

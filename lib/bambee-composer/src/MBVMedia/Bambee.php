@@ -81,6 +81,8 @@ abstract class Bambee extends BambeeBase {
 
         $this->postTypeList = array();
 
+        $this->initCustomPostTypes();
+
         $this->shortcodeManager = new ShortcodeManager();
         $this->shortcodeManager->loadShortcodes(
             dirname( __FILE__ ) . '/shortcode/',
@@ -90,7 +92,12 @@ abstract class Bambee extends BambeeBase {
             ThemeDir . '/lib/shortcode/',
             '\Lib\Shortcode\\'
         );
+    }
 
+    /**
+     *
+     */
+    private function initCustomPostTypes() {
         $componentUrl = $this->getComponentUrl();
         $this->addPostType( 'gallery', array(
             'labels' => array(

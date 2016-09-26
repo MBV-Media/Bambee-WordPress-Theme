@@ -184,6 +184,55 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
+     *
+     */
+    public function addActions() {
+        add_action( 'init', array( $this, 'disableEmojis' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueLocalizeScripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueStyles' ) );
+        add_action( 'wp_footer', array( $this, 'printGoogleAnalyticsCode' ) );
+        add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
+    }
+
+    /**
+     *
+     */
+    public function addFilters() {
+        add_filter( 'show_admin_bar', '__return_false' );
+    }
+
+    /**
+     * Enqueue additional scripts
+     */
+    public function addScripts() {
+        $this->addScript( 'comment-reply', false );
+        $this->addScript(
+            'vendor',
+            ThemeUrl . '/js/vendor.min.js',
+            array( 'jquery' ),
+            false,
+            true
+        );
+        $this->addScript(
+            'main',
+            ThemeUrl . '/js/main.min.js',
+            array( 'jquery' ),
+            false,
+            true
+        );
+    }
+
+    /**
+     * Enqueue additional styles
+     */
+    public function addStyles() {
+        $this->addStyle( 'theme', get_bloginfo( 'stylesheet_url' ) );
+        $this->addStyle( 'vendor', ThemeUrl . '/css/vendor.min.css' );
+        $this->addStyle( 'main', ThemeUrl . '/css/main.min.css' );
+    }
+
+    /**
      * @since 1.4.0
      *
      * @param $handle
@@ -236,6 +285,9 @@ abstract class BambeeWebsite extends BambeeBase {
         );
     }
 
+    /**
+     *
+     */
     public function disableEmojis() {
         remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
         remove_action( 'wp_print_styles', 'print_emoji_styles' );

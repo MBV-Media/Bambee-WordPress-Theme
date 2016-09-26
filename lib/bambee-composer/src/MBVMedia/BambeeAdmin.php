@@ -52,6 +52,24 @@ abstract class BambeeAdmin extends BambeeBase {
 
     /**
      *
+     */
+    public function addActions() {
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
+    }
+
+    /**
+     *
+     */
+    public function addFilters() {
+        add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
+        add_filter( 'edit_comments_per_page', array( $this, 'modifyPostPerPageLimit' ) );
+        foreach ( get_post_types() as $postType ) {
+            add_filter( 'edit_' . $postType . '_per_page', array( $this, 'modifyPostPerPageLimit' ) );
+        }
+    }
+
+    /**
+     *
      * @since 1.4.2
      */
     public function setupCoreDataPage() {

@@ -27,15 +27,11 @@ class CustomAdmin extends BambeeAdmin {
     }
 
     public function addActions() {
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
+        parent::addActions();
     }
 
     public function addFilters() {
-        add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
-        add_filter( 'edit_comments_per_page', array( $this, 'modifyPostPerPageLimit' ) );
-        foreach ( get_post_types() as $postType ) {
-            add_filter( 'edit_' . $postType . '_per_page', array( $this, 'modifyPostPerPageLimit' ) );
-        }
+        parent::addFilters();
     }
 
     /**
@@ -46,19 +42,19 @@ class CustomAdmin extends BambeeAdmin {
      * @param CustomBambee $bambee
      */
     public static function run( CustomBambee $bambee ) {
-        global $bambeeWebsite;
 
-        $bambeeWebsite = new CustomAdmin( $bambee );
+        $bambeeAdmin = new CustomAdmin( $bambee );
+        $GLOBALS['bambeeAdmin'] = $bambeeAdmin;
 
-        $bambeeWebsite->addActions();
-        $bambeeWebsite->addFilters();
+        $bambee->getShortcodeManager()->extendTinyMCE();
 
-        $bambeeWebsite->setupCoreDataPage();
+        $bambeeAdmin->addActions();
+        $bambeeAdmin->addFilters();
+
+        $bambeeAdmin->setupCoreDataPage();
 
         /* If you set up custom fields to the globalDataPage */
         /* uncomment the following line. */
-        //$bambeeWebsite->setGlobalDataPage();
-
-        $bambee->getShortcodeManager()->extendTinyMCE();
+        //$bambeeAdmin->setupGlobalDataPage();
     }
 }

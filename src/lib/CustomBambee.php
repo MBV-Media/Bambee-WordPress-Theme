@@ -27,24 +27,11 @@ class CustomBambee extends Bambee {
     }
 
     public function addActions() {
-        add_action( 'after_setup_theme', array( $this, 'actionAfterSetupTheme' ) );
+        parent::addActions();
     }
 
     public function addFilters() {
-        // TODO: Implement addFilters() method.
-    }
-
-    /**
-     *
-     */
-    public function actionAfterSetupTheme() {
-        $this->loadThemeTextdomain();
-        $this->addThemeSupportPostThumbnails();
-        $this->addThemeSupportCustomLogo();
-        $this->addThemeSupportCustomHeader();
-        $this->addPostTypeSupportExcerpt();
-        $this->registerMenus();
-        $this->registerPostTypes();
+        parent::addFilters();
     }
 
     /**
@@ -53,9 +40,9 @@ class CustomBambee extends Bambee {
      * @since 1.4.2
      */
     public static function run() {
-        global $bambee;
 
         $bambee = new CustomBambee();
+        $GLOBALS['bambee'] = $bambee;
 
         $bambee->addMenu( 'header-menu', __( 'Header Menu' ) );
         $bambee->addMenu( 'footer-menu', __( 'Footer Menu' ) );

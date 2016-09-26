@@ -97,6 +97,33 @@ abstract class Bambee extends BambeeBase {
     /**
      *
      */
+    public function addActions() {
+        add_action( 'after_setup_theme', array( $this, 'actionAfterSetupTheme' ) );
+    }
+
+    /**
+     *
+     */
+    public function addFilters() {
+        // TODO: Implement addFilters() method.
+    }
+
+    /**
+     *
+     */
+    public function actionAfterSetupTheme() {
+        $this->loadThemeTextdomain();
+        $this->addThemeSupportPostThumbnails();
+        $this->addThemeSupportCustomLogo();
+        $this->addThemeSupportCustomHeader();
+        $this->addPostTypeSupportExcerpt();
+        $this->registerMenus();
+        $this->registerPostTypes();
+    }
+
+    /**
+     *
+     */
     private function initCustomPostTypes() {
         $componentUrl = $this->getComponentUrl();
         $this->addPostType( 'gallery', array(

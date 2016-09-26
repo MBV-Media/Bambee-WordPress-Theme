@@ -92,7 +92,11 @@ abstract class BambeeAdmin extends BambeeBase {
                 'type' => 'text',
                 'title' => __( 'Google Tracking-Code', TextDomain ),
                 'default' => 'UA-XXXXX-X',
-            )
+            ),
+            'gmapsApiKey' => array(
+                'type' => 'text',
+                'title' => __( 'Google Maps API-Key', TextDomain ),
+            ),
         ) );
 
         $this->postPerPageLimit = 50;

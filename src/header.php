@@ -27,7 +27,6 @@ $short_lang = $short_lang[0];
         };
     </script>
 
-    <link rel="shortcut icon" href="<?php echo ThemeUrl; ?>/favicon.ico" type="image/x-icon"/>
     <title><?php wp_title( '| ' . get_bloginfo( 'name' ), true, 'right' ); ?></title>
 
     <?php wp_head(); ?>

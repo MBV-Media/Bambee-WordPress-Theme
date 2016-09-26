@@ -33,8 +33,8 @@ class AspectRatio extends BambeeShortcode{
             '16:9' => '16to9',
             '4:3' => '4to3',
             '1:2' => '1to2',
-            '3:4' => '3:4',
-            '9:16' => '9:16',
+            '3:4' => '3to4',
+            '9:16' => '9to16',
         );
 
         $this->ratio = '';
@@ -61,7 +61,9 @@ class AspectRatio extends BambeeShortcode{
         $output .= '    </div>';
         $output .= '</div>';
 
-        return sprintf( $output, $ratioClass, $ratioStyle, $class );
+        $output = sprintf( $output, $ratioClass, $ratioStyle, $class );
+
+        return apply_filters( 'the_content', $output );
     }
 
     public static function getShortcodeAlias() {

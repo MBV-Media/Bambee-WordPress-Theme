@@ -26,9 +26,9 @@ $short_lang = $short_lang[0];
             isSearch: <?php echo number_format( is_search() ); ?>,
         };
     </script>
-    <title><?php bloginfo( 'name' ); ?><?php wp_title( '|', true, 'left' ); ?></title>
 
     <link rel="shortcut icon" href="<?php echo ThemeUrl; ?>/favicon.ico" type="image/x-icon"/>
+    <title><?php wp_title( '| ' . get_bloginfo( 'name' ), true, 'right' ); ?></title>
 
     <?php wp_head(); ?>
 

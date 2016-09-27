@@ -25,16 +25,22 @@
         <div class="sideline"></div>
         <ul class="comment-list">
             <?php
+
+            $commenter = wp_get_current_commenter();
+
             $comments = get_comments( array(
                 'post_id' => get_the_ID(),
+                'include_unapproved' => $commenter['comment_author_email'],
                 'status' => 'approve',
             ) );
+
             wp_list_comments( array(
                 'style' => 'ul',
                 'avatar_size' => 0,
                 'callback' => array( $bambeeWebsite, 'commentList' ),
                 'walker' => new \MBVMedia\BambeeWalkerComment(),
             ), $comments );
+
             ?>
         </ul>
     </section>

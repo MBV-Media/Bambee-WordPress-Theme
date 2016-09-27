@@ -1,12 +1,12 @@
 <?php
-namespace Lib;
+namespace MBVMedia;
 
 /**
  * @since 1.0.0
  * @author hterhoeven
  * @licence MIT
  */
-class CustomWalkerComment extends \Walker_Comment {
+class BambeeWalkerComment extends \Walker_Comment {
 
     /**
      * @inheritdoc

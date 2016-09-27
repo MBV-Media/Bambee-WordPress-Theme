@@ -33,6 +33,7 @@
                 'style' => 'ul',
                 'avatar_size' => 0,
                 'callback' => array( $bambeeWebsite, 'commentList' ),
+                'walker' => new \Lib\CustomWalkerComment(),
             ), $comments );
             ?>
         </ul>

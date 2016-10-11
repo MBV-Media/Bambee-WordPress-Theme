@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'json', '1.8.2'
 gem 'sass',  '3.4.5'

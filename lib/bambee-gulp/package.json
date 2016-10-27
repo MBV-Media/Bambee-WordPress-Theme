@@ -28,6 +28,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
+    "gulp.spritesmith-multi": "^3.1.0",
     "jshint": "^2.8.0",
     "jsonfile": "^2.4.0",
     "merge-stream": "^1.0.0",

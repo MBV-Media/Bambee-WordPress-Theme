@@ -1,0 +1,54 @@
+{
+  "name": "bambee-gulp",
+  "version": "0.0.1",
+  "description": "Abstract class representing the Gruntfile. Provides methods to customize Grunt tasks.",
+  "author": "MBV-Media <info@mbv-media.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MBV-Media/Bambee-WordPress-Theme"
+  },
+  "dependencies": {
+    "del": "^2.2.2",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-coffee": "^2.3.2",
+    "gulp-coffeelint": "^0.6.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-group-concat": "^1.1.5",
+    "gulp-if": "^2.0.1",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-jshint": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.2.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.3.2",
+    "gulp-sass-bulk-import": "^1.0.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "gulp.spritesmith-multi": "^3.1.0",
+    "jshint": "^2.8.0",
+    "jsonfile": "^2.4.0",
+    "merge-stream": "^1.0.0",
+    "minimist": "^1.2.0",
+    "node-neat": "^1.7.2",
+    "postcss-reporter": "^1.4.1",
+    "postcss-scss": "^0.3.1",
+    "stylelint": "^7.4.2"
+  },
+  "peerDependencies": {},
+  "bugs": {
+    "url": "https://github.com/MBV-Media/Bambee-WordPress-Theme/issues"
+  },
+  "homepage": "https://github.com/MBV-Media/Bambee-WordPress-Theme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bambee"
+  ]
+}

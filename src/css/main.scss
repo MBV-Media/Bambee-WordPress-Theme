@@ -14,8 +14,12 @@
 // Modules and Variables
 @import 'partials/base';
 // Third-party
-@import 'bower_components/compass-mixins/lib/compass';
+/* bower_components */
+@import 'compass-mixins/lib/compass';
+@import 'normalize-css/normalize.css';
+/* foundation */
 @import 'vendor/foundation-settings';
-@import 'bambee-sass';
+@import 'foundation';
+@include foundation-everything;
 // Partials
 @import 'partials/typography';

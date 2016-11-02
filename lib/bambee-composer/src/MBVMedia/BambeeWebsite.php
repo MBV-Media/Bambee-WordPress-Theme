@@ -458,6 +458,11 @@ abstract class BambeeWebsite extends BambeeBase {
      * @since 1.4.2
      */
     public function printGoogleAnalyticsCode() {
+
+        if( WP_DEBUG ) {
+            retrun;
+        }
+
         $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );
         if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {
             ?>

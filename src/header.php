@@ -31,14 +31,10 @@ $short_lang = $short_lang[0];
 
     <?php wp_head(); ?>
 
-    <!--[if IE 7]>
+    <!--[if lt IE 9]>
     <script type="text/javascript">
-        window.location = "http://whatbrowser.org/";
+        window.location = "http://whatbrowser.org/intl/de/";
     </script>
-    <![endif]-->
-
-    <!--[if lt IE 9 ]>
-    <script type="text/javascript" src="<?php echo ThemeUrl; ?>/js/vendor/ie.min.js"></script>
     <![endif]-->
 </head>
 <body <?php body_class( 'no-js' ); ?>>

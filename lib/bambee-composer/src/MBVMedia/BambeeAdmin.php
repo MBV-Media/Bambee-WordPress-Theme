@@ -55,6 +55,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addActions() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
+        add_action( 'admin_init', array( $this, 'displaySvgThumbs' ) );
     }
 
     /**
@@ -203,7 +204,7 @@ abstract class BambeeAdmin extends BambeeBase {
      * @return void
      */
     public function enqueueStyles() {
-        wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.css' );
+        wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.min.css' );
     }
 
 
@@ -217,10 +218,72 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addSvgMediaSupport( $mimes ) {
         $mimes['svg'] = 'image/svg+xml';
+        $mimes['svgz'] = 'image/svg+xml';
         return $mimes;
     }
 
+    /**
+     *
+     */
+    public function displaySvgThumbs() {
 
+        ob_start();
+
+        add_action( 'shutdown', array( $this, 'svgThumbsFilter' ), 0 );
+        add_filter( 'final_output', array( $this, 'svgFinalOutput' ) );
+    }
+
+    /**
+     *
+     */
+    public function svgThumbsFilter() {
+
+        $final = '';
+        $ob_levels = count( ob_get_level() );
+
+        for ( $i = 0; $i < $ob_levels; $i++ ) {
+
+            $final .= ob_get_clean();
+
+        }
+
+        echo apply_filters( 'final_output', $final );
+    }
+
+    /**
+     * @param $content
+     * @return mixed
+     */
+    public function svgFinalOutput( $content ) {
+
+        $content = str_replace(
+            '<# } else if ( \'image\' === data.type && data.sizes && data.sizes.full ) { #>',
+            '<# } else if ( \'svg+xml\' === data.subtype ) { #>
+				<img class="details-image" src="{{ data.url }}" draggable="false" />
+				<# } else if ( \'image\' === data.type && data.sizes && data.sizes.full ) { #>',
+
+            $content
+        );
+
+        $content = str_replace(
+            '<# } else if ( \'image\' === data.type && data.sizes ) { #>',
+            '<# } else if ( \'svg+xml\' === data.subtype ) { #>
+				<div class="centered">
+					<img src="{{ data.url }}" class="thumbnail" draggable="false" />
+				</div>
+			<# } else if ( \'image\' === data.type && data.sizes ) { #>',
+
+            $content
+        );
+
+        return $content;
+    }
+
+    /**
+     * @param $option
+     * @param int $default
+     * @return int
+     */
     public function modifyPostPerPageLimit( $option, $default = 20 ) {
         return $this->postPerPageLimit;
     }

@@ -1,1 +1,18 @@
-@import 'bambee-sass-admin';
+$dusty-gray: #999;
+
+li {
+  .wp-menu-image:before {
+    opacity: 0.6;
+  }
+
+  &:hover {
+    .wp-menu-image:before {
+      color: $dusty-gray !important;
+      opacity: 0.1;
+    }
+  }
+}
+
+#postimagediv .inside img {
+  width: 100%;
+}

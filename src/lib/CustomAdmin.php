@@ -8,6 +8,7 @@ namespace Lib;
 
 
 use MBVMedia\BambeeAdmin;
+use MBVMedia\Entrance;
 
 /**
  * The class representing the WordPress Admin.
@@ -35,6 +36,14 @@ class CustomAdmin extends BambeeAdmin {
     }
 
     /**
+     *
+     */
+    private function initEntrance() {
+        $entranceOverlay = new Entrance();
+        $entranceOverlay->addAdminActions();
+    }
+
+    /**
      * This is where the magic begins.
      *
      * @since 1.4.2
@@ -52,6 +61,8 @@ class CustomAdmin extends BambeeAdmin {
         $bambeeAdmin->addFilters();
 
         $bambeeAdmin->setupCoreDataPage();
+
+        $bambeeAdmin->initEntrance();
 
         /* If you set up custom fields to the globalDataPage */
         /* uncomment the following line. */

@@ -14,7 +14,8 @@
   right: 0;
   bottom: 0;
 
-  background-color: transparentize($black, 0.2);
+  color: $white;
+  background-color: transparentize($black, 0.1);
 
   transition: visibility 0.2s, opacity 0.2s;
 

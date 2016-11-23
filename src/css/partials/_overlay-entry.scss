@@ -1,12 +1,3 @@
-.overlay-entry-switch {
-  display: none;
-
-  &:checked ~ .overlay-entry {
-    visibility: hidden;
-    opacity: 0;
-  }
-}
-
 .overlay-entry {
   position: fixed;
   top: 0;

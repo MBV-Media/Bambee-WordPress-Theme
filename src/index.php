@@ -11,7 +11,6 @@
                     </h2>
                 </header>
                 <?php the_content(); ?>
-                <div class="clearfix"></div>
             </article>
             <!-- #post-<?php the_ID(); ?> -->
         </div>

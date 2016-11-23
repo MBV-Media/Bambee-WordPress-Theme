@@ -228,7 +228,6 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     public function addStyles() {
         $this->addStyle( 'theme', get_bloginfo( 'stylesheet_url' ) );
-        $this->addStyle( 'vendor', ThemeUrl . '/css/vendor.min.css' );
         $this->addStyle( 'main', ThemeUrl . '/css/main.min.css' );
     }
 
@@ -306,6 +305,17 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return void
      */
     public function commentList( $comment, $args, $depth ) {
+        echo $this->getCommentList( $comment, $args, $depth );
+    }
+
+    /**
+     * @since 1.4.2
+     * @param $comment
+     * @param $args
+     * @param $depth
+     * @return string
+     */
+    public function getCommentList( $comment, $args, $depth ) {
         $GLOBALS['comment'] = $comment;
 
         $tag = ( 'div' == $args['style'] ) ? 'div' : 'li';
@@ -318,7 +328,7 @@ abstract class BambeeWebsite extends BambeeBase {
             'tag' => $tag,
             'addBelow' => $addBelow,
         ) );
-        echo $commentListTemplate->render();
+        return $commentListTemplate->render();
     }
 
     /**
@@ -387,13 +397,13 @@ abstract class BambeeWebsite extends BambeeBase {
     public function addCF7DefaultRecipient( $cf7 ) {
         $mail = $cf7->prop( 'mail' );
 
-        if( !empty($mail['recipient']) ) {
+        if( !empty( $mail['recipient'] ) ) {
             return;
         }
 
         $mail['recipient'] = get_bloginfo( 'admin_email' );
         $cf7->set_properties( array(
-            'mail' => $mail
+            'mail' => $mail,
         ) );
     }
 
@@ -460,7 +470,7 @@ abstract class BambeeWebsite extends BambeeBase {
     public function printGoogleAnalyticsCode() {
 
         if( WP_DEBUG ) {
-            retrun;
+            return;
         }
 
         $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );

@@ -1,7 +1,7 @@
 {
   "name": "mbv-media/bambee-composer",
   "minimum-stability": "dev",
-  "version": "1.1",
+  "version": "1.2",
   "repositories": [
     {
       "type": "vcs",

@@ -26,10 +26,16 @@ class CustomBambee extends Bambee {
         parent::__construct();
     }
 
+    /**
+     * Add custom actions to this method or override predefined actions
+     */
     public function addActions() {
         parent::addActions();
     }
 
+    /**
+     * Add custom filters to this method or override predefined actions
+     */
     public function addFilters() {
         parent::addFilters();
     }

@@ -28,10 +28,16 @@ class CustomWebsite extends BambeeWebsite {
         parent::__construct( $bambee );
     }
 
+    /**
+     * Add custom actions to this method or override predefined actions
+     */
     public function addActions() {
         parent::addActions();
     }
 
+    /**
+     * Add custom filters to this method or override predefined actions
+     */
     public function addFilters() {
         parent::addFilters();
     }

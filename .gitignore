@@ -1,8 +1,11 @@
 .idea
 .sass-cache
+.sprites-cache
 /node_modules
 /bower_components
 themes/bambee
 src/vendor
 Gemfile.lock
 Composer.lock
+
+

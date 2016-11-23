@@ -1,6 +1,6 @@
 {
   "name": "Bambee",
-  "version": "1.4.3",
+  "version": "2.0.0",
   "description": "Boilerplate for WordPress theme developement.",
   "repository": {
     "type": "git",
@@ -22,10 +22,7 @@
   "author": "MBV-Media <info@mbv-media.com>",
   "license": "MIT",
   "dependencies": {
-    "bambee-grunt": "file:lib/bambee-grunt",
     "bambee-gulp": "file:lib/bambee-gulp",
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2"
   }

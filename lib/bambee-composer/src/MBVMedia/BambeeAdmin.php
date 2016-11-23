@@ -107,14 +107,32 @@ abstract class BambeeAdmin extends BambeeBase {
                 'type' => 'textarea',
                 'title' => __( 'Phone', TextDomain ),
             ),
-            'googleTrackingCode' => array(
+            'coreGoogleMapsTitle' => array(
+                'type' => 'description',
+                'title' => __( 'Google Maps' ),
+                'description' => '',
+            ),
+            'lat' => array(
                 'type' => 'text',
-                'title' => __( 'Google Tracking-Code', TextDomain ),
-                'default' => 'UA-XXXXX-X',
+                'title' => __( 'Latitude', TextDomain ),
+            ),
+            'lng' => array(
+                'type' => 'text',
+                'title' => __( 'Longitude', TextDomain ),
             ),
             'gmapsApiKey' => array(
                 'type' => 'text',
-                'title' => __( 'Google Maps API-Key', TextDomain ),
+                'title' => __( 'API-Key', TextDomain ),
+            ),
+            'coreGoogleAnalyticsTitle' => array(
+                'type' => 'description',
+                'title' => __( 'Google Analytics' ),
+                'description' => '',
+            ),
+            'googleTrackingCode' => array(
+                'type' => 'text',
+                'title' => __( 'Tracking-Code', TextDomain ),
+                'default' => 'UA-XXXXX-X',
             ),
         ) );
 

@@ -39,13 +39,16 @@ jQuery ($) ->
 
 class Sticky
 
+  ###
+    *
+  ###
   data =
     offset: 'data-sticky-offset'
     toBottom: 'data-stick-to-bottom'
     placeholder: 'data-sticky-placeholder'
 
   ###
-
+    *
   ###
   constructor: ($element) ->
     @$window = jQuery(window)
@@ -57,7 +60,7 @@ class Sticky
 
     @trigger = $element.offset().top
     @offset = $element.attr data.offset
-    @toBottom = if $element.attr(data.toBottom) != undefined then yes else no
+    @toBottom = $element.attr(data.toBottom) != undefined
 
     if @offset == undefined
       @offset = 0
@@ -70,11 +73,18 @@ class Sticky
       @trigger -= @offset
 
     # debug trigger line
-    #$('<div style="position: absolute; top: ' + (@trigger) + 'px; width: 100%; height: 1px; background-color: black;"></div>').appendTo 'body'
+#    $('<div></div>')
+#      .css
+#        position: 'absolute'
+#        top: @trigger + 'px'
+#        width: '100%'
+#        height: '1px'
+#        backgroundColor: 'black'
+#      .appendTo 'body'
 
     @isSticky = no
 
-    @usePlaceholder =  if $element.attr(data.placeholder) != undefined then yes else no
+    @usePlaceholder =  $element.attr(data.placeholder) != undefined
     if @usePlaceholder
       @addPlaceholder()
       @hidePlaceholder()
@@ -147,7 +157,8 @@ class Sticky
 
   ###
   addPlaceholder: ->
-    @$placeholder = jQuery('<div class="sticky-placeholder"></div>').insertAfter(@$element).css
+    $placecolder = jQuery '<div class="sticky-placeholder"></div>'
+    @$placeholder = $placecolder.insertAfter(@$element).css
       width: @width + 'px'
       height: @height + 'px'
 

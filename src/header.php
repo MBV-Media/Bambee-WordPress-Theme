@@ -24,6 +24,10 @@ $short_lang = $short_lang[0];
             websiteUrl: '<?php bloginfo( 'wpurl' ); ?>',
             themeUrl: '<?php echo ThemeUrl; ?>',
             isSearch: <?php echo number_format( is_search() ); ?>,
+            <?php
+            if( WP_DEBUG ) :
+                echo 'debug: true,';
+            endif; ?>
         };
     </script>
 

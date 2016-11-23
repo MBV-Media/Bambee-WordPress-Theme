@@ -1,10 +1,10 @@
 @echo off
-echo Running "bundle install"...
-call bundle install
-echo Finished "bundle install"
-echo.
-echo ---------------------
-echo.
+::echo Running "bundle install"...
+::call bundle install
+::echo Finished "bundle install"
+::echo.
+::echo ---------------------
+::echo.
 echo Running "npm install"...
 call npm install
 echo Finished "npm install"

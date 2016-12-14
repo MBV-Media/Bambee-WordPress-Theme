@@ -227,7 +227,6 @@ abstract class BambeeWebsite extends BambeeBase {
      * Enqueue additional styles
      */
     public function addStyles() {
-        $this->addStyle( 'theme', get_bloginfo( 'stylesheet_url' ) );
         $this->addStyle( 'main', ThemeUrl . '/css/main.min.css' );
     }
 

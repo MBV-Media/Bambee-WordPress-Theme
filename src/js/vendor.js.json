@@ -1,4 +1,15 @@
 [
-  "bower_components/modernizr/modernizr.js",
-  "bower_components/foundation-sites/dist/foundation.js"
+  {
+    "cwd": "bower_components/",
+    "files": [
+      "modernizr/modernizr.js",
+      "foundation-sites/dist/foundation.js"
+    ]
+  },
+  {
+    "cwd": "path/to/some/other/vendor/files/",
+    "files": [
+
+    ]
+  }
 ]

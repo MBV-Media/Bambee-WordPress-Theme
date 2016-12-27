@@ -43,14 +43,6 @@ class CustomWebsite extends BambeeWebsite {
     }
 
     /**
-     *
-     */
-    private function iniEntrance() {
-        $entranceOverlay = new Entrance();
-        $entranceOverlay->addWebsiteActions();
-    }
-
-    /**
      * This is where the magic begins.
      *
      * @since 1.4.2
@@ -68,6 +60,5 @@ class CustomWebsite extends BambeeWebsite {
         $bambeeWebsite->addFilters();
         $bambeeWebsite->addScripts();
         $bambeeWebsite->addStyles();
-        $bambeeWebsite->iniEntrance();
     }
 }

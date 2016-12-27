@@ -22,5 +22,6 @@
 @import 'foundation';
 @include foundation-everything;
 // Partials
+@import 'partials/coockie-notice';
 @import 'partials/overlay-entry';
 @import 'partials/typography';

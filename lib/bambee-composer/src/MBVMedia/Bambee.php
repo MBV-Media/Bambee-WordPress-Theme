@@ -92,6 +92,22 @@ abstract class Bambee extends BambeeBase {
             ThemeDir . '/lib/shortcode/',
             '\Lib\Shortcode\\'
         );
+
+        $entranceOverlay = new SessionControledTemplate(
+            'partials/overlay-entrance.php',
+            'enter',
+            '.overlay-entry .js-enter',
+            '.overlay-entry'
+        );
+        $entranceOverlay->addActions();
+
+        $cookieNotice = new SessionControledTemplate(
+            'partials/cookie-notice.php',
+            'cookie',
+            '.cookie-notice .js-hide',
+            '.cookie-notice'
+        );
+        $cookieNotice->addActions();
     }
 
     /**

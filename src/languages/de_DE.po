@@ -1,62 +1,78 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bambee\n"
-"POT-Creation-Date: 2015-08-19 15:32+0100\n"
-"PO-Revision-Date: 2015-08-19 15:32+0100\n"
+"POT-Creation-Date: 2016-11-23 09:50+0100\n"
+"PO-Revision-Date: 2016-11-23 09:55+0100\n"
 "Last-Translator: \n"
-"Language-Team: Marcel Kempf <marcel.kempf93@gmail.com>\n"
+"Language-Team: MBV Media <info@mbv-media.com>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.8\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;_n;_x\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
 
-#: comments.php:3
+#: comments.php:4 ../src/comments.php:4
 msgid "The file \"comments.php\" can not be accessed directly."
 msgstr "Auf die Datei \"comments.php\" kann nicht direkt zugegriffen werden."
 
-#: comments.php:13
-msgid "The fields marked with * are required."
-msgstr "Die mit * gekennzeichneten Felder sind Pflichtfelder."
+#: comments.php:14 ../src/comments.php:14
+msgid "Die mit * gekennzeichneten Felder sind Pflichtfelder."
+msgstr ""
 
-#: comments.php:16
-msgid "Send comment"
-msgstr "Beitrag senden"
+#: comments.php:17 ../src/comments.php:17
+msgid "Beitrag senden"
+msgstr ""
 
-#: includes/AdminPage.php:791
-msgid "Choose Image"
-msgstr "Bild auswählen"
-
-#: includes/Bambee.php:69
+#: lib/CustomBambee.php:53 ../src/lib/CustomBambee.php:53
 msgid "Header Menu"
 msgstr "Header Menu"
 
-#: includes/Bambee.php:70
+#: lib/CustomBambee.php:54 ../src/lib/CustomBambee.php:54
 msgid "Footer Menu"
 msgstr "Footer Menu"
 
-#: includes/Bambee.php:88
+#: partials/comment-list.php:8 ../src/partials/comment-list.php:8
+msgid "Author: "
+msgstr "Verfasser:"
+
+#: partials/comment-list.php:13 ../src/partials/comment-list.php:13
+msgid "am"
+msgstr ""
+
+#: partials/comment-list.php:34 ../src/partials/comment-list.php:34
+msgid "Your comment is awaiting moderation."
+msgstr "Ihr Kommentar wartet auf Freischaltung."
+
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:131
+#: ../lib/bambee-composer/src/MBVMedia/Bambee.php:131
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:131
 msgid "Galleries"
 msgstr "Galerien"
 
-#: includes/Bambee.php:89
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:132
+#: ../lib/bambee-composer/src/MBVMedia/Bambee.php:132
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:132
 msgid "Gallery"
 msgstr "Galerie"
 
-#: includes/BambeeAdmin.php:41
-msgid ""
-"You can use the [globaldata]key[globaldata] shortcode to display the global "
-"data field inside a post."
-msgstr ""
-"Sie können den [globaldata]key[globaldata] shortcode benutzen, um Globale "
-"Texte innerhalb eines Posts anzuzeigen."
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:82
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:83
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:82
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:83
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:82
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:83
+msgid "Core data"
+msgstr "Stammdaten"
 
-#: includes/BambeeAdmin.php:42
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:93
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:93
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:93
 msgid ""
 "You can use the [coredata]key[coredata] shortcode to display the core data "
 "field inside a post."
@@ -64,42 +80,112 @@ msgstr ""
 "Sie können den [coredata]key[coredata] shortcode benutzen, um Stammdaten "
 "innerhalb eines Posts anzuzeigen."
 
-#: includes/BambeeAdmin.php:45
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:100
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:100
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:100
 msgid "Address"
 msgstr "Adresse"
 
-#: includes/BambeeAdmin.php:50
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:104
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:104
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:104
 msgid "E-Mail address"
 msgstr "E-Mail Adresse"
 
-#: includes/BambeeAdmin.php:55
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:108
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:108
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:108
 msgid "Phone"
 msgstr "Telefon"
 
-#: includes/BambeeAdmin.php:66 includes/BambeeAdmin.php:67
-msgid "Core data"
-msgstr "Stammdaten"
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:112
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:122
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:112
+msgid "Google Maps"
+msgstr ""
 
-#: includes/BambeeAdmin.php:79 includes/BambeeAdmin.php:80
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:117
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:127
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:117
+msgid "Latitude"
+msgstr ""
+
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:121
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:131
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:121
+msgid "Longitude"
+msgstr ""
+
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:125
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:135
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:125
+msgid "API-Key"
+msgstr ""
+
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:129
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:112
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:129
+msgid "Google Analytics"
+msgstr ""
+
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:134
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:117
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:134
+msgid "Tracking-Code"
+msgstr ""
+
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:152
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:153
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:152
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:153
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:152
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:153
 msgid "Global data"
 msgstr "Globale Texte"
 
-#: includes/BambeeWebsite.php:85
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:163
+#: ../lib/bambee-composer/src/MBVMedia/BambeeAdmin.php:163
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:163
+msgid ""
+"You can use the [globaldata]key[globaldata]  shortcode to display the global "
+"data field inside a post."
+msgstr ""
+"Sie können den [globaldata]key[globaldata] shortcode benutzen, um Globale "
+"Texte innerhalb eines Posts anzuzeigen."
+
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeWebsite.php:93
+#: ../lib/bambee-composer/src/MBVMedia/BambeeWebsite.php:93
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeWebsite.php:93
 msgid "Next &raquo;"
 msgstr "Weiter &raquo;"
 
-#: includes/BambeeWebsite.php:88
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeWebsite.php:94
+#: ../lib/bambee-composer/src/MBVMedia/BambeeWebsite.php:94
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeWebsite.php:94
 msgid "&laquo; Prev"
 msgstr "&laquo; Zurück"
 
-#: partials/comment-list.php:8
-msgid "Author: "
-msgstr "Verfasser:"
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/AspectRatio.php:106
+#: vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/lib/AspectRatio.php:103
+#: ../lib/bambee-composer/src/MBVMedia/shortcode/AspectRatio.php:106
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/AspectRatio.php:106
+#: ../src/vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/lib/AspectRatio.php:103
+msgid "Not a valid ratio."
+msgstr "Kein gültiges Seitenverhältnis."
 
-#: partials/comment-list.php:13
-msgid "at"
-msgstr "am"
+#: vendor/r4c00n/magic-admin-page/src/MagicAdminPage/MagicAdminPage.php:617
+#: ../src/vendor/r4c00n/magic-admin-page/src/MagicAdminPage/MagicAdminPage.php:617
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
 
-#: partials/comment-list.php:33
-msgid "Your comment is awaiting moderation."
-msgstr "Ihr Kommentar wartet auf Freischaltung."
+#~ msgid "The fields marked with * are required."
+#~ msgstr "Die mit * gekennzeichneten Felder sind Pflichtfelder."
+
+#~ msgid "Send comment"
+#~ msgstr "Beitrag senden"
+
+#~ msgid "Choose Image"
+#~ msgstr "Bild auswählen"
+
+#~ msgid "at"
+#~ msgstr "am"

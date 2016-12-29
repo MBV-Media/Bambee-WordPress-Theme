@@ -25,4 +25,41 @@ class CustomBambee extends Bambee {
     public function __construct() {
         parent::__construct();
     }
+
+    /**
+     * Add custom actions to this method or override predefined actions
+     */
+    public function addActions() {
+        parent::addActions();
+    }
+
+    /**
+     * Add custom filters to this method or override predefined actions
+     */
+    public function addFilters() {
+        parent::addFilters();
+    }
+
+    /**
+     * This is where the magic begins.
+     *
+     * @since 1.4.2
+     */
+    public static function run() {
+
+        $bambee = new CustomBambee();
+        $GLOBALS['bambee'] = $bambee;
+
+        $bambee->addMenu( 'header-menu', __( 'Header Menu' ) );
+        $bambee->addMenu( 'footer-menu', __( 'Footer Menu' ) );
+
+        $bambee->addActions();
+        $bambee->addFilters();
+
+        if ( is_admin() ) {
+            CustomAdmin::run( $bambee );
+        } else {
+            CustomWebsite::run( $bambee );
+        }
+    }
 }

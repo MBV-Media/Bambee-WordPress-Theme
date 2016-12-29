@@ -20,19 +20,19 @@ class ShortcodeManager {
     /**
      * @param array $locationInfo
      */
-    public function loadShortcodes( array $locationInfo ) {
+    public function loadShortcodes( $path, $namespace ) {
 
-        $shortcodeDir = scandir( $locationInfo['path'] );
+        $shortcodeDir = scandir( $path );
 
         foreach ( $shortcodeDir as $shortcodeFile ) {
-            if ( !is_dir( $locationInfo['path'] . $shortcodeFile ) ) {
+            if ( !is_dir( $path . $shortcodeFile ) ) {
 
-                $class = $locationInfo['namespace'] . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
+                $class = $namespace . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
 
                 $this->shortcodeList[] = array(
                         'class' => $class,
                         'file' => $shortcodeFile,
-                        'tag' => $class::getUnqualifiedClassName( $class )
+                        'tag' => $class::getShortcodeAlias()
                 );
             }
         }

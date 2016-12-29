@@ -1,0 +1,26 @@
+.overlay-entry {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  color: $white;
+  background-color: transparentize($black, 0.1);
+
+  transition: visibility 0.2s, opacity 0.2s;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.overlay-entry-content {
+  position: absolute;
+  top: 50%;
+
+  width: 100%;
+
+  transform: translateY(-50%);
+}

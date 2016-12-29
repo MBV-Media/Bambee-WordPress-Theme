@@ -8,6 +8,7 @@ namespace Lib;
 
 
 use MBVMedia\BambeeAdmin;
+use MBVMedia\Entrance;
 
 /**
  * The class representing the WordPress Admin.
@@ -22,7 +23,45 @@ class CustomAdmin extends BambeeAdmin {
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct( CustomBambee $bambee ) {
+        parent::__construct( $bambee );
+    }
+
+    /**
+     * Add custom actions to this method or override predefined actions
+     */
+    public function addActions() {
+        parent::addActions();
+    }
+
+    /**
+     * Add custom filters to this method or override predefined actions
+     */
+    public function addFilters() {
+        parent::addFilters();
+    }
+
+    /**
+     * This is where the magic begins.
+     *
+     * @since 1.4.2
+     *
+     * @param CustomBambee $bambee
+     */
+    public static function run( CustomBambee $bambee ) {
+
+        $bambeeAdmin = new CustomAdmin( $bambee );
+        $GLOBALS['bambeeAdmin'] = $bambeeAdmin;
+
+        $bambee->getShortcodeManager()->extendTinyMCE();
+
+        $bambeeAdmin->addActions();
+        $bambeeAdmin->addFilters();
+
+        $bambeeAdmin->setupCoreDataPage();
+
+        /* If you set up custom fields to the globalDataPage */
+        /* uncomment the following line. */
+        //$bambeeAdmin->setupGlobalDataPage();
     }
 }

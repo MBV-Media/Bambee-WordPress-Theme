@@ -36,4 +36,3 @@
         <?php endif; ?>
         <?php comment_text(); ?>
     </div>
-</<?php echo $tag; ?>>

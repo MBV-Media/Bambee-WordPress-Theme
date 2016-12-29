@@ -8,6 +8,7 @@ namespace MBVMedia;
 
 
 use Detection\MobileDetect;
+use Lib\CustomBambee;
 use MagicAdminPage\MagicAdminPage;
 use MBVMedia\Shortcode\Lib\ShortcodeManager;
 use MBVMedia\ThemeView;
@@ -19,92 +20,93 @@ use MBVMedia\ThemeView;
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
-class BambeeWebsite {
+abstract class BambeeWebsite extends BambeeBase {
+
+    /**
+     * @var Bambee
+     */
+    private $bambee;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $coreData = array();
+    private $coreData;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $globalData = array();
+    private $globalData;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $scripts = array();
+    private $scripts;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $localizedScripts = array();
+    private $localizedScripts;
 
     /**
      * @since 1.0.0
      * @var array
      */
-    private $styles = array();
+    private $styles;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationNextText = '';
+    private $commentPaginationNextText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationPrevText = '';
+    private $commentPaginationPrevText;
 
     /**
      * @since 1.1.0
      * @var string
      */
-    private $commentPaginationPageTemplate = '<li>%s</li>';
+    private $commentPaginationPageTemplate;
 
     /**
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
+    public function __construct( Bambee $bambee ) {
+
+        $this->bambee = $bambee;
+
         $this->coreData = MagicAdminPage::getOption( 'core-data' );
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
 
-        if( empty( $this->commentPaginationNextText ) ) {
-            $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
-        }
-        if( empty( $this->commentPaginationPrevText ) ) {
-            $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
-        }
+        $this->scripts = array();
+        $this->localizedScripts = array();
+        $this->styles = array();
 
-        $shortcodeManager = new ShortcodeManager();
-        $shortcodeManager->loadShortcodes( array(
-                'path' => dirname( __FILE__ ) . '/shortcode/',
-                'namespace' => '\MBVMedia\Shortcode\\'
-        ) );
-        $shortcodeManager->loadShortcodes( array(
-                'path' => ThemeDir . '/lib/shortcode/',
-                'namespace' => '\Lib\Shortcode\\'
-        ) );
-        $shortcodeManager->addShortcodes();
-
-
-        add_filter( 'show_admin_bar', '__return_false' );
-
-        add_action( 'wp_enqueue_scripts', array( $this, '_enqueueScripts' ) );
-        add_action( 'wp_footer', array( $this, '_wpFooter' ) );
+        $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
+        $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
+        $this->commentPaginationPageTemplate = '<li>%s</li>';
 
         # Grunt livereload (development only)
         if ( WP_DEBUG ) {
             $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
+    }
+
+    /**
+     * @since 1.4.2
+     *
+     * @return Bambee
+     */
+    public function getBambee() {
+        return $this->bambee;
     }
 
     /**
@@ -121,30 +123,10 @@ class BambeeWebsite {
      * @since 1.4.0
      *
      * @param $key
-     * @param $value
-     */
-    public function setCoreData( $key, $value ) {
-        $this->coreData[$key] = $value;
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
      * @return null|string
      */
     public function getGlobalData( $key ) {
         return isset( $this->globalData[$key] ) ? $this->globalData[$key] : null;
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
-     * @param $value
-     */
-    public function setGlobalData( $key, $value ) {
-        $this->globalData[$key] = $value;
     }
 
     /**
@@ -201,6 +183,52 @@ class BambeeWebsite {
         $this->commentPaginationPageTemplate = $commentPaginationPageTemplate;
     }
 
+    /**
+     *
+     */
+    public function addActions() {
+        add_action( 'init', array( $this, 'disableEmojis' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueLocalizeScripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueStyles' ) );
+        add_action( 'wp_footer', array( $this, 'printGoogleAnalyticsCode' ) );
+        add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
+    }
+
+    /**
+     *
+     */
+    public function addFilters() {
+        add_filter( 'show_admin_bar', '__return_false' );
+    }
+
+    /**
+     * Enqueue additional scripts
+     */
+    public function addScripts() {
+        $this->addScript( 'comment-reply', false );
+        $this->addScript(
+            'vendor',
+            ThemeUrl . '/js/vendor.min.js',
+            array( 'jquery' ),
+            false,
+            true
+        );
+        $this->addScript(
+            'main',
+            ThemeUrl . '/js/main.min.js',
+            array( 'jquery' ),
+            false,
+            true
+        );
+    }
+
+    /**
+     * Enqueue additional styles
+     */
+    public function addStyles() {
+        $this->addStyle( 'main', ThemeUrl . '/css/main.min.css' );
+    }
 
     /**
      * @since 1.4.0
@@ -228,7 +256,7 @@ class BambeeWebsite {
      * @param $name
      * @param array $data
      */
-    public function addLocalizedScripts( $handle, $name, array $data ) {
+    public function addLocalizedScript( $handle, $name, array $data ) {
         $this->localizedScripts[] = array(
                 'handle' => $handle,
                 'name' => $name,
@@ -256,72 +284,14 @@ class BambeeWebsite {
     }
 
     /**
-     * Enqueue the CSS and JS.
-     * Additional CSS and JS can be loaded via the class properties
-     * 'styles' and 'scripts' in the child class constructor.
-     * JS files can be localized via the class property 'localizedScripts'
-     * in the child class constructor.
      *
-     * @since 1.0.0
-     * @return void
-     *
-     * @example
-     *  Usage:
-     *    $this->styles = array(
-     *      'handle' => 'style-css',
-     *      'src' => 'url/to/style.css'
-     *    );
-     *    $this->scripts = array(
-     *      'handle' => 'script-js',
-     *      'src' => 'url/to/script.js',
-     *      'deps' => array( 'jquery' )
-     *    );
-     *    $this->localizedScripts = array(
-     *      'handle' => 'script-js',
-     *      'name' => 'localized',
-     *      'data' => array(
-     *          'alertText' => __( 'An error occurred!' )
-     *      )
-     *    );
-     *    parent::__construct();
      */
-    public function _enqueueScripts() {
-        # Additional scripts
-        if ( !empty( $this->scripts ) ) {
-            foreach ( $this->scripts as $script ) {
-                wp_enqueue_script(
-                    $script['handle'],
-                    $script['src'],
-                    $script['deps'],
-                    $script['ver'],
-                    $script['in_footer']
-                );
-            }
-        }
-
-        # Localize scripts
-        if ( !empty( $this->localizedScripts ) ) {
-            foreach ( $this->localizedScripts as $localized_script ) {
-                wp_localize_script(
-                    $localized_script['handle'],
-                    $localized_script['name'],
-                    $localized_script['data']
-                );
-            }
-        }
-
-        # Additional styles
-        if ( !empty( $this->styles ) ) {
-            foreach ( $this->styles as $style ) {
-                wp_enqueue_style(
-                    $style['handle'],
-                    $style['src'],
-                    $style['deps'],
-                    $style['ver'],
-                    $style['media']
-                );
-            }
-        }
+    public function disableEmojis() {
+        remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+        remove_action( 'wp_print_styles', 'print_emoji_styles' );
+        remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+        remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+        remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
     }
 
     /**
@@ -334,9 +304,20 @@ class BambeeWebsite {
      * @return void
      */
     public function commentList( $comment, $args, $depth ) {
+        echo $this->getCommentList( $comment, $args, $depth );
+    }
+
+    /**
+     * @since 1.4.2
+     * @param $comment
+     * @param $args
+     * @param $depth
+     * @return string
+     */
+    public function getCommentList( $comment, $args, $depth ) {
         $GLOBALS['comment'] = $comment;
 
-        $tag = isset( $args['style'] ) ? $args['style'] : 'li';
+        $tag = ( 'div' == $args['style'] ) ? 'div' : 'li';
         $addBelow = 'comment';
 
         $commentListTemplate = new ThemeView( '/partials/comment-list.php', array(
@@ -346,7 +327,7 @@ class BambeeWebsite {
             'tag' => $tag,
             'addBelow' => $addBelow,
         ) );
-        echo $commentListTemplate->render();
+        return $commentListTemplate->render();
     }
 
     /**
@@ -356,6 +337,14 @@ class BambeeWebsite {
      * @return void
      */
     public function commentPagination() {
+        echo $this->getCommentPagination();
+    }
+
+    /**
+     * @since 1.4.2
+     * @return string
+     */
+    public function getCommentPagination() {
         $pagination = paginate_comments_links( array(
             'echo' => false,
             'mid_size' => 2,
@@ -395,10 +384,94 @@ class BambeeWebsite {
             'paginationPages' => $paginationPages,
             'paginationNext' => $paginationNext,
         ) );
-        echo $template->render();
+        return $template->render();
     }
 
-    public function _wpFooter() {
+
+    /**
+     * @since 1.4.2
+     *
+     * @param $cf7
+     */
+    public function addCF7DefaultRecipient( $cf7 ) {
+        $mail = $cf7->prop( 'mail' );
+
+        if( !empty( $mail['recipient'] ) ) {
+            return;
+        }
+
+        $mail['recipient'] = get_bloginfo( 'admin_email' );
+        $cf7->set_properties( array(
+            'mail' => $mail,
+        ) );
+    }
+
+    /**
+     * Enqueue all added JS files.
+     *
+     * @since 1.4.2
+     */
+    public function enqueueScripts() {
+        if ( !empty( $this->scripts ) ) {
+            foreach ( $this->scripts as $script ) {
+                wp_enqueue_script(
+                    $script['handle'],
+                    $script['src'],
+                    $script['deps'],
+                    $script['ver'],
+                    $script['in_footer']
+                );
+            }
+        }
+    }
+
+    /**
+     * Enqueue all added localize JS files.
+     *
+     * @since 1.4.2
+     */
+    public function enqueueLocalizeScripts() {
+        if ( !empty( $this->localizedScripts ) ) {
+            foreach ( $this->localizedScripts as $localized_script ) {
+                wp_localize_script(
+                    $localized_script['handle'],
+                    $localized_script['name'],
+                    $localized_script['data']
+                );
+            }
+        }
+    }
+
+    /**
+     * Enqueue all added CSS files.
+     *
+     * @since 1.4.2
+     */
+    public function enqueueStyles() {
+        if ( !empty( $this->styles ) ) {
+            foreach ( $this->styles as $style ) {
+                wp_enqueue_style(
+                    $style['handle'],
+                    $style['src'],
+                    $style['deps'],
+                    $style['ver'],
+                    $style['media']
+                );
+            }
+        }
+    }
+
+    /**
+     * Prints the Google Analytics code if a tracking code is set.
+     *
+     * @since 1.4.2
+     */
+    public function printGoogleAnalyticsCode() {
+
+        if( WP_DEBUG ) {
+            return;
+        }
+
         $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );
         if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {
             ?>

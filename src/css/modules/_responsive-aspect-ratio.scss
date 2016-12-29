@@ -1,0 +1,55 @@
+/**
+ * Responsive aspect ration
+ *
+ * @since 1.4.3
+ * @author RTO GmbH <marcel.kempf93@gmail.com>
+ * @license MIT
+ * @example  <div class="responsive-aspect-ratio ratio-square">
+ *            <div class="aspect-ratio-content">
+ *              Content
+ *            </div>
+ *          </div>
+ */
+
+.responsive-aspect-ratio {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  .aspect-ratio-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &.ratio-square,
+  &.ratio1to1 {
+    padding-top: 100%;
+  }
+
+  &.ratio-2to1 {
+    padding-top: 50%;
+  }
+
+  &.ratio-16to9 {
+    padding-top: 56.25%;
+  }
+
+  &.ratio-4to3 {
+    padding-top: 75%;
+  }
+
+  &.ratio-1to2 {
+    padding-top: 200%;
+  }
+
+  &.ratio-3to4 {
+    padding-top: 133.333%;
+  }
+
+  &.ratio-9to16 {
+    padding-top: 177.777%;
+  }
+}

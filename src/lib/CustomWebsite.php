@@ -7,7 +7,9 @@
 namespace Lib;
 
 
+use MagicAdminPage\MagicAdminPage;
 use MBVMedia\BambeeWebsite;
+use MBVMedia\Entrance;
 
 /**
  * The class representing the website (user frontend).
@@ -22,37 +24,41 @@ class CustomWebsite extends BambeeWebsite {
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct( CustomBambee $bambee ) {
+        parent::__construct( $bambee );
+    }
 
-        # Enqueue additional scripts
-        $this->addScript(
-                'comment-reply',
-                false
-        );
-        $this->addScript(
-                'vendor',
-                ThemeUrl . '/js/vendor.min.js',
-                array( 'jquery' )
-        );
-        $this->addScript(
-                'main',
-                ThemeUrl . '/js/main.min.js',
-                array( 'jquery' )
-        );
+    /**
+     * Add custom actions to this method or override predefined actions
+     */
+    public function addActions() {
+        parent::addActions();
+    }
 
-        # Enqueue additional styles
-        $this->addStyle(
-                'theme',
-                get_bloginfo( 'stylesheet_url' )
-        );
-        $this->addStyle(
-                'vendor',
-                ThemeUrl . '/css/vendor.min.css'
-        );
-        $this->addStyle(
-                'main',
-                ThemeUrl . '/css/main.min.css'
-        );
+    /**
+     * Add custom filters to this method or override predefined actions
+     */
+    public function addFilters() {
+        parent::addFilters();
+    }
+
+    /**
+     * This is where the magic begins.
+     *
+     * @since 1.4.2
+     *
+     * @param CustomBambee $bambee
+     */
+    public static function run( CustomBambee $bambee ) {
+
+        $bambeeWebsite = new CustomWebsite( $bambee );
+        $GLOBALS['bambeeWebsite'] = $bambeeWebsite;
+
+        $bambee->getShortcodeManager()->addShortcodes();
+
+        $bambeeWebsite->addActions();
+        $bambeeWebsite->addFilters();
+        $bambeeWebsite->addScripts();
+        $bambeeWebsite->addStyles();
     }
 }

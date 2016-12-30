@@ -57,6 +57,8 @@ abstract class Bambee extends BambeeBase {
      */
     public function __construct() {
 
+        $this->loadThemeTextdomain();
+
         $this->postThumbnail = array(
             'width' => 624,
             'height' => 999,
@@ -128,7 +130,6 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function actionAfterSetupTheme() {
-        $this->loadThemeTextdomain();
         $this->addThemeSupportPostThumbnails();
         $this->addThemeSupportCustomLogo();
         $this->addThemeSupportCustomHeader();
@@ -273,7 +274,8 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function loadThemeTextdomain() {
-        load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
+        $path = ThemeDir . '/languages';
+        load_theme_textdomain( TextDomain, $path );
     }
 
     /**

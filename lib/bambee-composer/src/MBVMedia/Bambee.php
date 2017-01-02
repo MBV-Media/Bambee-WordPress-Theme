@@ -83,8 +83,6 @@ abstract class Bambee extends BambeeBase {
 
         $this->postTypeList = array();
 
-        $this->initCustomPostTypes();
-
         $this->shortcodeManager = new ShortcodeManager();
         $this->shortcodeManager->loadShortcodes(
             dirname( __FILE__ ) . '/shortcode/',
@@ -130,6 +128,7 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function actionAfterSetupTheme() {
+        $this->initCustomPostTypes();
         $this->addThemeSupportPostThumbnails();
         $this->addThemeSupportCustomLogo();
         $this->addThemeSupportCustomHeader();

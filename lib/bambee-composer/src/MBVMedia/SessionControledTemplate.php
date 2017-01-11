@@ -8,7 +8,7 @@
 namespace MBVMedia;
 
 
-class SessionControledTemplate {
+class SessionControlledTemplate {
 
     /**
      * @var ThemeView

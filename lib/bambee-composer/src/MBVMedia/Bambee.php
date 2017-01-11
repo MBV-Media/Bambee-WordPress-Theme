@@ -93,7 +93,7 @@ abstract class Bambee extends BambeeBase {
             '\Lib\Shortcode\\'
         );
 
-        $entranceOverlay = new SessionControledTemplate(
+        $entranceOverlay = new SessionControlledTemplate(
             'partials/overlay-entrance.php',
             'enter',
             '.overlay-entry .js-enter',
@@ -101,7 +101,7 @@ abstract class Bambee extends BambeeBase {
         );
         $entranceOverlay->addActions();
 
-        $cookieNotice = new SessionControledTemplate(
+        $cookieNotice = new SessionControlledTemplate(
             'partials/cookie-notice.php',
             'cookie',
             '.cookie-notice .js-hide',

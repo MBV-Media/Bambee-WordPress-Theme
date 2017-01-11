@@ -49,7 +49,7 @@ class SessionControledTemplate {
      */
     public function addActions() {
 
-        add_action( 'init', array( $this, 'startSession' ) );
+        add_action( 'init', array( 'MBVMedia\Session', 'start' ) );
 
         if( is_admin() ) {
             $this->addAdminActions();
@@ -129,13 +129,6 @@ class SessionControledTemplate {
             })(jQuery);
         </script>
         <?php
-    }
-
-    /**
-     *
-     */
-    public function startSession() {
-        Session::start();
     }
 
     /**

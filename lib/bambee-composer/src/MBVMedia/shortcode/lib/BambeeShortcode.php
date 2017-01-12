@@ -88,7 +88,7 @@ abstract class BambeeShortcode implements Handleable {
         /* TODO: Add shortcode name as argument to shortcode_atts */
         $atts = shortcode_atts( $defaultAtts, $atts );
 
-        return $shortcodeObject->handleShortcode( $atts, $content );
+        return do_shortcode( $shortcodeObject->handleShortcode( $atts, $content ) );
     }
 
     /**

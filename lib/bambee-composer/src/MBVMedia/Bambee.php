@@ -57,6 +57,8 @@ abstract class Bambee extends BambeeBase {
      */
     public function __construct() {
 
+        $this->loadThemeTextdomain();
+
         $this->postThumbnail = array(
             'width' => 624,
             'height' => 999,
@@ -81,8 +83,6 @@ abstract class Bambee extends BambeeBase {
 
         $this->postTypeList = array();
 
-        $this->initCustomPostTypes();
-
         $this->shortcodeManager = new ShortcodeManager();
         $this->shortcodeManager->loadShortcodes(
             dirname( __FILE__ ) . '/shortcode/',
@@ -93,7 +93,7 @@ abstract class Bambee extends BambeeBase {
             '\Lib\Shortcode\\'
         );
 
-        $entranceOverlay = new SessionControledTemplate(
+        $entranceOverlay = new SessionControlledTemplate(
             'partials/overlay-entrance.php',
             'enter',
             '.overlay-entry .js-enter',
@@ -101,7 +101,7 @@ abstract class Bambee extends BambeeBase {
         );
         $entranceOverlay->addActions();
 
-        $cookieNotice = new SessionControledTemplate(
+        $cookieNotice = new SessionControlledTemplate(
             'partials/cookie-notice.php',
             'cookie',
             '.cookie-notice .js-hide',
@@ -128,7 +128,7 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function actionAfterSetupTheme() {
-        $this->loadThemeTextdomain();
+        $this->initCustomPostTypes();
         $this->addThemeSupportPostThumbnails();
         $this->addThemeSupportCustomLogo();
         $this->addThemeSupportCustomHeader();
@@ -273,7 +273,8 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function loadThemeTextdomain() {
-        load_theme_textdomain( TextDomain, ThemeDir . '/languages' );
+        $path = ThemeDir . '/languages';
+        load_theme_textdomain( TextDomain, $path );
     }
 
     /**

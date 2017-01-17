@@ -6,15 +6,14 @@
                     <?php the_custom_logo(); ?>
                 </header>
                 <p>
-                    Die nachfolgenden Seiten beinhalten eindeutige erotische
-                    Inhalte und sind für Minderjährige nicht geeignet.
+                    <?php _e( 'This is an example entrance overlay.', TextDomain ); ?>
                 </p>
                 <p>
-                    <strong>Ich bin mindestens 18 und habe den Hinweis zur Kenntnis genommen:</strong>
+                    <strong><?php _e( 'I have read and understood the proceeding information:', TextDomain ); ?></strong>
                 </p>
                 <p>
-                    <a href="?enter" class="button success js-enter">Eintreten</a>
-                    <a href="http://www.google.de" class="button alert">Verlassen</a>
+                    <a href="?enter" class="button success js-enter"><?php _e( 'Enter', TextDomain ); ?></a>
+                    <a href="http://www.google.de" class="button alert"><?php _e( 'Leave', TextDomain ); ?></a>
                 </p>
                 <a href="<?php echo home_url( '/impressum' ); ?>">Impressum</a>
             </div>

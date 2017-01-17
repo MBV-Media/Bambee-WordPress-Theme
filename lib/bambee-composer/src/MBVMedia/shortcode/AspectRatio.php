@@ -63,7 +63,7 @@ class AspectRatio extends BambeeShortcode{
 
         $output = sprintf( $output, $ratioClass, $ratioStyle, $class );
 
-        return apply_filters( 'the_content', $output );
+        return $output;
     }
 
     public static function getShortcodeAlias() {

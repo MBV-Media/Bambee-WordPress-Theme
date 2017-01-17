@@ -31,6 +31,6 @@ class Row extends BambeeShortcode {
                 $class,
                 $content
         );
-        return apply_filters( 'the_content', $content );
+        return $content;
     }
 }

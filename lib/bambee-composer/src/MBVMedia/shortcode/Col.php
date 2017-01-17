@@ -50,6 +50,6 @@ class Col extends BambeeShortcode {
                 $content
         );
 
-        return apply_filters( 'the_content', $content );
+        return $content;
     }
 }

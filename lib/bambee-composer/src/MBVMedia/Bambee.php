@@ -5,6 +5,10 @@
  * @licence MIT
  */
 namespace MBVMedia;
+
+
+use MBVMedia\ControlledTemplate\CookieControlledTemplate;
+use MBVMedia\Lib\ThemeView;
 use MBVMedia\Shortcode\Lib\ShortcodeManager;
 
 
@@ -93,16 +97,16 @@ abstract class Bambee extends BambeeBase {
             '\Lib\Shortcode\\'
         );
 
-        $entranceOverlay = new SessionControlledTemplate(
-            'partials/overlay-entrance.php',
+        $entranceOverlay = new CookieControlledTemplate(
+            new ThemeView( 'partials/overlay-entrance.php' ),
             'enter',
             '.overlay-entry .js-enter',
             '.overlay-entry'
         );
         $entranceOverlay->addActions();
 
-        $cookieNotice = new SessionControlledTemplate(
-            'partials/cookie-notice.php',
+        $cookieNotice = new CookieControlledTemplate(
+            new ThemeView( 'partials/cookie-notice.php' ),
             'cookie',
             '.cookie-notice .js-hide',
             '.cookie-notice'

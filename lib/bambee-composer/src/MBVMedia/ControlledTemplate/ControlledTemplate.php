@@ -1,14 +1,15 @@
 <?php
-/**
- * @since 1.0.0
+/** * @since 2.0.3
  * @author hterhoeven
  * @licence MIT
  */
 
-namespace MBVMedia;
+namespace MBVMedia\ControlledTemplate;
 
 
-class SessionControlledTemplate {
+use MBVMedia\Lib\ThemeView;
+
+abstract class ControlledTemplate {
 
     /**
      * @var ThemeView
@@ -18,7 +19,7 @@ class SessionControlledTemplate {
     /**
      * @var string
      */
-    private $sessionVar;
+    private $nonce;
 
     /**
      * @var string
@@ -33,13 +34,13 @@ class SessionControlledTemplate {
     /**
      * SessionControledTemplate constructor.
      * @param $template string
-     * @param $sessionVar string
+     * @param $nonce string
      * @param $selectorOnClick string
      * @param $selectorContainer string
      */
-    public function __construct( $template, $sessionVar, $selectorOnClick, $selectorContainer) {
-        $this->template = new ThemeView( $template );
-        $this->sessionVar = $sessionVar;
+    public function __construct( ThemeView $template, $nonce, $selectorOnClick, $selectorContainer) {
+        $this->template = $template;
+        $this->nonce = $nonce;
         $this->selectorOnClick = $selectorOnClick;
         $this->selectorContainer = $selectorContainer;
     }
@@ -48,15 +49,14 @@ class SessionControlledTemplate {
      *
      */
     public function addActions() {
-
-        add_action( 'init', array( 'MBVMedia\Session', 'start' ) );
-
+        global $wp_actions, $wp_filter;
         if( is_admin() ) {
             $this->addAdminActions();
         }
         else {
             $this->addWebsiteActions();
         }
+
     }
 
     /**
@@ -71,8 +71,8 @@ class SessionControlledTemplate {
      *
      */
     private function addAdminActions() {
-        add_action( 'wp_ajax_enter', array( $this, 'ajaxCallback' ) );
-        add_action( 'wp_ajax_nopriv_' . $this->sessionVar , array( $this, 'ajaxCallback' ) );
+        add_action( 'wp_ajax_' . $this->nonce, array( $this, 'ajaxCallback' ) );
+        add_action( 'wp_ajax_nopriv_' . $this->nonce , array( $this, 'ajaxCallback' ) );
     }
 
     /**
@@ -81,7 +81,7 @@ class SessionControlledTemplate {
     public function ajaxCallback() {
         $nonce = filter_input( INPUT_POST, 'nonce' );
 
-        if ( !defined( 'DOING_AJAX' ) || !DOING_AJAX || !wp_verify_nonce( $nonce, $this->sessionVar ) ) {
+        if ( !defined( 'DOING_AJAX' ) || !DOING_AJAX || !wp_verify_nonce( $nonce, $this->nonce ) ) {
             return;
         }
 
@@ -120,8 +120,8 @@ class SessionControlledTemplate {
                         dataType: 'json',
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
                         data: {
-                            action: '<?php echo $this->sessionVar; ?>',
-                            nonce: '<?php echo wp_create_nonce( $this->sessionVar ); ?>'
+                            action: '<?php echo $this->nonce; ?>',
+                            nonce: '<?php echo wp_create_nonce( $this->nonce ); ?>'
                         }
                     });
                     return false;
@@ -134,14 +134,10 @@ class SessionControlledTemplate {
     /**
      *
      */
-    private function hide() {
-        Session::setVar( $this->sessionVar, true );
-    }
+    public abstract function hide();
 
     /**
      * @return bool
      */
-    private function hidden() {
-        return Session::getVar( $this->sessionVar ) === true;
-    }
+    public abstract function hidden();
 }

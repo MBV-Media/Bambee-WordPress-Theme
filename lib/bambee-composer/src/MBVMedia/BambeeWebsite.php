@@ -7,11 +7,8 @@
 namespace MBVMedia;
 
 
-use Detection\MobileDetect;
-use Lib\CustomBambee;
 use MagicAdminPage\MagicAdminPage;
-use MBVMedia\Shortcode\Lib\ShortcodeManager;
-use MBVMedia\ThemeView;
+use MBVMedia\Lib\ThemeView;
 
 /**
  * The class representing the website (user frontend).

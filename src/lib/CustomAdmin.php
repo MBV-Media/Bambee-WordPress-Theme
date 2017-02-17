@@ -8,7 +8,6 @@ namespace Lib;
 
 
 use MBVMedia\BambeeAdmin;
-use MBVMedia\Entrance;
 
 /**
  * The class representing the WordPress Admin.

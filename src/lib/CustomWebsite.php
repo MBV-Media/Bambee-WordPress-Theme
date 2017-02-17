@@ -9,7 +9,6 @@ namespace Lib;
 
 use MagicAdminPage\MagicAdminPage;
 use MBVMedia\BambeeWebsite;
-use MBVMedia\Entrance;
 
 /**
  * The class representing the website (user frontend).

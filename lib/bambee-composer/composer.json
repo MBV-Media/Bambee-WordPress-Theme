@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "r4c00n/magic-meta-box": "dev-master",
+    "r4c00n/magic-meta-box": "1.3.*",
     "r4c00n/magic-admin-page": "dev-master",
     "mobiledetect/mobiledetectlib": "*"
   },

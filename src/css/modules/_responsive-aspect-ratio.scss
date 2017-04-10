@@ -24,32 +24,49 @@
     right: 0;
   }
 
-  &.ratio-square,
-  &.ratio1to1 {
+  &::after {
+    content: '';
+    display: block;
+
+    &.ratio-square {
+      content: 'test';
+    }
+  }
+
+  &.ratio-square::after,
+  &.ratio1to1::after {
     padding-top: 100%;
   }
 
-  &.ratio-2to1 {
+  &.ratio-2to1::after {
     padding-top: 50%;
   }
 
-  &.ratio-16to9 {
+  &.ratio-16to9::after {
     padding-top: 56.25%;
   }
 
-  &.ratio-4to3 {
+  &.ratio-4to3::after {
     padding-top: 75%;
   }
 
-  &.ratio-1to2 {
+  &.ratio-1to2::after {
     padding-top: 200%;
   }
 
-  &.ratio-3to4 {
+  &.ratio-3to4::after {
     padding-top: 133.333%;
   }
 
-  &.ratio-9to16 {
+  &.ratio-9to16::after {
     padding-top: 177.777%;
+  }
+
+  &.ratio-4to1::after {
+    padding-top: 25%;
+  }
+
+  &.ratio-home-video::after {
+    padding-top: 65%;
   }
 }

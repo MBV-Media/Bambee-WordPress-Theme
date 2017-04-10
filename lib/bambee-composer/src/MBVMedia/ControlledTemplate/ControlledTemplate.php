@@ -63,6 +63,7 @@ abstract class ControlledTemplate {
      *
      */
     private function addWebsiteActions() {
+        add_action( 'init', array( $this, 'checkForNonce' ) );
         add_action( 'wp_footer', array( $this, 'renderTemplate' ) );
         add_action( 'wp_footer', array( $this, 'printScript' ) );
     }
@@ -99,6 +100,19 @@ abstract class ControlledTemplate {
         }
 
         echo $this->template->render();
+    }
+
+    /**
+     *
+     */
+    public function checkForNonce() {
+        $nonce = filter_input( INPUT_GET, $this->nonce );
+
+        if( $nonce === null ) {
+            return;
+        }
+
+        $this->hide();
     }
 
     /**

@@ -23,7 +23,7 @@ class CustomWebsite extends BambeeWebsite {
      * @since 1.0.0
      * @return void
      */
-    public function __construct( CustomBambee $bambee ) {
+    protected function __construct( CustomBambee $bambee ) {
         parent::__construct( $bambee );
     }
 
@@ -59,5 +59,12 @@ class CustomWebsite extends BambeeWebsite {
         $bambeeWebsite->addFilters();
         $bambeeWebsite->addScripts();
         $bambeeWebsite->addStyles();
+    }
+
+    /**
+     * @return CustomWebsite
+     */
+    public static function self() {
+        return parent::self();
     }
 }

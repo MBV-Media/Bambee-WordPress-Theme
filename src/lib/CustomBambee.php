@@ -22,7 +22,7 @@ class CustomBambee extends Bambee {
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
+    protected function __construct() {
         parent::__construct();
     }
 
@@ -61,5 +61,12 @@ class CustomBambee extends Bambee {
         } else {
             CustomWebsite::run( $bambee );
         }
+    }
+
+    /**
+     * @return CustomBambee
+     */
+    public static function self() {
+        return parent::self();
     }
 }

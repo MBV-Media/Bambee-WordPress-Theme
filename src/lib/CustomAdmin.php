@@ -22,7 +22,7 @@ class CustomAdmin extends BambeeAdmin {
      * @since 1.0.0
      * @return void
      */
-    public function __construct( CustomBambee $bambee ) {
+    protected function __construct( CustomBambee $bambee ) {
         parent::__construct( $bambee );
     }
 
@@ -62,5 +62,12 @@ class CustomAdmin extends BambeeAdmin {
         /* If you set up custom fields to the globalDataPage */
         /* uncomment the following line. */
         //$bambeeAdmin->setupGlobalDataPage();
+    }
+
+    /**
+     * @return CustomAdmin
+     */
+    public static function self() {
+        return parent::self();
     }
 }

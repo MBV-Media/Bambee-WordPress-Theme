@@ -76,7 +76,7 @@ abstract class BambeeWebsite extends BambeeBase {
      * @since 1.0.0
      * @return void
      */
-    public function __construct( Bambee $bambee ) {
+    protected function __construct( Bambee $bambee ) {
 
         $this->bambee = $bambee;
 

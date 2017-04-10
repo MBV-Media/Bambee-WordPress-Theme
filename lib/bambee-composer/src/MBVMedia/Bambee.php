@@ -59,7 +59,7 @@ abstract class Bambee extends BambeeBase {
      * @since 1.0.0
      * @return void
      */
-    public function __construct() {
+    protected function __construct() {
 
         $this->loadThemeTextdomain();
 

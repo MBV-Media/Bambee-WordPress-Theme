@@ -108,12 +108,15 @@ abstract class Bambee extends BambeeBase {
             '.cookie-notice'
         );
         $cookieNotice->addActions();
+
+        $this->addPostTypeGallery();
     }
 
     /**
      *
      */
     public function addActions() {
+        add_action( 'init', array( $this, 'actionInit' ) );
         add_action( 'after_setup_theme', array( $this, 'actionAfterSetupTheme' ) );
     }
 
@@ -127,20 +130,25 @@ abstract class Bambee extends BambeeBase {
     /**
      *
      */
-    public function actionAfterSetupTheme() {
-        $this->initCustomPostTypes();
-        $this->addThemeSupportPostThumbnails();
-        $this->addThemeSupportCustomLogo();
-        $this->addThemeSupportCustomHeader();
-        $this->addPostTypeSupportExcerpt();
-        $this->registerMenus();
+    public function actionInit() {
         $this->registerPostTypes();
     }
 
     /**
      *
      */
-    private function initCustomPostTypes() {
+    public function actionAfterSetupTheme() {
+        $this->addThemeSupportPostThumbnails();
+        $this->addThemeSupportCustomLogo();
+        $this->addThemeSupportCustomHeader();
+        $this->addPostTypeSupportExcerpt();
+        $this->registerMenus();
+    }
+
+    /**
+     *
+     */
+    private function addPostTypeGallery() {
         $componentUrl = $this->getComponentUrl();
         $this->addPostType( 'gallery', array(
             'labels' => array(
@@ -150,7 +158,8 @@ abstract class Bambee extends BambeeBase {
             'taxonomies' => array( 'category' ),
             'menu_icon' => $componentUrl . '/img/icons/gallery.png',
             'public' => true,
-            'has_archiv' => true,
+            'has_archive' => true,
+            'show_in_nav_menus' => true,
             'show_ui' => true,
             'capability_type' => 'post',
             'hierarchical' => true,

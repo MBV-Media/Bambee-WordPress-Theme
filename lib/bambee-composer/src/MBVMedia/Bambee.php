@@ -55,6 +55,8 @@ abstract class Bambee extends BambeeBase {
      */
     private $shortcodeManager;
 
+    private static $instance = null;
+
     /**
      * @since 1.0.0
      * @return void
@@ -277,7 +279,6 @@ abstract class Bambee extends BambeeBase {
         return $componentUrl;
     }
 
-
     /**
      * Action-hook callbacks
      */
@@ -321,5 +322,16 @@ abstract class Bambee extends BambeeBase {
      */
     public function addPostTypeSupportExcerpt() {
         add_post_type_support( 'page', 'excerpt', true );
+    }
+
+    /**
+     * @return static
+     */
+    public static function self() {
+        if( null === self::$instance ) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
     }
 }

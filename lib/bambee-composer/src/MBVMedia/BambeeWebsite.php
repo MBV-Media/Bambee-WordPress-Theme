@@ -20,11 +20,6 @@ use MBVMedia\Lib\ThemeView;
 abstract class BambeeWebsite extends BambeeBase {
 
     /**
-     * @var Bambee
-     */
-    private $bambee;
-
-    /**
      * @since 1.0.0
      * @var array
      */
@@ -72,13 +67,13 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     private $commentPaginationPageTemplate;
 
+    private static $instance = null;
+
     /**
      * @since 1.0.0
      * @return void
      */
-    protected function __construct( Bambee $bambee ) {
-
-        $this->bambee = $bambee;
+    protected function __construct() {
 
         $this->coreData = MagicAdminPage::getOption( 'core-data' );
         $this->globalData = MagicAdminPage::getOption( 'global-data' );
@@ -95,15 +90,6 @@ abstract class BambeeWebsite extends BambeeBase {
         if ( WP_DEBUG ) {
             $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
-    }
-
-    /**
-     * @since 1.4.2
-     *
-     * @return Bambee
-     */
-    public function getBambee() {
-        return $this->bambee;
     }
 
     /**
@@ -490,5 +476,16 @@ abstract class BambeeWebsite extends BambeeBase {
             </script>
             <?php
         }
+    }
+
+    /**
+     * @return static
+     */
+    public static function self() {
+        if( null === self::$instance ) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
     }
 }

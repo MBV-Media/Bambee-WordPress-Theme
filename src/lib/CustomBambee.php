@@ -40,6 +40,10 @@ class CustomBambee extends Bambee {
         parent::addFilters();
     }
 
+    public function test() {
+
+    }
+
     /**
      * This is where the magic begins.
      *
@@ -47,8 +51,7 @@ class CustomBambee extends Bambee {
      */
     public static function run() {
 
-        $bambee = new CustomBambee();
-        $GLOBALS['bambee'] = $bambee;
+        $bambee = self::self();
 
         $bambee->addMenu( 'header-menu', __( 'Header Menu' ) );
         $bambee->addMenu( 'footer-menu', __( 'Footer Menu' ) );
@@ -57,16 +60,9 @@ class CustomBambee extends Bambee {
         $bambee->addFilters();
 
         if ( is_admin() ) {
-            CustomAdmin::run( $bambee );
+            CustomAdmin::run();
         } else {
-            CustomWebsite::run( $bambee );
+            CustomWebsite::run();
         }
-    }
-
-    /**
-     * @return CustomBambee
-     */
-    public static function self() {
-        return parent::self();
     }
 }

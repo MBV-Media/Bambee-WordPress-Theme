@@ -21,12 +21,6 @@ abstract class BambeeAdmin extends BambeeBase {
 
     /**
      * @since 1.4.2
-     * @var Bambee
-     */
-    private $bambee;
-
-    /**
-     * @since 1.4.2
      * @var MagicAdminPage
      */
     private $coreDataPage;
@@ -42,13 +36,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     private $postPerPageLimit;
 
-    /**
-     * @since 1.0.0
-     * @return void
-     */
-    protected function __construct( Bambee $bambee ) {
-        $this->bambee = $bambee;
-    }
+    private static $instance = null;
 
     /**
      *
@@ -75,7 +63,8 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function setupCoreDataPage() {
 
-        $componentUrl = $this->bambee->getComponentUrl();
+
+        $componentUrl = Bambee::self()->getComponentUrl();
 
         $this->coreDataPage = new MagicAdminPage(
             'core-data',
@@ -145,7 +134,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     private function setupGlobalDataPage() {
 
-        $componentUrl = $this->bambee->getComponentUrl();
+        $componentUrl = Bambee::self()->getComponentUrl();
 
         $this->globalDataPage = new MagicAdminPage(
             'global-data',
@@ -165,14 +154,6 @@ abstract class BambeeAdmin extends BambeeBase {
                 TextDomain
             ),
         ) );
-    }
-
-    /**
-     * @since 1.4.2
-     * @return Bambee
-     */
-    public function getBambee() {
-        return $this->bambee;
     }
 
     /**
@@ -304,5 +285,16 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function modifyPostPerPageLimit( $option, $default = 20 ) {
         return $this->postPerPageLimit;
+    }
+
+    /**
+     * @return static
+     */
+    public static function self() {
+        if( null === self::$instance ) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
     }
 }

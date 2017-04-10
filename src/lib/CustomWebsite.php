@@ -19,12 +19,14 @@ use MBVMedia\BambeeWebsite;
  */
 class CustomWebsite extends BambeeWebsite {
 
+    private static $instance = null;
+
     /**
      * @since 1.0.0
      * @return void
      */
-    protected function __construct( CustomBambee $bambee ) {
-        parent::__construct( $bambee );
+    protected function __construct() {
+        parent::__construct();
     }
 
     /**
@@ -48,23 +50,14 @@ class CustomWebsite extends BambeeWebsite {
      *
      * @param CustomBambee $bambee
      */
-    public static function run( CustomBambee $bambee ) {
+    public static function run() {
 
-        $bambeeWebsite = new CustomWebsite( $bambee );
-        $GLOBALS['bambeeWebsite'] = $bambeeWebsite;
+        CustomBambee::self()->getShortcodeManager()->addShortcodes();
 
-        $bambee->getShortcodeManager()->addShortcodes();
-
+        $bambeeWebsite = self::self();
         $bambeeWebsite->addActions();
         $bambeeWebsite->addFilters();
         $bambeeWebsite->addScripts();
         $bambeeWebsite->addStyles();
-    }
-
-    /**
-     * @return CustomWebsite
-     */
-    public static function self() {
-        return parent::self();
     }
 }

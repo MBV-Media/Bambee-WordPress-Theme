@@ -1,4 +1,3 @@
-<?php global $bambee, $bambeeWebsite; ?>
 </section>
 </main>
 

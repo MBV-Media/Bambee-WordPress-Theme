@@ -8,7 +8,7 @@
 namespace MBVMedia;
 
 
-abstract class BambeeBase extends Singleton {
+abstract class BambeeBase implements Singleton {
 
     /**
      * This is the place where Wordpress actions should be added.

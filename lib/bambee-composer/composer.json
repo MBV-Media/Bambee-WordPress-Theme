@@ -20,8 +20,8 @@
   "autoload": {
     "psr-4": {
       "MBVMedia\\": "src/MBVMedia",
+      "MBVMedia\\ControlledTemplate\\": "src/MBVMedia/ControlledTemplate",
       "MBVMedia\\Lib\\": "src/MBVMedia/Lib",
-      "MBVMedia\\Lib\\ControlledTemplate\\": "src/MBVMedia/Lib/ControlledTemplate",
       "MBVMedia\\Shortcode\\": "src/MBVMedia/Shortcode",
       "MBVMedia\\Shortcode\\Lib\\": "src/MBVMedia/shortcode/Lib"
     }

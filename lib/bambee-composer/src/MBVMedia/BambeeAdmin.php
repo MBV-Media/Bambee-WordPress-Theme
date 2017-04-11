@@ -44,7 +44,7 @@ abstract class BambeeAdmin extends BambeeBase {
     public function addActions() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
         add_action( 'admin_init', array( $this, 'displaySvgThumbs' ) );
-        add_action( 'manage_gallery_posts_custom_column' , array( $this, 'custom_columns_data' ), 10, 2 );
+        add_action( 'manage_gallery_posts_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class BambeeAdmin extends BambeeBase {
         foreach ( get_post_types() as $postType ) {
             add_filter( 'edit_' . $postType . '_per_page', array( $this, 'modifyPostPerPageLimit' ) );
         }
-        add_filter('manage_posts_columns' , array( $this, 'custom_columns' ) );
+        add_filter('manage_posts_columns' , array( $this, 'customColumns' ) );
     }
 
     /**
@@ -289,8 +289,11 @@ abstract class BambeeAdmin extends BambeeBase {
         return $this->postPerPageLimit;
     }
 
-    function custom_columns( $columns ) {
-//        $columns['featured_image'] = __( 'Beitragsbild', TextDomain );
+    /**
+     * @param $columns
+     * @return array
+     */
+    public function customColumns( $columns ) {
 
         $offset = array_search( 'date', array_keys( $columns ) );
 
@@ -301,7 +304,11 @@ abstract class BambeeAdmin extends BambeeBase {
         );
     }
 
-    function custom_columns_data( $column, $post_id ) {
+    /**
+     * @param $column
+     * @param $postId
+     */
+    public function customColumnsData( $column, $postId ) {
         switch ( $column ) {
             case 'featured_image':
                 echo the_post_thumbnail( 'thumbnail' );

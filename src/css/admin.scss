@@ -16,3 +16,17 @@ li {
 #postimagediv .inside img {
   width: 100%;
 }
+
+.column-featured_image {
+  width: 10%;
+
+  img {
+    width: auto;
+    max-height: 50px;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(4);
+    }
+  }
+}

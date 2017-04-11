@@ -1,5 +1,4 @@
 <?php
-global $bambee, $bambeeWebsite;
 $short_lang = get_locale();
 $short_lang = explode( '_', $short_lang );
 $short_lang = $short_lang[0];

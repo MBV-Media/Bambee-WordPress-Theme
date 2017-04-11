@@ -4,7 +4,7 @@
     <?php die( __( 'The file "comments.php" can not be accessed directly.', TextDomain ) ); ?>
 <?php endif; ?>
 
-<?php global $bambee,$bambeeWebsite; ?>
+<?php $bambeeWebsite = \Lib\CustomWebsite::self(); ?>
 
     <div class="comment-form">
         <?php comment_form( array(

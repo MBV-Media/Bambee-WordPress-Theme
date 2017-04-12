@@ -171,6 +171,7 @@ abstract class Bambee extends BambeeBase {
             'hierarchical' => true,
             'supports' => array(
                 'title',
+                'author',
                 'editor',
                 'thumbnail',
                 'trackbacks',

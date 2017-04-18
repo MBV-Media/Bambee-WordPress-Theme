@@ -10,6 +10,11 @@ namespace MBVMedia;
 use MBVMedia\ControlledTemplate\CookieControlledTemplate;
 use MBVMedia\Lib\ThemeView;
 use MBVMedia\Shortcode\Lib\ShortcodeManager;
+use MBVMedia\ThemeCustomizer\Control;
+use MBVMedia\ThemeCustomizer\Panel;
+use MBVMedia\ThemeCustomizer\Section;
+use MBVMedia\ThemeCustomizer\Setting;
+use MBVMedia\ThemeCustomizer\ThemeCustommizer;
 
 
 /**
@@ -116,6 +121,12 @@ abstract class Bambee extends BambeeBase {
         $cookieNotice->addActions();
 
         $this->addPostTypeGallery();
+
+        $this->themeCustomizer = new ThemeCustommizer();
+        $this->initThemeSettingsComments();
+        $this->initThemeSettingsCoreData();
+        $this->initThemeSettingsGoogle();
+        $this->themeCustomizer->register();
     }
 
     /**
@@ -182,6 +193,147 @@ abstract class Bambee extends BambeeBase {
             'publicly_queryable' => true,
             'excerpt' => true,
         ) );
+    }
+
+    public function initThemeSettingsComments() {
+        $settingCommentTextboxPosition = new Setting( 'bambee_comment_textbox_position', array(
+            'default' => false,
+        ) );
+
+        $controlCommentTextbox = new Control( 'bambee_comment_textbox', array(
+            'label' => __( 'Formular Textfeld nach unten verschieben', TextDomain ),
+            'type' => 'checkbox',
+        ), $settingCommentTextboxPosition );
+
+        $sectionComment = new Section( 'bambee_comment', array(
+            'title' => __( 'Comments' ),
+            'priority' => 80,
+        ) );
+        $sectionComment->addControl( $controlCommentTextbox );
+
+        $this->themeCustomizer->addSection( $sectionComment );
+    }
+
+    public function initThemeSettingsCoreData() {
+        $settingCoreDataAddress = new Setting( 'bambee_core_data_address_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlCoreDataAddress = new Control( 'bambee_core_data_address_control', array(
+            'label' => __( 'Address', TextDomain ),
+            'type' => 'textarea',
+        ), $settingCoreDataAddress );
+
+        $settingEmail = new Setting( 'bambee_core_data_email_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlCoreDataEmail = new Control( 'bambee_core_data_email_control', array(
+            'label' => __( 'E-Mail address', TextDomain ),
+            'type' => 'text',
+        ), $settingEmail );
+
+        $settingCoreDataPhone = new Setting( 'bambee_core_data_phone_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlCoreDataPhone = new Control( 'bambee_core_data_phone_control', array(
+            'label' => __( 'Phone', TextDomain ),
+            'type' => 'text',
+        ), $settingCoreDataPhone );
+
+        $sectionCoreData = new Section( 'bambee_core_data_section', array(
+            'title' => __( 'Core data', TextDomain ),
+            'priority' => 700,
+            'description' => __(
+                'You can use the [coredata]key[coredata]' .
+                ' shortcode to display the core data field inside a post.',
+                TextDomain
+            )
+        ) );
+        $sectionCoreData->addControl( $controlCoreDataAddress );
+        $sectionCoreData->addControl( $controlCoreDataEmail );
+        $sectionCoreData->addControl( $controlCoreDataPhone );
+
+        $this->themeCustomizer->addSection( $sectionCoreData );
+    }
+
+    public function initThemeSettingsGoogle() {
+        $settingGoogleMapsLatitude = new Setting( 'bambee_google_maps_latitude_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlGoogleMapsLatitude = new Control( 'bambee_google_maps_latitude_control', array(
+            'label' => __( 'Latitude', TextDomain ),
+            'type' => 'text',
+        ), $settingGoogleMapsLatitude );
+
+        $settingGoogleMapsLongitude = new Setting( 'bambee_google_maps_longitude_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlGoogleMapsLongitude = new Control( 'bambee_google_maps_longitude_control', array(
+            'label' => __( 'Latitude', TextDomain ),
+            'type' => 'text',
+        ), $settingGoogleMapsLongitude );
+
+        $settingGoogleMapsApiKey = new Setting( 'bambee_google_maps_api_key_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlGoogleMapsApiKey = new Control( 'bambee_google_maps_api_key_control', array(
+            'label' => __( 'API-Key', TextDomain ),
+            'type' => 'text',
+        ), $settingGoogleMapsApiKey );
+
+        $settingGoogleMapsStyles = new Setting( 'bambee_google_maps_styles_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlGoogleMapsStyles = new Control( 'bambee_google_maps_styles_control', array(
+            'label' => __( 'Styles', TextDomain ),
+            'type' => 'textarea',
+        ), $settingGoogleMapsStyles );
+
+        $sectionGoogleMaps = new Section( 'bambee_google_maps_section', array(
+            'title' => __( 'Maps', TextDomain ),
+        ) );
+        $sectionGoogleMaps->addControl( $controlGoogleMapsLatitude );
+        $sectionGoogleMaps->addControl( $controlGoogleMapsLongitude );
+        $sectionGoogleMaps->addControl( $controlGoogleMapsApiKey );
+        $sectionGoogleMaps->addControl( $controlGoogleMapsStyles );
+
+        $settingGoogleAnalyticsTracktingId = new Setting( 'bambee_google_analytics_tracking_id_setting', array(
+            'type' => 'option',
+            'default' => '',
+        ) );
+
+        $controlGoogleAnalyticsTracktingId = new Control( 'bambee_google_analytics_tracking_id_control', array(
+            'label' => __( 'Trackting-ID', TextDomain ),
+            'type' => 'text',
+        ), $settingGoogleAnalyticsTracktingId );
+
+        $sectionGoogleAnalytics = new Section( 'bambee_google_analytics_section', array(
+            'title' => __( 'Analytics', TextDomain ),
+        ) );
+        $sectionGoogleAnalytics->addControl( $controlGoogleAnalyticsTracktingId );
+
+        $panelGoogle = new Panel( 'bambee_google_panel', array(
+            'priority'       => 800,
+            'title'          => __( 'Google', TextDomain ),
+            'description'    => '',
+        ) );
+        $panelGoogle->addSection( $sectionGoogleMaps );
+        $panelGoogle->addSection( $sectionGoogleAnalytics );
+
+        $this->themeCustomizer->addPanel( $panelGoogle );
     }
 
     /**

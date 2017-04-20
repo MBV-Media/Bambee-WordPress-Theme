@@ -312,9 +312,19 @@ abstract class Bambee extends BambeeBase {
         ) );
 
         $controlGoogleMapsLongitude = new Control( 'bambee_google_maps_longitude_control', array(
-            'label' => __( 'Latitude', TextDomain ),
+            'label' => __( 'Longitude', TextDomain ),
             'type' => 'text',
         ), $settingGoogleMapsLongitude );
+
+        $settingGoogleMapsZoom = new Setting( 'bambee_google_maps_zoom_setting', array(
+            'type' => 'option',
+            'default' => 15,
+        ) );
+
+        $controlGoogleMapsZoom = new Control( 'bambee_google_maps_zoom_control', array(
+            'label' => __( 'Zoom', TextDomain ),
+            'type' => 'number',
+        ), $settingGoogleMapsZoom );
 
         $settingGoogleMapsApiKey = new Setting( 'bambee_google_maps_api_key_setting', array(
             'type' => 'option',
@@ -341,6 +351,7 @@ abstract class Bambee extends BambeeBase {
         ) );
         $sectionGoogleMaps->addControl( $controlGoogleMapsLatitude );
         $sectionGoogleMaps->addControl( $controlGoogleMapsLongitude );
+        $sectionGoogleMaps->addControl( $controlGoogleMapsZoom );
         $sectionGoogleMaps->addControl( $controlGoogleMapsApiKey );
         $sectionGoogleMaps->addControl( $controlGoogleMapsStyles );
 

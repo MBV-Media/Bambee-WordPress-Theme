@@ -59,11 +59,5 @@ class CustomAdmin extends BambeeAdmin {
 
         $bambeeAdmin->addActions();
         $bambeeAdmin->addFilters();
-
-        $bambeeAdmin->setupCoreDataPage();
-
-        /* If you set up custom fields to the globalDataPage */
-        /* uncomment the following line. */
-        //$bambeeAdmin->setupGlobalDataPage();
     }
 }

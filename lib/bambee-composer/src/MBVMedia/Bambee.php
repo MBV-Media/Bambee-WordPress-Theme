@@ -343,6 +343,7 @@ abstract class Bambee extends BambeeBase {
 
         $controlGoogleMapsStyles = new Control( 'bambee_google_maps_styles_control', array(
             'label' => __( 'Styles', TextDomain ),
+            'description' => sprintf( __( 'Map-Style %serstellen%s', TextDomain ), '<a href="https://mapstyle.withgoogle.com/" target="_blank">', '</a>' ),
             'type' => 'textarea',
         ), $settingGoogleMapsStyles );
 
@@ -357,7 +358,7 @@ abstract class Bambee extends BambeeBase {
 
         $settingGoogleAnalyticsTracktingId = new Setting( 'bambee_google_analytics_tracking_id_setting', array(
             'type' => 'option',
-            'default' => '',
+            'default' => 'UA-XXXXX-X',
         ) );
 
         $controlGoogleAnalyticsTracktingId = new Control( 'bambee_google_analytics_tracking_id_control', array(

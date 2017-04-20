@@ -9,6 +9,7 @@ namespace MBVMedia;
 
 use MagicAdminPage\MagicAdminPage;
 use MBVMedia\Lib\ThemeView;
+use MBVMedia\ThemeCustomizer\ThemeCustommizerComments;
 
 /**
  * The class representing the website (user frontend).
@@ -18,18 +19,6 @@ use MBVMedia\Lib\ThemeView;
  * @licence MIT
  */
 abstract class BambeeWebsite extends BambeeBase {
-
-    /**
-     * @since 1.0.0
-     * @var array
-     */
-    private $coreData;
-
-    /**
-     * @since 1.0.0
-     * @var array
-     */
-    private $globalData;
 
     /**
      * @since 1.0.0
@@ -75,9 +64,6 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     protected function __construct() {
 
-        $this->coreData = MagicAdminPage::getOption( 'core-data' );
-        $this->globalData = MagicAdminPage::getOption( 'global-data' );
-
         $this->scripts = array();
         $this->localizedScripts = array();
         $this->styles = array();
@@ -90,26 +76,6 @@ abstract class BambeeWebsite extends BambeeBase {
         if ( WP_DEBUG ) {
             $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
-     * @return null|string
-     */
-    public function getCoreData( $key ) {
-        return isset( $this->coreData[$key] ) ? $this->coreData[$key] : null;
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
-     * @return null|string
-     */
-    public function getGlobalData( $key ) {
-        return isset( $this->globalData[$key] ) ? $this->globalData[$key] : null;
     }
 
     /**
@@ -176,6 +142,10 @@ abstract class BambeeWebsite extends BambeeBase {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueueStyles' ) );
         add_action( 'wp_footer', array( $this, 'printGoogleAnalyticsCode' ) );
         add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
+
+        if( get_theme_mod( 'bambee_comment_textbox_position' ) ) {
+            add_filter( 'comment_form_fields', array( $this, 'moveCommentFieldToBottom' ) );
+        }
     }
 
     /**
@@ -390,6 +360,17 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
+     * @param $fields
+     * @return mixed
+     */
+    public function moveCommentFieldToBottom( $fields ) {
+        $commentField = $fields['comment'];
+        unset( $fields['comment'] );
+        $fields['comment'] = $commentField;
+        return $fields;
+    }
+
+    /**
      * Enqueue all added JS files.
      *
      * @since 1.4.2
@@ -455,8 +436,8 @@ abstract class BambeeWebsite extends BambeeBase {
             return;
         }
 
-        $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );
-        if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {
+        $googleTrackingId = get_option( 'bambee_google_analytics_tracking_id_setting', true );
+        if ( $googleTrackingId !== 'UA-XXXXX-X' ) {
             ?>
             <script>
                 (function (b, o, i, l, e, r) {
@@ -471,7 +452,7 @@ abstract class BambeeWebsite extends BambeeBase {
                     e.src = 'https://www.google-analytics.com/analytics.js';
                     r.parentNode.insertBefore(e, r)
                 }(window, document, 'script', 'ga'));
-                ga('create', '<?php echo $googleTrackingCode; ?>', 'auto');
+                ga('create', '<?php echo $googleTrackingId; ?>', 'auto');
                 ga('send', 'pageview');
             </script>
             <?php

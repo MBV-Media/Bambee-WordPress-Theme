@@ -104,13 +104,15 @@ abstract class Bambee extends BambeeBase {
             '\Lib\Shortcode\\'
         );
 
-        $entranceOverlay = new CookieControlledTemplate(
-            new ThemeView( 'partials/overlay-entrance.php' ),
-            'enter',
-            '.overlay-entry .js-enter',
-            '.overlay-entry'
-        );
-        $entranceOverlay->addActions();
+        if( get_theme_mod( 'bambee_dynamic_front_page_show_setting' ) ) {
+            $entranceOverlay = new CookieControlledTemplate(
+                new ThemeView( 'partials/overlay-entrance.php' ),
+                'enter',
+                '.overlay-entry .js-enter',
+                '.overlay-entry'
+            );
+            $entranceOverlay->addActions();
+        }
 
         $cookieNotice = new CookieControlledTemplate(
             new ThemeView( 'partials/cookie-notice.php' ),
@@ -123,6 +125,7 @@ abstract class Bambee extends BambeeBase {
         $this->addPostTypeGallery();
 
         $this->themeCustomizer = new ThemeCustommizer();
+        $this->initThemeSettingsDynamicFrontPage();
         $this->initThemeSettingsComments();
         $this->initThemeSettingsCoreData();
         $this->initThemeSettingsGoogle();
@@ -195,6 +198,31 @@ abstract class Bambee extends BambeeBase {
         ) );
     }
 
+    /**
+     *
+     */
+    public function initThemeSettingsDynamicFrontPage() {
+        $settingDynamicFrontpageShow = new Setting( 'bambee_dynamic_front_page_show_setting', array(
+            'default' => true,
+        ) );
+
+        $controlDynamicFrontpageShow = new Control( 'bambee_dynamic_front_page_show_control', array(
+            'label' => __( 'Zeige Startseiten-Overlay', TextDomain ),
+            'type' => 'checkbox',
+        ), $settingDynamicFrontpageShow );
+
+        $sectionDynamicFrontpage = new Section( 'bambee_dynamic_front_page', array(
+            'title' => __( 'Dynamische Startseite', TextDomain ),
+            'priority' => 120,
+        ) );
+        $sectionDynamicFrontpage->addControl( $controlDynamicFrontpageShow );
+
+        $this->themeCustomizer->addSection( $sectionDynamicFrontpage );
+    }
+
+    /**
+     *
+     */
     public function initThemeSettingsComments() {
         $settingCommentTextboxPosition = new Setting( 'bambee_comment_textbox_position', array(
             'default' => false,
@@ -214,6 +242,9 @@ abstract class Bambee extends BambeeBase {
         $this->themeCustomizer->addSection( $sectionComment );
     }
 
+    /**
+     *
+     */
     public function initThemeSettingsCoreData() {
         $settingCoreDataAddress = new Setting( 'bambee_core_data_address_setting', array(
             'type' => 'option',
@@ -261,6 +292,9 @@ abstract class Bambee extends BambeeBase {
         $this->themeCustomizer->addSection( $sectionCoreData );
     }
 
+    /**
+     *
+     */
     public function initThemeSettingsGoogle() {
         $settingGoogleMapsLatitude = new Setting( 'bambee_google_maps_latitude_setting', array(
             'type' => 'option',

@@ -7,19 +7,19 @@
 <script type="text/javascript">
 
     function initMap() {
-        <?php $lat = get_option( 'bambee_google_maps_latitude_setting', true ); ?>
-        <?php $lng = get_option( 'bambee_google_maps_longitude_setting', true ); ?>
+        <?php $lat = get_option( 'bambee_google_maps_latitude' ); ?>
+        <?php $lng = get_option( 'bambee_google_maps_longitude' ); ?>
         latLng = {
             lat: <?php echo empty( $lat ) ? 0 : $lat; ?>,
-            lng: <?php echo empty( $lng ) ? 0 : $lat; ?>
+            lng: <?php echo empty( $lng ) ? 0 : $lng; ?>
         };
 
-        <?php $styles = get_option( 'bambee_google_maps_styles_setting', true ); ?>
+        <?php $styles = get_option( 'bambee_google_maps_styles' ); ?>
         var styles = <?php echo empty( $styles ) ? '[]' : $styles; ?>;
 
         var map = new google.maps.Map(document.getElementById('map'), {
             center: latLng,
-            zoom: <?php echo get_option( 'bambee_google_maps_zoom_setting', true ); ?>,
+            zoom: <?php echo get_option( 'bambee_google_maps_zoom', 15 ); ?>,
             styles: styles,
             disableDefaultUI: true
         });
@@ -27,5 +27,5 @@
 
 </script>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=<?php echo get_option( 'bambee_google_maps_api_key_setting' ); ?>&libraries=places&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=<?php echo get_option( 'bambee_google_maps_api_key' ); ?>&libraries=places&callback=initMap">
 </script>

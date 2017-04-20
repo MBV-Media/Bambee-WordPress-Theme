@@ -436,8 +436,8 @@ abstract class BambeeWebsite extends BambeeBase {
             return;
         }
 
-        $googleTrackingId = get_option( 'bambee_google_analytics_tracking_id_setting', true );
-        if ( $googleTrackingId !== 'UA-XXXXX-X' ) {
+        $googleTrackingId = get_option( 'bambee_google_analytics_tracking_id' );
+        if ( ! empty( $googleTrackingId )) {
             ?>
             <script>
                 (function (b, o, i, l, e, r) {

@@ -104,12 +104,18 @@ abstract class Bambee extends BambeeBase {
             '\Lib\Shortcode\\'
         );
 
-        if( get_theme_mod( 'bambee_dynamic_front_page_show_setting' ) ) {
+
+        if( get_theme_mod( 'bambee_dynamic_front_page_show', true ) ) {
+            $interval = get_theme_mod( 'bambee_dynamic_front_page_interval', '24:00:00' );
+            $interval = empty( $interval ) ? '24:00:00' : $interval;
+            $interval = strtotime( $interval ) - strtotime( 'TODAY' );
+
             $entranceOverlay = new CookieControlledTemplate(
                 new ThemeView( 'partials/overlay-entrance.php' ),
                 'enter',
                 '.overlay-entry .js-enter',
-                '.overlay-entry'
+                '.overlay-entry',
+                $interval
             );
             $entranceOverlay->addActions();
         }
@@ -202,7 +208,7 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function initThemeSettingsDynamicFrontPage() {
-        $settingDynamicFrontpageShow = new Setting( 'bambee_dynamic_front_page_show_setting', array(
+        $settingDynamicFrontpageShow = new Setting( 'bambee_dynamic_front_page_show', array(
             'default' => true,
         ) );
 
@@ -211,11 +217,25 @@ abstract class Bambee extends BambeeBase {
             'type' => 'checkbox',
         ), $settingDynamicFrontpageShow );
 
+        $settingDynamicFrontpageInterval = new Setting( 'bambee_dynamic_front_page_interval', array(
+            'default' => '',
+        ) );
+
+        $controlDynamicFrontpageInterval = new Control( 'bambee_dynamic_front_page_interval_control', array(
+            'label' => __( 'Anzeige Intervall', TextDomain ),
+            'description' => __( 'Zeit nach der Das Overlay erneut angezeigt wird. (Standard: 24h)', TextDomain ),
+            'type' => 'text',
+            'input_attrs' => array(
+                'placeholder' => __( 'hh:mm:ss' ),
+            ),
+        ), $settingDynamicFrontpageInterval );
+
         $sectionDynamicFrontpage = new Section( 'bambee_dynamic_front_page', array(
             'title' => __( 'Dynamische Startseite', TextDomain ),
             'priority' => 120,
         ) );
         $sectionDynamicFrontpage->addControl( $controlDynamicFrontpageShow );
+        $sectionDynamicFrontpage->addControl( $controlDynamicFrontpageInterval );
 
         $this->themeCustomizer->addSection( $sectionDynamicFrontpage );
     }
@@ -246,7 +266,7 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function initThemeSettingsCoreData() {
-        $settingCoreDataAddress = new Setting( 'bambee_core_data_address_setting', array(
+        $settingCoreDataAddress = new Setting( 'bambee_core_data_address', array(
             'type' => 'option',
             'default' => '',
         ) );
@@ -256,7 +276,7 @@ abstract class Bambee extends BambeeBase {
             'type' => 'textarea',
         ), $settingCoreDataAddress );
 
-        $settingEmail = new Setting( 'bambee_core_data_email_setting', array(
+        $settingEmail = new Setting( 'bambee_core_data_email', array(
             'type' => 'option',
             'default' => '',
         ) );
@@ -266,7 +286,7 @@ abstract class Bambee extends BambeeBase {
             'type' => 'text',
         ), $settingEmail );
 
-        $settingCoreDataPhone = new Setting( 'bambee_core_data_phone_setting', array(
+        $settingCoreDataPhone = new Setting( 'bambee_core_data_phone', array(
             'type' => 'option',
             'default' => '',
         ) );
@@ -296,7 +316,7 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function initThemeSettingsGoogle() {
-        $settingGoogleMapsLatitude = new Setting( 'bambee_google_maps_latitude_setting', array(
+        $settingGoogleMapsLatitude = new Setting( 'bambee_google_maps_latitude', array(
             'type' => 'option',
             'default' => '',
         ) );
@@ -306,7 +326,7 @@ abstract class Bambee extends BambeeBase {
             'type' => 'text',
         ), $settingGoogleMapsLatitude );
 
-        $settingGoogleMapsLongitude = new Setting( 'bambee_google_maps_longitude_setting', array(
+        $settingGoogleMapsLongitude = new Setting( 'bambee_google_maps_longitude', array(
             'type' => 'option',
             'default' => '',
         ) );
@@ -316,7 +336,7 @@ abstract class Bambee extends BambeeBase {
             'type' => 'text',
         ), $settingGoogleMapsLongitude );
 
-        $settingGoogleMapsZoom = new Setting( 'bambee_google_maps_zoom_setting', array(
+        $settingGoogleMapsZoom = new Setting( 'bambee_google_maps_zoom', array(
             'type' => 'option',
             'default' => 15,
         ) );
@@ -324,9 +344,12 @@ abstract class Bambee extends BambeeBase {
         $controlGoogleMapsZoom = new Control( 'bambee_google_maps_zoom_control', array(
             'label' => __( 'Zoom', TextDomain ),
             'type' => 'number',
+            'input_attrs' => array(
+                'min' => 0,
+            ),
         ), $settingGoogleMapsZoom );
 
-        $settingGoogleMapsApiKey = new Setting( 'bambee_google_maps_api_key_setting', array(
+        $settingGoogleMapsApiKey = new Setting( 'bambee_google_maps_api_key', array(
             'type' => 'option',
             'default' => '',
         ) );
@@ -336,14 +359,14 @@ abstract class Bambee extends BambeeBase {
             'type' => 'text',
         ), $settingGoogleMapsApiKey );
 
-        $settingGoogleMapsStyles = new Setting( 'bambee_google_maps_styles_setting', array(
+        $settingGoogleMapsStyles = new Setting( 'bambee_google_maps_styles', array(
             'type' => 'option',
             'default' => '',
         ) );
 
         $controlGoogleMapsStyles = new Control( 'bambee_google_maps_styles_control', array(
             'label' => __( 'Styles', TextDomain ),
-            'description' => sprintf( __( 'Map-Style %serstellen%s', TextDomain ), '<a href="https://mapstyle.withgoogle.com/" target="_blank">', '</a>' ),
+            'description' => sprintf( __( 'Das erstellte %sMap-Style%s JSON in das Textfeld kopieren.', TextDomain ), '<a href="https://mapstyle.withgoogle.com/" target="_blank">', '</a>' ),
             'type' => 'textarea',
         ), $settingGoogleMapsStyles );
 
@@ -356,18 +379,21 @@ abstract class Bambee extends BambeeBase {
         $sectionGoogleMaps->addControl( $controlGoogleMapsApiKey );
         $sectionGoogleMaps->addControl( $controlGoogleMapsStyles );
 
-        $settingGoogleAnalyticsTracktingId = new Setting( 'bambee_google_analytics_tracking_id_setting', array(
+        $settingGoogleAnalyticsTracktingId = new Setting( 'bambee_google_analytics_tracking_id', array(
             'type' => 'option',
-            'default' => 'UA-XXXXX-X',
         ) );
 
         $controlGoogleAnalyticsTracktingId = new Control( 'bambee_google_analytics_tracking_id_control', array(
             'label' => __( 'Trackting-ID', TextDomain ),
             'type' => 'text',
+            'input_attrs' => array(
+                'placeholder' => __( 'UA-XXXXX-X' ),
+            ),
         ), $settingGoogleAnalyticsTracktingId );
 
         $sectionGoogleAnalytics = new Section( 'bambee_google_analytics_section', array(
             'title' => __( 'Analytics', TextDomain ),
+            'description' => __( 'Nach Eingabe der Tracking-ID wird das Google Analytics Script automatisch eingebunden.', TextDomain ),
         ) );
         $sectionGoogleAnalytics->addControl( $controlGoogleAnalyticsTracktingId );
 

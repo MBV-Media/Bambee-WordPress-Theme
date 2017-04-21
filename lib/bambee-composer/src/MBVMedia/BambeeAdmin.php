@@ -7,8 +7,6 @@
 namespace MBVMedia;
 
 
-use MagicAdminPage\MagicAdminPage;
-use MBVMedia\Shortcode\Lib\ShortcodeManager;
 
 /**
  * The class representing the WordPress Admin.
@@ -19,36 +17,7 @@ use MBVMedia\Shortcode\Lib\ShortcodeManager;
  */
 abstract class BambeeAdmin extends BambeeBase {
 
-    /**
-     * @since 1.4.2
-     * @var Bambee
-     */
-    private $bambee;
-
-    /**
-     * @since 1.4.2
-     * @var MagicAdminPage
-     */
-    private $coreDataPage;
-
-    /**
-     * @since 1.4.2
-     * @var MagicAdminPage
-     */
-    private $globalDataPage;
-
-    /**
-     * @var integer
-     */
-    private $postPerPageLimit;
-
-    /**
-     * @since 1.0.0
-     * @return void
-     */
-    public function __construct( Bambee $bambee ) {
-        $this->bambee = $bambee;
-    }
+    private static $instance = null;
 
     /**
      *
@@ -56,6 +25,7 @@ abstract class BambeeAdmin extends BambeeBase {
     public function addActions() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
         add_action( 'admin_init', array( $this, 'displaySvgThumbs' ) );
+        add_action( 'manage_gallery_posts_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
     }
 
     /**
@@ -63,151 +33,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addFilters() {
         add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
-        add_filter( 'edit_comments_per_page', array( $this, 'modifyPostPerPageLimit' ) );
-        foreach ( get_post_types() as $postType ) {
-            add_filter( 'edit_' . $postType . '_per_page', array( $this, 'modifyPostPerPageLimit' ) );
-        }
-    }
-
-    /**
-     *
-     * @since 1.4.2
-     */
-    public function setupCoreDataPage() {
-
-        $componentUrl = $this->bambee->getComponentUrl();
-
-        $this->coreDataPage = new MagicAdminPage(
-            'core-data',
-            __( 'Core data', TextDomain ),
-            __( 'Core data', TextDomain ),
-            50,
-            $componentUrl . '/img/icons/core-data.png'
-        );
-
-        $this->coreDataPage->addFields( array(
-            'coreDataDescription' => array(
-                'type' => 'description',
-                'title' => 'Shortcodes',
-                'description' => __(
-                    'You can use the [coredata]key[coredata]' .
-                    ' shortcode to display the core data field inside a post.',
-                    TextDomain
-                ),
-            ),
-            'address' => array(
-                'type' => 'textarea',
-                'title' => __( 'Address', TextDomain ),
-            ),
-            'email' => array(
-                'type' => 'textarea',
-                'title' => __( 'E-Mail address', TextDomain ),
-            ),
-            'phone' => array(
-                'type' => 'textarea',
-                'title' => __( 'Phone', TextDomain ),
-            ),
-            'coreGoogleMapsTitle' => array(
-                'type' => 'description',
-                'title' => __( 'Google Maps' ),
-                'description' => '',
-            ),
-            'lat' => array(
-                'type' => 'text',
-                'title' => __( 'Latitude', TextDomain ),
-            ),
-            'lng' => array(
-                'type' => 'text',
-                'title' => __( 'Longitude', TextDomain ),
-            ),
-            'gmapsApiKey' => array(
-                'type' => 'text',
-                'title' => __( 'API-Key', TextDomain ),
-            ),
-            'coreGoogleAnalyticsTitle' => array(
-                'type' => 'description',
-                'title' => __( 'Google Analytics' ),
-                'description' => '',
-            ),
-            'googleTrackingCode' => array(
-                'type' => 'text',
-                'title' => __( 'Tracking-Code', TextDomain ),
-                'default' => 'UA-XXXXX-X',
-            ),
-        ) );
-
-        $this->postPerPageLimit = 50;
-    }
-
-    /**
-     *
-     * @since 1.4.2
-     */
-    private function setupGlobalDataPage() {
-
-        $componentUrl = $this->bambee->getComponentUrl();
-
-        $this->globalDataPage = new MagicAdminPage(
-            'global-data',
-            __( 'Global data', TextDomain ),
-            __( 'Global data', TextDomain ),
-            51,
-            $componentUrl . '/img/icons/global-data.png'
-        );
-
-        $this->globalDataPage->addField( array(
-            'name' => 'globalDataDescription',
-            'type' => 'label',
-            'title' => 'Shortcodes',
-            'description' => __(
-                'You can use the [globaldata]key[globaldata] ' .
-                ' shortcode to display the global data field inside a post.',
-                TextDomain
-            ),
-        ) );
-    }
-
-    /**
-     * @since 1.4.2
-     * @return Bambee
-     */
-    public function getBambee() {
-        return $this->bambee;
-    }
-
-    /**
-     * @return MagicAdminPage
-     */
-    public function getCoreDataPage() {
-        return $this->coreDataPage;
-    }
-
-    /**
-     * @param MagicAdminPage $coreDataPage
-     */
-    public function setCoreDataPage( MagicAdminPage $coreDataPage ) {
-        $this->coreDataPage = $coreDataPage;
-    }
-
-    /**
-     * @return MagicAdminPage
-     */
-    public function getGlobalDataPage() {
-        return $this->globalDataPage;
-    }
-
-    /**
-     * @param MagicAdminPage $globalDataPage
-     */
-    public function setGlobalDataPage( MagicAdminPage $globalDataPage ) {
-        $this->globalDataPage = $globalDataPage;
-    }
-
-    /**
-     * @param integer $postPerPageLitmit
-     */
-    public function setPostPerPageLimit( $postPerPageLitmit ) {
-        $this->postPerPageLimit = $postPerPageLitmit;
+        add_filter('manage_posts_columns' , array( $this, 'customColumns' ) );
     }
 
 
@@ -298,11 +124,40 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
-     * @param $option
-     * @param int $default
-     * @return int
+     * @param $columns
+     * @return array
      */
-    public function modifyPostPerPageLimit( $option, $default = 20 ) {
-        return $this->postPerPageLimit;
+    public function customColumns( $columns ) {
+
+        $offset = array_search( 'date', array_keys( $columns ) );
+
+        return array_merge (
+            array_slice( $columns, 0, $offset ),
+            array( 'featured_image' => __( 'Beitragsbild', TextDomain ) ),
+            array_slice( $columns, $offset, null)
+        );
+    }
+
+    /**
+     * @param $column
+     * @param $postId
+     */
+    public function customColumnsData( $column, $postId ) {
+        switch ( $column ) {
+            case 'featured_image':
+                echo the_post_thumbnail( 'thumbnail' );
+                break;
+        }
+    }
+
+    /**
+     * @return static
+     */
+    public static function self() {
+        if( null === self::$instance ) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
     }
 }

@@ -8,7 +8,6 @@ namespace Lib;
 
 
 use MBVMedia\BambeeAdmin;
-use MBVMedia\Entrance;
 
 /**
  * The class representing the WordPress Admin.
@@ -19,12 +18,16 @@ use MBVMedia\Entrance;
  */
 class CustomAdmin extends BambeeAdmin {
 
+    private static $instance = null;
+
     /**
      * @since 1.0.0
      * @return void
      */
-    public function __construct( CustomBambee $bambee ) {
-        parent::__construct( $bambee );
+    protected function __construct() {
+        /*
+         * TODO: implement me
+         */
     }
 
     /**
@@ -48,20 +51,13 @@ class CustomAdmin extends BambeeAdmin {
      *
      * @param CustomBambee $bambee
      */
-    public static function run( CustomBambee $bambee ) {
+    public static function run() {
 
-        $bambeeAdmin = new CustomAdmin( $bambee );
-        $GLOBALS['bambeeAdmin'] = $bambeeAdmin;
+        CustomBambee::self()->getShortcodeManager()->extendTinyMCE();
 
-        $bambee->getShortcodeManager()->extendTinyMCE();
+        $bambeeAdmin = self::self();
 
         $bambeeAdmin->addActions();
         $bambeeAdmin->addFilters();
-
-        $bambeeAdmin->setupCoreDataPage();
-
-        /* If you set up custom fields to the globalDataPage */
-        /* uncomment the following line. */
-        //$bambeeAdmin->setupGlobalDataPage();
     }
 }

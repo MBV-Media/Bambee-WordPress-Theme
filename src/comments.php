@@ -4,7 +4,7 @@
     <?php die( __( 'The file "comments.php" can not be accessed directly.', TextDomain ) ); ?>
 <?php endif; ?>
 
-<?php global $bambee,$bambeeWebsite; ?>
+<?php $bambeeWebsite = \Lib\CustomWebsite::self(); ?>
 
     <div class="comment-form">
         <?php comment_form( array(
@@ -14,7 +14,8 @@
                 'Die mit * gekennzeichneten Felder sind Pflichtfelder.',
                 TextDomain
             ),
-            'label_submit' => __( 'Beitrag senden', TextDomain ),
+            'label_submit' => __( 'Send post', TextDomain ),
+            'class_submit' => 'button primary',
         ) ); ?>
     </div>
 

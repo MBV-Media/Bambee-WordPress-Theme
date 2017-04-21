@@ -5,43 +5,24 @@
  * @licence MIT
  */
 
-namespace MBVMedia;
+namespace MBVMedia\Lib;
 
 
 class Session {
 
     /**
-     * @var int
+     * @param int $lifetime
      */
-    private static $lifetime = 86400;
-
-    /**
-     * @return int
-     */
-    public static function getLifetime() {
-        return self::$lifetime;
-    }
-
-    /**
-     * @param $lifetime
-     */
-    public static function setLifetime( $lifetime ) {
-        self::$lifetime = $lifetime;
-    }
-
-    /**
-     *
-     */
-    public static function start() {
+    public static function start( $lifetime = 0 ) {
         if( session_status() == PHP_SESSION_NONE ) {
-            session_set_cookie_params( self::$lifetime );
+            session_set_cookie_params( $lifetime );
             session_start();
         }
     }
 
     /**
      * @param $var
-     * @return null
+     * @return mixed|null
      */
     public static function getVar( $var ) {
         if( isset( $_SESSION[$var] ) ) {

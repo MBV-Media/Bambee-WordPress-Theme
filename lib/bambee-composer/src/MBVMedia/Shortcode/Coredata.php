@@ -3,6 +3,7 @@
 namespace MBVMedia\Shortcode;
 
 
+use MBVMedia\BambeeWebsite;
 use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
 /**
@@ -21,7 +22,6 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 class CoreData extends BambeeShortcode {
 
     public function handleShortcode( array $atts = array(), $content = '' ) {
-        global $bambeeWebsite;
-        return nl2br( $bambeeWebsite->getCoreData( $content ) );
+        return nl2br( BambeeWebsite::self()->getCoreData( $content ) );
     }
 }

@@ -5,6 +5,8 @@
   right: 0;
   bottom: 0;
 
+  z-index: 1000;
+
   color: $white;
   background-color: transparentize($black, 0.1);
 

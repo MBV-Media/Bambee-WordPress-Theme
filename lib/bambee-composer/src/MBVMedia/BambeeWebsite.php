@@ -7,11 +7,9 @@
 namespace MBVMedia;
 
 
-use Detection\MobileDetect;
-use Lib\CustomBambee;
 use MagicAdminPage\MagicAdminPage;
-use MBVMedia\Shortcode\Lib\ShortcodeManager;
-use MBVMedia\ThemeView;
+use MBVMedia\Lib\ThemeView;
+use MBVMedia\ThemeCustomizer\ThemeCustommizerComments;
 
 /**
  * The class representing the website (user frontend).
@@ -21,23 +19,6 @@ use MBVMedia\ThemeView;
  * @licence MIT
  */
 abstract class BambeeWebsite extends BambeeBase {
-
-    /**
-     * @var Bambee
-     */
-    private $bambee;
-
-    /**
-     * @since 1.0.0
-     * @var array
-     */
-    private $coreData;
-
-    /**
-     * @since 1.0.0
-     * @var array
-     */
-    private $globalData;
 
     /**
      * @since 1.0.0
@@ -75,16 +56,13 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     private $commentPaginationPageTemplate;
 
+    private static $instance = null;
+
     /**
      * @since 1.0.0
      * @return void
      */
-    public function __construct( Bambee $bambee ) {
-
-        $this->bambee = $bambee;
-
-        $this->coreData = MagicAdminPage::getOption( 'core-data' );
-        $this->globalData = MagicAdminPage::getOption( 'global-data' );
+    protected function __construct() {
 
         $this->scripts = array();
         $this->localizedScripts = array();
@@ -98,35 +76,6 @@ abstract class BambeeWebsite extends BambeeBase {
         if ( WP_DEBUG ) {
             $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
-    }
-
-    /**
-     * @since 1.4.2
-     *
-     * @return Bambee
-     */
-    public function getBambee() {
-        return $this->bambee;
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
-     * @return null|string
-     */
-    public function getCoreData( $key ) {
-        return isset( $this->coreData[$key] ) ? $this->coreData[$key] : null;
-    }
-
-    /**
-     * @since 1.4.0
-     *
-     * @param $key
-     * @return null|string
-     */
-    public function getGlobalData( $key ) {
-        return isset( $this->globalData[$key] ) ? $this->globalData[$key] : null;
     }
 
     /**
@@ -193,6 +142,10 @@ abstract class BambeeWebsite extends BambeeBase {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueueStyles' ) );
         add_action( 'wp_footer', array( $this, 'printGoogleAnalyticsCode' ) );
         add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
+
+        if( get_theme_mod( 'bambee_comment_textbox_position' ) ) {
+            add_filter( 'comment_form_fields', array( $this, 'moveCommentFieldToBottom' ) );
+        }
     }
 
     /**
@@ -407,6 +360,17 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
+     * @param $fields
+     * @return mixed
+     */
+    public function moveCommentFieldToBottom( $fields ) {
+        $commentField = $fields['comment'];
+        unset( $fields['comment'] );
+        $fields['comment'] = $commentField;
+        return $fields;
+    }
+
+    /**
      * Enqueue all added JS files.
      *
      * @since 1.4.2
@@ -472,8 +436,8 @@ abstract class BambeeWebsite extends BambeeBase {
             return;
         }
 
-        $googleTrackingCode = $this->getCoreData( 'googleTrackingCode' );
-        if ( $googleTrackingCode !== 'UA-XXXXX-X' ) {
+        $googleTrackingId = get_option( 'bambee_google_analytics_tracking_id' );
+        if ( ! empty( $googleTrackingId )) {
             ?>
             <script>
                 (function (b, o, i, l, e, r) {
@@ -488,10 +452,58 @@ abstract class BambeeWebsite extends BambeeBase {
                     e.src = 'https://www.google-analytics.com/analytics.js';
                     r.parentNode.insertBefore(e, r)
                 }(window, document, 'script', 'ga'));
-                ga('create', '<?php echo $googleTrackingCode; ?>', 'auto');
+                ga('create', '<?php echo $googleTrackingId; ?>', 'auto');
                 ga('send', 'pageview');
             </script>
             <?php
         }
+    }
+
+    /**
+     * @param ThemeView $partial
+     */
+    public function mainLoop( ThemeView $partial ) {
+        while ( have_posts() ) {
+            the_post();
+            echo $partial->render();
+        }
+    }
+
+    /**
+     * @param ThemeView $partial
+     * @param array $queryArgs
+     * @param ThemeView|null $noPosts
+     */
+    public function customLoop( ThemeView $partial, array $queryArgs = array(), ThemeView $noPosts = null ) {
+
+        $theQuery = new \WP_Query( $queryArgs );
+
+        if( $theQuery->have_posts() ) {
+
+            $partial->setArg( 'theQuery', $theQuery );
+
+            while( $theQuery->have_posts() ) {
+
+                $theQuery->the_post();
+                echo $partial->render();
+            }
+        }
+        elseif( null !== $noPosts ) {
+            $noPosts->setArg( 'theQuery', $theQuery );
+            echo $noPosts->render();
+        }
+
+        wp_reset_postdata();
+    }
+
+    /**
+     * @return static
+     */
+    public static function self() {
+        if( null === self::$instance ) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
     }
 }

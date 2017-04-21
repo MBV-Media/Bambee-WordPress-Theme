@@ -1,7 +1,7 @@
 {
   "name": "mbv-media/bambee-composer",
   "minimum-stability": "dev",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "repositories": [
     {
       "type": "vcs",
@@ -14,14 +14,15 @@
   ],
   "require": {
     "r4c00n/magic-meta-box": "1.3.*",
-    "r4c00n/magic-admin-page": "dev-master",
     "mobiledetect/mobiledetectlib": "*"
   },
   "autoload": {
     "psr-4": {
       "MBVMedia\\": "src/MBVMedia",
-      "MBVMedia\\Shortcode\\": "src/MBVMedia/shortcode",
-      "MBVMedia\\Shortcode\\Lib\\": "src/MBVMedia/shortcode/lib"
+      "MBVMedia\\ControlledTemplate\\": "src/MBVMedia/ControlledTemplate",
+      "MBVMedia\\Lib\\": "src/MBVMedia/Lib",
+      "MBVMedia\\Shortcode\\": "src/MBVMedia/Shortcode",
+      "MBVMedia\\Shortcode\\Lib\\": "src/MBVMedia/Shortcode/Lib"
     }
   }
 }

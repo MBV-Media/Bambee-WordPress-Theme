@@ -1,5 +1,4 @@
 <?php
-global $bambee, $bambeeWebsite;
 $short_lang = get_locale();
 $short_lang = explode( '_', $short_lang );
 $short_lang = $short_lang[0];
@@ -46,13 +45,18 @@ $short_lang = $short_lang[0];
     jQuery('body').removeClass('no-js');
 </script>
 <div class="wrapper">
-    <header class="header-main" role="banner">
+    <header class="header-main" role="banner" style="background-image: url('<?php header_image(); ?>')">
         <div class="top-bar">
             <div class="top-bar-title">
                 <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
                     <button class="menu-icon dark" type="button" data-toggle></button>
                 </span>
-                <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong>
+                <?php echo get_template_part( 'partials/main', 'logo' ); ?>
+                <strong>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+                        <?php bloginfo( 'name' ); ?>
+                    </a>
+                </strong>
             </div>
             <div id="responsive-menu">
                 <nav class="top-bar-left" role="navigation">

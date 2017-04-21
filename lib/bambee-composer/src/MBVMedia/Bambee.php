@@ -182,7 +182,7 @@ abstract class Bambee extends BambeeBase {
                 'singular_name' => __( 'Gallery', TextDomain ),
             ),
             'taxonomies' => array( 'category' ),
-            'menu_icon' => $componentUrl . '/img/icons/gallery.png',
+            'menu_icon' => $componentUrl . '/assets/img/icons/gallery.png',
             'public' => true,
             'has_archive' => true,
             'show_in_nav_menus' => true,

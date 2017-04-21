@@ -5,7 +5,7 @@
  * @licence MIT
  */
 
-namespace MBVMedia;
+namespace MBVMedia\Lib;
 
 
 interface Singleton {

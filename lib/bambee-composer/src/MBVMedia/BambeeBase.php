@@ -8,6 +8,8 @@
 namespace MBVMedia;
 
 
+use MBVMedia\Lib\Singleton;
+
 abstract class BambeeBase implements Singleton {
 
     /**

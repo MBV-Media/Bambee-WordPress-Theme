@@ -174,4 +174,15 @@ abstract class BambeeAdmin extends BambeeBase {
                 break;
         }
     }
+
+    /**
+     * @return static
+     */
+    public static function self() {
+        if( null === self::$instance ) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
 }

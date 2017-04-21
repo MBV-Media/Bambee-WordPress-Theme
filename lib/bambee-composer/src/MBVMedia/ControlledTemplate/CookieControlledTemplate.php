@@ -17,13 +17,16 @@ class CookieControlledTemplate extends ControlledTemplate {
      */
     private $cookieName;
 
-    public function __construct( $template, $cookieName, $selectorOnClick, $selectorContainer ) {
+    private $interval;
+
+    public function __construct( $template, $cookieName, $selectorOnClick, $selectorContainer, $interval = 86400 ) {
         $this->cookieName = $cookieName;
+        $this->interval = $interval;
         parent::__construct(  $template, $cookieName, $selectorOnClick, $selectorContainer );
     }
 
     public function hide() {
-        Cookie::write( $this->cookieName, true );
+        Cookie::write( $this->cookieName, true, $this->interval );
     }
 
     public function hidden() {

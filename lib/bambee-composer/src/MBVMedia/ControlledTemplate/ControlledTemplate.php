@@ -38,7 +38,7 @@ abstract class ControlledTemplate {
      * @param $selectorOnClick string
      * @param $selectorContainer string
      */
-    public function __construct( ThemeView $template, $nonce, $selectorOnClick, $selectorContainer) {
+    public function __construct( ThemeView $template, $nonce, $selectorOnClick, $selectorContainer ) {
         $this->template = $template;
         $this->nonce = $nonce;
         $this->selectorOnClick = $selectorOnClick;

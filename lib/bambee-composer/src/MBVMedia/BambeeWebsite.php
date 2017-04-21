@@ -460,6 +460,43 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
+     * @param ThemeView $partial
+     */
+    public function mainLoop( ThemeView $partial ) {
+        while ( have_posts() ) {
+            the_post();
+            echo $partial->render();
+        }
+    }
+
+    /**
+     * @param ThemeView $partial
+     * @param array $queryArgs
+     * @param ThemeView|null $noPosts
+     */
+    public function customLoop( ThemeView $partial, array $queryArgs = array(), ThemeView $noPosts = null ) {
+
+        $theQuery = new \WP_Query( $queryArgs );
+
+        if( $theQuery->have_posts() ) {
+
+            $partial->setArg( 'theQuery', $theQuery );
+
+            while( $theQuery->have_posts() ) {
+
+                $theQuery->the_post();
+                echo $partial->render();
+            }
+        }
+        elseif( null !== $noPosts ) {
+            $noPosts->setArg( 'theQuery', $theQuery );
+            echo $noPosts->render();
+        }
+
+        wp_reset_postdata();
+    }
+
+    /**
      * @return static
      */
     public static function self() {

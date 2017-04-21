@@ -47,6 +47,14 @@ class ThemeView {
     }
 
     /**
+     * @param $arg
+     * @param $value
+     */
+    public function setArg( $arg, $value) {
+        $this->args[ $arg ] = $value;
+    }
+
+    /**
      * Render the view.
      *
      * @since 1.0.0

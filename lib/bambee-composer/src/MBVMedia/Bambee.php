@@ -223,7 +223,7 @@ abstract class Bambee extends BambeeBase {
 
         $controlDynamicFrontpageInterval = new Control( 'bambee_dynamic_front_page_interval_control', array(
             'label' => __( 'Anzeige Intervall', TextDomain ),
-            'description' => __( 'Zeit nach der Das Overlay erneut angezeigt wird. (Standard: 24h)', TextDomain ),
+            'description' => __( 'Zeit nach der Das Overlay erneut angezeigt wird. (Standard: 24:00:00)', TextDomain ),
             'type' => 'text',
             'input_attrs' => array(
                 'placeholder' => __( 'hh:mm:ss' ),

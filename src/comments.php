@@ -15,6 +15,7 @@
                 TextDomain
             ),
             'label_submit' => __( 'Send post', TextDomain ),
+            'class_submit' => 'button primary',
         ) ); ?>
     </div>
 

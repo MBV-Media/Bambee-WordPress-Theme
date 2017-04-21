@@ -17,11 +17,6 @@ namespace MBVMedia;
  */
 abstract class BambeeAdmin extends BambeeBase {
 
-    /**
-     * @var integer
-     */
-    private $postPerPageLimit;
-
     private static $instance = null;
 
     /**
@@ -38,18 +33,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addFilters() {
         add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
-        add_filter( 'edit_comments_per_page', array( $this, 'modifyPostPerPageLimit' ) );
-        foreach ( get_post_types() as $postType ) {
-            add_filter( 'edit_' . $postType . '_per_page', array( $this, 'modifyPostPerPageLimit' ) );
-        }
         add_filter('manage_posts_columns' , array( $this, 'customColumns' ) );
-    }
-
-    /**
-     * @param integer $postPerPageLitmit
-     */
-    public function setPostPerPageLimit( $postPerPageLitmit ) {
-        $this->postPerPageLimit = $postPerPageLitmit;
     }
 
 
@@ -137,15 +121,6 @@ abstract class BambeeAdmin extends BambeeBase {
         );
 
         return $content;
-    }
-
-    /**
-     * @param $option
-     * @param int $default
-     * @return int
-     */
-    public function modifyPostPerPageLimit( $option, $default = 20 ) {
-        return $this->postPerPageLimit;
     }
 
     /**

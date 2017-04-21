@@ -213,7 +213,7 @@ abstract class Bambee extends BambeeBase {
         ) );
 
         $controlDynamicFrontpageShow = new Control( 'bambee_dynamic_front_page_show_control', array(
-            'label' => __( 'Zeige Startseiten-Overlay', TextDomain ),
+            'label' => __( 'Show frontpage-overlay', TextDomain ),
             'type' => 'checkbox',
         ), $settingDynamicFrontpageShow );
 
@@ -226,12 +226,12 @@ abstract class Bambee extends BambeeBase {
             'description' => __( 'Zeit nach der Das Overlay erneut angezeigt wird. (Standard: 24:00:00)', TextDomain ),
             'type' => 'text',
             'input_attrs' => array(
-                'placeholder' => __( 'hh:mm:ss' ),
+                'placeholder' => 'hh:mm:ss',
             ),
         ), $settingDynamicFrontpageInterval );
 
         $sectionDynamicFrontpage = new Section( 'bambee_dynamic_front_page', array(
-            'title' => __( 'Dynamische Startseite', TextDomain ),
+            'title' => __( 'Dynamic frontpage', TextDomain ),
             'priority' => 120,
         ) );
         $sectionDynamicFrontpage->addControl( $controlDynamicFrontpageShow );
@@ -249,7 +249,7 @@ abstract class Bambee extends BambeeBase {
         ) );
 
         $controlCommentTextbox = new Control( 'bambee_comment_textbox', array(
-            'label' => __( 'Formular Textfeld nach unten verschieben', TextDomain ),
+            'label' => __( 'Move form textfield to the bottom', TextDomain ),
             'type' => 'checkbox',
         ), $settingCommentTextboxPosition );
 
@@ -387,7 +387,7 @@ abstract class Bambee extends BambeeBase {
             'label' => __( 'Trackting-ID', TextDomain ),
             'type' => 'text',
             'input_attrs' => array(
-                'placeholder' => __( 'UA-XXXXX-X' ),
+                'placeholder' => 'UA-XXXXX-X',
             ),
         ), $settingGoogleAnalyticsTracktingId );
 

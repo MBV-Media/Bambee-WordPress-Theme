@@ -14,7 +14,7 @@
             printf( '<a href="mailto:%s">%s</a>', $email, $email );
             ?>
             <br>
-            <?php _e( 'Tel.:', TextDomain ); ?> <?php
+            <?php _e( 'Phone:', TextDomain ); ?> <?php
             $phoneNumber = get_option( 'bambee_core_data_phone' );
             $phoneNumberClean = str_replace( array( ' ', '-', '/', '(', ')' ), '', $phoneNumber );
             printf( '<a href="tel:%s">%s</a>', $phoneNumberClean, $phoneNumber );

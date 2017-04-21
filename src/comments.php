@@ -14,7 +14,7 @@
                 'Die mit * gekennzeichneten Felder sind Pflichtfelder.',
                 TextDomain
             ),
-            'label_submit' => __( 'Beitrag senden', TextDomain ),
+            'label_submit' => __( 'Send post', TextDomain ),
         ) ); ?>
     </div>
 

@@ -34,7 +34,6 @@
         ]
       }
     ],
-    "declaration-block-no-ignored-properties": true,
     "declaration-block-no-shorthand-property-overrides": true,
     "declaration-block-semicolon-newline-after": "always",
     "declaration-block-semicolon-newline-before": "never-multi-line",
@@ -45,8 +44,8 @@
     "block-closing-brace-empty-line-before": "never",
     "block-closing-brace-newline-after": "always",
     "block-no-empty": true,
-    "block-no-single-line": true,
     "block-opening-brace-newline-after": "always",
+    "block-closing-brace-newline-before": "always",
     "selector-attribute-brackets-space-inside": "never",
     "selector-attribute-operator-space-after": "never",
     "selector-attribute-operator-space-before": "never",
@@ -67,19 +66,17 @@
     "selector-max-empty-lines": 0,
     "selector-list-comma-newline-after": "always",
     "selector-list-comma-newline-before": "never-multi-line",
-    "rule-nested-empty-line-before": [
+    "rule-empty-line-before": [
       "always", {
         "except": ["first-nested"],
         "ignore": ["after-comment"]
       }
     ],
-    "rule-non-nested-empty-line-before": "always",
     "media-feature-colon-space-after": "always",
     "media-feature-colon-space-before": "never",
     "media-feature-name-case": "lower",
     "media-feature-name-no-unknown": true,
     "media-feature-name-no-vendor-prefix": true,
-    "media-feature-no-missing-punctuation": true,
     "media-feature-parentheses-space-inside": "never",
     "media-feature-range-operator-space-after": "always",
     "media-feature-range-operator-space-before": "always",
@@ -91,7 +88,7 @@
       "always", {
         "ignore": [
           "after-comment",
-          "blockless-group"
+          "blockless-after-blockless"
         ]
       }
     ],
@@ -107,7 +104,6 @@
     ],
     "at-rule-no-vendor-prefix": true,
     "at-rule-semicolon-newline-after": "always",
-    "stylelint-disable-reason": "always-after",
     "comment-no-empty": true,
     "comment-whitespace-inside": "always",
     "indentation": 2,

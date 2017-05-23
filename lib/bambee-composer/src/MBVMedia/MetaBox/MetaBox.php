@@ -5,13 +5,12 @@
  * @licence MIT
  */
 
-namespace MBVMedia\Lib;
+namespace MBVMedia\MetaBox;
 
+
+use MBVMedia\Lib\ThemeView;
 
 class MetaBox {
-
-    const KEY_TYPE_DEFAULT = FILTER_DEFAULT;
-    const KEY_TYPE_ARRAY = FILTER_REQUIRE_ARRAY;
 
     private $id;
     private $title;
@@ -33,11 +32,16 @@ class MetaBox {
      * @param ThemeView $template
      * @param int $priority
      */
-    public function __construct( $id, $title, $context, ThemeView $template, $priority = 10 ) {
+    public function __construct( $id, $title, $context = 'advanced', $priority = 10, ThemeView $template = null ) {
 
         $this->id = $id;
         $this->title = $title;
         $this->context = $context;
+
+        if( null === $template ) {
+            $template = new ThemeView( 'partials/admin/meta-box-default.php' );
+        }
+
         $this->template = $template;
 
         $this->metaKeyList = array();
@@ -47,16 +51,23 @@ class MetaBox {
         $this->nonceName = get_class( $this );
         $this->nonceAction = 'save-' . $this->nonceName;
 
-        add_action( 'add_meta_boxes' , array( $this, 'addMetaBox' ), $priority, 1 );
+        add_action( 'add_meta_boxes' , array( $this, 'actionAddMetaBox' ), $priority, 1 );
         add_action( 'save_post', array( $this, 'actionSavePost' ), 10, 3 );
     }
 
     /**
-     * @param $name
-     * @param int $type
+     * @return array
      */
-    public function addMetaKey( $name, $type = self::KEY_TYPE_DEFAULT ) {
-        $this->metaKeyList[$name] = $type;
+    public function getMetaKeyList() {
+        return $this->metaKeyList;
+    }
+
+    /**
+     * @param MetaKey $metaKey
+     */
+    public function addMetaKey( MetaKey $metaKey ) {
+        $metaKey->getTemplate()->setArg( 'metaBox', $this );
+        $this->metaKeyList[] = $metaKey;
     }
 
     /**
@@ -66,14 +77,14 @@ class MetaBox {
     public function addPostTypeSupport( $postType, $priority = 10 ) {
         $this->postTypeList[] = $postType;
 
-        remove_action( 'add_meta_boxes' , array( $this, 'addMetaBox' ) );
-        add_action( 'add_meta_boxes_' . $postType , array( $this, 'addMetaBox' ), $priority, 1 );
+        remove_action( 'add_meta_boxes' , array( $this, 'actionAddMetaBox' ) );
+        add_action( 'add_meta_boxes_' . $postType , array( $this, 'actionAddMetaBox' ), $priority, 1 );
     }
 
     /**
      * @param $post
      */
-    public function addMetaBox( $post ) {
+    public function actionAddMetaBox( $post ) {
         $postType = $post instanceof \WP_Post ? $post->post_type : $post;
         add_meta_box( $this->id, $this->title, array( $this, 'renderMetaBox' ), $postType, $this->context );
     }
@@ -83,7 +94,7 @@ class MetaBox {
      */
     public function renderMetaBox( $post ) {
         wp_nonce_field( $this->nonceAction, $this->nonceName );
-        $this->template->setArg( 'post', $post );
+        $this->template->setArg( 'metaKeyList', $this->getMetaKeyList() );
         echo $this->template->render();
     }
 
@@ -110,9 +121,9 @@ class MetaBox {
             return;
         }
 
-        foreach ( $this->metaKeyList as $metaKey => $type ) {
-            $metaValue = filter_input( INPUT_POST, $metaKey, FILTER_DEFAULT, $type );
-            update_post_meta( $postId, $metaKey, $metaValue );
+        foreach ( $this->metaKeyList as $metaKey ) {
+            $metaValue = filter_input( INPUT_POST, $metaKey->getKey(), FILTER_DEFAULT, $metaKey->getType() );
+            update_post_meta( $postId, $metaKey->getKey(), $metaValue );
         }
     }
 

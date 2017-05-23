@@ -21,6 +21,7 @@
       "MBVMedia\\": "src/MBVMedia",
       "MBVMedia\\ControlledTemplate\\": "src/MBVMedia/ControlledTemplate",
       "MBVMedia\\Lib\\": "src/MBVMedia/Lib",
+      "MBVMedia\\MetaBox\\": "src/MBVMedia/MetaBox",
       "MBVMedia\\Shortcode\\": "src/MBVMedia/Shortcode",
       "MBVMedia\\Shortcode\\Lib\\": "src/MBVMedia/Shortcode/Lib"
     }

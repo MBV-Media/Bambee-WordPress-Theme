@@ -26,11 +26,37 @@ class MetaKeyMedia extends MetaKey {
         parent::__construct( $key, $label, $type );
     }
 
-    public static function thePostThumbnail() {
-
+    /**
+     * @param $key
+     * @param null $postId
+     * @param string $size
+     * @param string $attr
+     */
+    public static function thePostMedia( $key, $postId = null, $size = 'thumbnail', $attr = '' ) {
+        echo self::getThePostMedia( $key, $postId, $size, $attr );
     }
 
-    public static function getPostThumbnail() {
+    /**
+     * @param $key
+     * @param null $postId
+     * @param string $size
+     * @param string $attr
+     * @return string
+     */
+    public static function getThePostMedia( $key, $postId = null, $size = 'thumbnail', $attr = '' ) {
+        return wp_get_attachment_image( self::getPostMediaId( $key, $postId ), $size, false, $attr );
+    }
 
+    /**
+     * @param $key
+     * @param null $postId
+     * @return mixed
+     */
+    public static function getPostMediaId( $key, $postId = null ) {
+        if ( null === $postId ) {
+            $postId = get_the_ID();
+        }
+
+        return get_post_meta( $postId, $key, true);
     }
 }

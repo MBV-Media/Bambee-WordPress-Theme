@@ -25,7 +25,8 @@ abstract class BambeeAdmin extends BambeeBase {
     public function addActions() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
         add_action( 'admin_init', array( $this, 'displaySvgThumbs' ) );
-        add_action( 'manage_gallery_posts_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
+        add_action( 'manage_posts_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
+        add_action( 'manage_pages_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
     }
 
     /**
@@ -34,6 +35,7 @@ abstract class BambeeAdmin extends BambeeBase {
     public function addFilters() {
         add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
         add_filter('manage_posts_columns' , array( $this, 'customColumns' ) );
+        add_filter('manage_pages_columns' , array( $this, 'customColumns' ) );
     }
 
 

@@ -30,10 +30,17 @@ class MetaKeyChoice extends MetaKey {
         parent::__construct( $key, $label, $type );
     }
 
+    /**
+     * @return array
+     */
     public function getChoices() {
         return $this->choices;
     }
 
+    /**
+     * @param $value
+     * @param $label
+     */
     public function addChoice( $value, $label ) {
         $this->choices[] = array(
             'value' => $value,

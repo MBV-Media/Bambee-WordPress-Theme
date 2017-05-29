@@ -13,7 +13,6 @@
     }
   ],
   "require": {
-    "r4c00n/magic-meta-box": "1.3.*",
     "mobiledetect/mobiledetectlib": "*"
   },
   "autoload": {

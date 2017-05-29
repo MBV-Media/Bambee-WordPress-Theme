@@ -1,6 +1,8 @@
 <div class="taxonomydiv">
 
-    <label><?php echo $metaKey->getLabel(); ?></label>
+    <p class="post-attributes-label-wrapper">
+        <label class="post-attributes-label"><?php echo $metaKey->getLabel(); ?></label>
+    </p>
     <?php
 
     $args = array(

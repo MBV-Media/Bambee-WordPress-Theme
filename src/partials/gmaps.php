@@ -9,7 +9,7 @@
     function initMap() {
         <?php $lat = get_option( 'bambee_google_maps_latitude' ); ?>
         <?php $lng = get_option( 'bambee_google_maps_longitude' ); ?>
-        latLng = {
+        var latLng = {
             lat: <?php echo empty( $lat ) ? 0 : $lat; ?>,
             lng: <?php echo empty( $lng ) ? 0 : $lng; ?>
         };
@@ -22,6 +22,11 @@
             zoom: <?php echo get_option( 'bambee_google_maps_zoom', 15 ); ?>,
             styles: styles,
             disableDefaultUI: true
+        });
+
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
         });
     }
 

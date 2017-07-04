@@ -1,13 +1,7 @@
 {
   "minimum-stability": "dev",
-  "repositories": [
-    {
-      "type": "artifact",
-      "url": "../lib/bambee-composer/"
-    }
-  ],
   "require": {
-    "mbv-media/bambee-composer": "*"
+    "mbv-media/bambee-composer": "^1.6"
   },
   "autoload": {
     "psr-4": {

@@ -30,7 +30,9 @@
         });
     }
 
-</script>
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=<?php echo get_option( 'bambee_google_maps_api_key' ); ?>&libraries=places&callback=initMap">
+    // Wait for google maps to initialize until all images are loded.
+    jQuery(window).on( 'load', (function() {
+        jQuery.getScript('https://maps.googleapis.com/maps/api/js?key=<?php echo get_option( 'bambee_google_maps_api_key' ); ?>&libraries=places&callback=initMap');
+    }));
+
 </script>

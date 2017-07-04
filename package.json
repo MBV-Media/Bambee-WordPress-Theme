@@ -15,7 +15,7 @@
     "JavaScript",
     "CoffeeScript",
     "foundation",
-    "grunt",
+    "gulp",
     "composer",
     "bower"
   ],

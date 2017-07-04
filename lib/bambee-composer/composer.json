@@ -5,10 +5,6 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/MBV-Media/MagicMetaBox"
-    },
-    {
-      "type": "vcs",
       "url": "https://github.com/MBV-Media/MagicAdminPage"
     }
   ],

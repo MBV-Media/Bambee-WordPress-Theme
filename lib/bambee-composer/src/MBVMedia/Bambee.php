@@ -94,48 +94,12 @@ abstract class Bambee extends BambeeBase {
 
         $this->postTypeList = array();
 
-        $this->shortcodeManager = new ShortcodeManager();
-        $this->shortcodeManager->loadShortcodes(
-            dirname( __FILE__ ) . '/shortcode/',
-            '\MBVMedia\Shortcode\\'
-        );
-        $this->shortcodeManager->loadShortcodes(
-            ThemeDir . '/lib/shortcode/',
-            '\Lib\Shortcode\\'
-        );
-
-
-        if( get_theme_mod( 'bambee_dynamic_front_page_show', true ) ) {
-            $interval = get_theme_mod( 'bambee_dynamic_front_page_interval', '24:00:00' );
-            $interval = empty( $interval ) ? '24:00:00' : $interval;
-            $interval = strtotime( $interval ) - strtotime( 'TODAY' );
-
-            $entranceOverlay = new CookieControlledTemplate(
-                new ThemeView( 'partials/overlay-entrance.php' ),
-                'enter',
-                '.overlay-entry .js-enter',
-                '.overlay-entry',
-                $interval
-            );
-            $entranceOverlay->addActions();
-        }
-
-        $cookieNotice = new CookieControlledTemplate(
-            new ThemeView( 'partials/cookie-notice.php' ),
-            'cookie',
-            '.cookie-notice .js-hide',
-            '.cookie-notice'
-        );
-        $cookieNotice->addActions();
-
         $this->addPostTypeGallery();
 
-        $this->themeCustomizer = new ThemeCustommizer();
-        $this->initThemeSettingsDynamicFrontPage();
-        $this->initThemeSettingsComments();
-        $this->initThemeSettingsCoreData();
-        $this->initThemeSettingsGoogle();
-        $this->themeCustomizer->register();
+        $this->initShortcodes();
+        $this->initDynamicFrontpage();
+        $this->initCookieNotice();
+        $this->initThemeCustomizer();
     }
 
     /**
@@ -167,6 +131,7 @@ abstract class Bambee extends BambeeBase {
         $this->addThemeSupportPostThumbnails();
         $this->addThemeSupportCustomLogo();
         $this->addThemeSupportCustomHeader();
+        $this->addThemeSupportCustomBackground();
         $this->addPostTypeSupportExcerpt();
         $this->registerMenus();
     }
@@ -202,6 +167,66 @@ abstract class Bambee extends BambeeBase {
             'publicly_queryable' => true,
             'excerpt' => true,
         ) );
+    }
+
+    /**
+     *
+     */
+    public function initShortcodes() {
+        $this->shortcodeManager = new ShortcodeManager();
+        $this->shortcodeManager->loadShortcodes(
+            dirname( __FILE__ ) . '/Shortcode/',
+            '\MBVMedia\Shortcode\\'
+        );
+        $this->shortcodeManager->loadShortcodes(
+            ThemeDir . '/lib/shortcode/',
+            '\Lib\Shortcode\\'
+        );
+    }
+
+    /**
+     *
+     */
+    public function initDynamicFrontpage() {
+        if( get_theme_mod( 'bambee_dynamic_front_page_show', true ) ) {
+            $interval = get_theme_mod( 'bambee_dynamic_front_page_interval', '24:00:00' );
+            $interval = empty( $interval ) ? '24:00:00' : $interval;
+            $interval = strtotime( $interval ) - strtotime( 'TODAY' );
+
+            $entranceOverlay = new CookieControlledTemplate(
+                new ThemeView( 'partials/overlay-entrance.php' ),
+                'enter',
+                '.overlay-entry .js-enter',
+                '.overlay-entry',
+                $interval
+            );
+            $entranceOverlay->addActions();
+        }
+    }
+
+    /**
+     *
+     */
+    public function initCookieNotice() {
+        $cookieNotice = new CookieControlledTemplate(
+            new ThemeView( 'partials/cookie-notice.php' ),
+            'cookie',
+            '.cookie-notice .js-hide',
+            '.cookie-notice'
+        );
+        $cookieNotice->addActions();
+    }
+
+    /**
+     *
+     */
+    public function initThemeCustomizer() {
+        $this->themeCustomizer = new ThemeCustommizer();
+        $this->initThemeSettingsDynamicFrontPage();
+        $this->initThemeSettingsComments();
+        $this->initThemeSettingsCoreData();
+        $this->initThemeSettingsGoogle();
+        $this->themeCustomizer->register();
     }
 
     /**
@@ -540,6 +565,13 @@ abstract class Bambee extends BambeeBase {
      */
     public function addThemeSupportCustomHeader() {
         add_theme_support( 'custom-header', $this->customHeader );
+    }
+
+    /**
+     *
+     */
+    public function addThemeSupportCustomBackground() {
+        add_theme_support( 'custom-background' );
     }
 
     /**

@@ -49,7 +49,6 @@ abstract class ControlledTemplate {
      *
      */
     public function addActions() {
-        global $wp_actions, $wp_filter;
         if( is_admin() ) {
             $this->addAdminActions();
         }

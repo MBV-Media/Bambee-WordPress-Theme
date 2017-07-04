@@ -7,7 +7,6 @@
 namespace MBVMedia;
 
 
-use MagicAdminPage\MagicAdminPage;
 use MBVMedia\Lib\ThemeView;
 use MBVMedia\ThemeCustomizer\ThemeCustommizerComments;
 

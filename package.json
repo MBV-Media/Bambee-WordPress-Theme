@@ -22,7 +22,7 @@
   "author": "MBV-Media <info@mbv-media.com>",
   "license": "MIT",
   "dependencies": {
-    "bambee-gulp": "file:lib/bambee-gulp",
+    "bambee-gulp": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2"
   }

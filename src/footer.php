@@ -4,6 +4,21 @@
 <footer role="contentinfo">
     <div class="row">
         <div class="column medium-4">
+            <nav class="footer-nav" role="navigation">
+                <?php
+                echo wp_nav_menu(
+                    array(
+                        'container' => 'ul',
+                        'theme_location' => 'footer-menu',
+                        'link_before' => '<span>',
+                        'link_after' => '</span>',
+                        'echo' => false,
+                    )
+                );
+                ?>
+            </nav>
+        </div>
+        <div class="column medium-4">
             <address>
                 <?php echo nl2br( get_option( 'bambee_core_data_address' ) ); ?>
             </address>

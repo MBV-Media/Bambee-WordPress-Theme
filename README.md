@@ -1,6 +1,6 @@
 # Bambee-WordPress-Theme
 The *Bambee-WordPress-Theme* is the result of our daily work with building premium WordPress themes.
-It's build using modern web technologies like SASS, CoffeeScript, Composer, Bower and Grunt. It's made for a rapid WordPress theme developement.
+It's build using modern web technologies like SASS, CoffeeScript, Composer, Bower and Gulp. It's made for a rapid WordPress theme developement.
 
 The *Bambee-WordPress-Theme* doesn't try to fit with the [WordPress Coding Standards](http://codex.wordpress.org/WordPress_Coding_Standards), wich was made for PHP version 5.2.4.
 

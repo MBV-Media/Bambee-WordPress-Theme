@@ -40,10 +40,6 @@ class CustomBambee extends Bambee {
         parent::addFilters();
     }
 
-    public function test() {
-
-    }
-
     /**
      * This is where the magic begins.
      *

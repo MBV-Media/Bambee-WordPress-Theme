@@ -12,7 +12,7 @@
                     <strong><?php _e( 'I have read and understood the proceeding information:', TextDomain ); ?></strong>
                 </p>
                 <p>
-                    <a href="?enter" class="button success js-enter"><?php _e( 'Enter', TextDomain ); ?></a>
+                    <a href="?enter" class="button success js-enter" data-prevent-default><?php _e( 'Enter', TextDomain ); ?></a>
                     <a href="http://www.google.de" class="button alert"><?php _e( 'Leave', TextDomain ); ?></a>
                 </p>
                 <a href="<?php echo home_url( '/impressum' ); ?>">Impressum</a>

@@ -3,7 +3,7 @@
     "cwd": "bower_components/",
     "files": [
       "modernizr/modernizr.js",
-      "foundation-sites/dist/foundation.js"
+      "foundation-sites/dist/js/foundation.js"
     ]
   },
   {

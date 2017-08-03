@@ -1,7 +1,7 @@
 {
   "minimum-stability": "dev",
   "require": {
-    "mbv-media/bambee-core": "^1.6"
+    "mbv-media/bambee-core": "^1.7"
   },
   "autoload": {
     "psr-4": {

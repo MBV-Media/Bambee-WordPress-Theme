@@ -81,4 +81,3 @@ $short_lang = $short_lang[0];
 
     <!-- Main -->
     <main class="content-main" role="main">
-        <section class="main">

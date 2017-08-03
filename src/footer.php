@@ -1,4 +1,3 @@
-</section>
 </main>
 
 <footer role="contentinfo">

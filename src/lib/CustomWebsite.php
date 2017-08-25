@@ -19,8 +19,6 @@ use MBVMedia\BambeeWebsite;
  */
 class CustomWebsite extends BambeeWebsite {
 
-    private static $instance = null;
-
     /**
      * @since 1.0.0
      * @return void

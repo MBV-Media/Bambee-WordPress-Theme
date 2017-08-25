@@ -18,8 +18,6 @@ use MBVMedia\BambeeAdmin;
  */
 class CustomAdmin extends BambeeAdmin {
 
-    private static $instance = null;
-
     /**
      * @since 1.0.0
      * @return void

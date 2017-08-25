@@ -1,0 +1,35 @@
+@mixin responsive-menu-overlay {
+  .responsive-menu {
+    @include overlay;
+    background-color: transparentize($black, 0.2);
+
+    .menu {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      .page_item,
+      .menu-item {
+        display: block;
+        text-align: center;
+      }
+    }
+
+    .no-js & {
+      display: none;
+    }
+  }
+}
+
+@include breakpoint(medium down) {
+  @include responsive-menu-overlay;
+}
+
+.responsive-menu-toggle {
+  position: fixed;
+  top: rem-calc(15);
+  right: rem-calc(15);
+}

@@ -35,6 +35,7 @@ jQuery ($) ->
   ###
   registerEventListeners = ->
     $window.on('load', onWindowLoad)
+    $document.on('toggled.zf.responsiveToggle', '.responsive-menu-toggle', toggleBodyScrollBar)
     return
 
   ###
@@ -46,6 +47,11 @@ jQuery ($) ->
   onWindowLoad = (event) ->
     console.log('Website loaded.')
     return
+
+  toggleBodyScrollBar = (event) ->
+    $(@).toggleClass('active')
+    $('body').toggleClass('overflow-hidden')
+    $('#responsive-menu').toggleClass('active')
 
   init()
   registerEventListeners()

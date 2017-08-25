@@ -23,7 +23,7 @@
             </address>
         </div>
         <div class="column medium-4">
-            <?php _e( 'Email:', TextDomain ); ?> <?php
+            <?php _e( 'E-mail:', TextDomain ); ?> <?php
             $email = get_option( 'bambee_core_data_email' );
             printf( '<a href="mailto:%s">%s</a>', $email, $email );
             ?>

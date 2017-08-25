@@ -10,7 +10,7 @@
             );
             ?>
             <span class="comment-date">
-                <?php _e( 'am', TextDomain ); ?> <?php echo get_comment_date( 'd.m.Y H:i' ); ?>
+                <?php _e( 'on', TextDomain ); ?> <?php echo get_comment_date( 'd.m.Y H:i' ); ?>
             </span>
 
             <div class="reply">

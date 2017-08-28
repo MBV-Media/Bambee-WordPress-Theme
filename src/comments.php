@@ -10,9 +10,9 @@
         <?php comment_form( array(
             'title_reply' => '',
             'comment_notes_before' => '',
-            'comment_notes_after' => __(
-                'Die mit * gekennzeichneten Felder sind Pflichtfelder.',
-                TextDomain
+            'comment_notes_after' => sprintf(
+                __( 'The fields marked with %s are mandatory fields.', TextDomain ),
+                '*'
             ),
             'label_submit' => __( 'Send post', TextDomain ),
             'class_submit' => 'button primary',

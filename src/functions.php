@@ -6,7 +6,8 @@
  */
 require_once( 'vendor/autoload.php' );
 
-error_reporting( E_ALL );
-ini_set( "display_errors", WP_DEBUG );
+$displayErrors = WP_DEBUG || current_user_can( 'debug' );
+ini_set( "display_errors", $displayErrors );
+ini_set( 'error_reporting', E_ALL );
 
 \Lib\CustomBambee::run();

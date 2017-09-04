@@ -23,10 +23,8 @@ $short_lang = $short_lang[0];
             websiteUrl: '<?php bloginfo( 'wpurl' ); ?>',
             themeUrl: '<?php echo ThemeUrl; ?>',
             isSearch: <?php echo number_format( is_search() ); ?>,
-            <?php
-            if( WP_DEBUG ) :
-                echo 'debug: true,';
-            endif; ?>
+            isMobile: <?php echo number_format( wp_is_mobile() ); ?>,
+            debug: <?php echo number_format( WP_DEBUG || current_user_can( 'debug' ) ); ?>
         };
     </script>
 

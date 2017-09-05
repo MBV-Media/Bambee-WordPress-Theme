@@ -23,10 +23,8 @@ $short_lang = $short_lang[0];
             websiteUrl: '<?php bloginfo( 'wpurl' ); ?>',
             themeUrl: '<?php echo ThemeUrl; ?>',
             isSearch: <?php echo number_format( is_search() ); ?>,
-            <?php
-            if( WP_DEBUG ) :
-                echo 'debug: true,';
-            endif; ?>
+            isMobile: <?php echo number_format( wp_is_mobile() ); ?>,
+            debug: <?php echo number_format( WP_DEBUG || current_user_can( 'debug' ) ); ?>
         };
     </script>
 
@@ -46,39 +44,52 @@ $short_lang = $short_lang[0];
 </script>
 <div class="wrapper">
     <header class="header-main" role="banner" style="background-image: url('<?php header_image(); ?>')">
+
         <div class="top-bar">
-            <div class="top-bar-title">
-                <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
-                    <button class="menu-icon dark" type="button" data-toggle></button>
-                </span>
-                <?php echo get_template_part( 'partials/main', 'logo' ); ?>
-                <strong>
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-                        <?php bloginfo( 'name' ); ?>
-                    </a>
-                </strong>
-            </div>
-            <div id="responsive-menu">
-                <nav class="top-bar-left" role="navigation">
-                    <?php
-                    echo wp_nav_menu(
-                        array(
-                            'container' => 'ul',
-                            'theme_location' => 'header-menu',
-                            'link_before' => '<span>',
-                            'link_after' => '</span>',
-                            'echo' => false,
-                        )
-                    );
-                    ?>
-                </nav>
-                <div class="top-bar-right">
-                    <!--Add more top-bar elements here-->
+
+            <div class="row">
+                <div class="column">
+
+                    <div class="top-bar-title">
+
+                        <?php echo get_template_part( 'partials/main', 'logo' ); ?>
+                        <strong>
+                            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+                                <?php bloginfo( 'name' ); ?>
+                            </a>
+                        </strong>
+
+                    </div>
+
+                    <div class="top-bar-left">
+                        <!--Add more top-bar elements here-->
+                    </div>
+
+                    <nav    id="responsive-menu"
+                            class="top-bar-right responsive-menu"
+                            role="navigation">
+                        <?php
+                        echo wp_nav_menu(
+                            array(
+                                'container' => 'ul',
+                                'theme_location' => 'header-menu',
+                                'link_before' => '<span>',
+                                'link_after' => '</span>',
+                                'echo' => false,
+                            )
+                        );
+                        ?>
+                    </nav>
+                    <span class="responsive-menu-toggle hide-for-large" data-responsive-toggle="responsive-menu" data-hide-for="large">
+                        <button class="menu-icon dark" type="button" data-toggle></button>
+                    </span>
+
                 </div>
             </div>
+
         </div>
+
     </header>
 
     <!-- Main -->
     <main class="content-main" role="main">
-        <section class="main">

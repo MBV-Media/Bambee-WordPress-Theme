@@ -6,16 +6,8 @@
  */
 require_once( 'vendor/autoload.php' );
 
-error_reporting( E_ALL );
-if( WP_DEBUG ) {
-    ini_set( "display_errors", 1 );
-}
-else {
-    ini_set("display_errors", 0);
-}
-
-define( 'TextDomain', 'bambee' );
-define( 'ThemeDir', get_stylesheet_directory() );
-define( 'ThemeUrl', get_stylesheet_directory_uri() );
+$displayErrors = WP_DEBUG || current_user_can( 'debug' );
+ini_set( "display_errors", $displayErrors );
+ini_set( 'error_reporting', E_ALL );
 
 \Lib\CustomBambee::run();

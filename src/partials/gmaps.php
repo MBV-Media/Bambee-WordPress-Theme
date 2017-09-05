@@ -21,7 +21,8 @@
             center: latLng,
             zoom: <?php echo get_option( 'bambee_google_maps_zoom', 15 ); ?>,
             styles: styles,
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            gestureHandling: 'cooperative'
         });
 
         var marker = new google.maps.Marker({

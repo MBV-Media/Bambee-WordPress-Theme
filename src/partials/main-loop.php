@@ -11,7 +11,7 @@
         </article>
         <!-- #post-<?php the_ID(); ?> -->
 
-        <?php get_template_part( 'partials/gmaps', '' ); ?>
+        <?php get_template_part( 'partials', 'gmaps' ); ?>
 
         <?php echo comments_template() ?>
     </div>

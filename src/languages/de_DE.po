@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bambee\n"
-"POT-Creation-Date: 2017-04-21 10:46+0100\n"
-"PO-Revision-Date: 2017-04-21 10:46+0100\n"
+"POT-Creation-Date: 2017-08-07 08:43+0100\n"
+"PO-Revision-Date: 2017-08-07 08:48+0100\n"
 "Last-Translator: \n"
 "Language-Team: MBV Media <info@mbv-media.com>\n"
 "Language: de_DE\n"
@@ -17,23 +17,28 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
+#: ../404.php:5
+msgid "Page not found."
+msgstr ""
+
 #: ../comments.php:4
 msgid "The file \"comments.php\" can not be accessed directly."
 msgstr "Auf die Datei \"comments.php\" kann nicht direkt zugegriffen werden."
 
 #: ../comments.php:14
-msgid "Die mit * gekennzeichneten Felder sind Pflichtfelder."
-msgstr ""
+#, php-format
+msgid "The fields marked with %s are mandatory fields."
+msgstr "Die mit %s gekennzeichneten Felder sind Pflichtfelder."
 
 #: ../comments.php:17
 msgid "Send post"
 msgstr "Beitrag senden"
 
-#: ../footer.php:12
-msgid "Email:"
-msgstr ""
+#: ../footer.php:26
+msgid "E-mail:"
+msgstr "Email:"
 
-#: ../footer.php:17
+#: ../footer.php:31
 msgid "Phone:"
 msgstr "Telefon:"
 
@@ -50,8 +55,8 @@ msgid "Author: "
 msgstr "Verfasser:"
 
 #: ../partials/comment-list.php:13
-msgid "am"
-msgstr ""
+msgid "on"
+msgstr "am"
 
 #: ../partials/comment-list.php:34
 msgid "Your comment is awaiting moderation."
@@ -59,16 +64,18 @@ msgstr "Ihr Kommentar wartet auf Freischaltung."
 
 #: ../partials/cookie-notice.php:2
 msgid ""
+"This Seite uses Cookies. By visiting this site, you agree to the use of "
+"cookies."
+msgstr ""
 "Diese Seite verwendet Cookies. Mit dem Besuch dieser Seite stimmen Sie der "
 "Nutzung von Cookies zu."
-msgstr ""
 
 #: ../partials/cookie-notice.php:3
-msgid " Mehr Informationen "
-msgstr ""
+msgid "More information"
+msgstr "Mehr Informationen"
 
 #: ../partials/cookie-notice.php:4
-msgid " Ok "
+msgid "Ok"
 msgstr ""
 
 #: ../partials/overlay-entrance.php:9
@@ -87,55 +94,68 @@ msgstr "Eintreten"
 msgid "Leave"
 msgstr "Verlassen"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:181
+#: ../partials/admin/meta-key-media-default.php:10
+msgid "Click the image to edit or update"
+msgstr ""
+
+#: ../partials/admin/setting-featured-images.php:2
+msgid "Width"
+msgstr ""
+
+#: ../partials/admin/setting-featured-images.php:6
+msgid "Height"
+msgstr ""
+
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:185
 msgid "Galleries"
 msgstr "Galerien"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:182
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:186
 msgid "Gallery"
 msgstr "Galerie"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:216
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:312
 msgid "Show frontpage-overlay"
 msgstr "Zeige Startseiten-Overlay"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:225
-msgid "Anzeige Intervall"
-msgstr ""
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:323
+msgid "Interval"
+msgstr "Intervall"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:226
-msgid "Zeit nach der Das Overlay erneut angezeigt wird. (Standard: 24:00:00)"
-msgstr ""
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:324
+#, php-format
+msgid "Time after which the overlay is displayed again. (Default: %s)"
+msgstr "Zeit nach der das Overlay erneut angezeigt wird. (Standard: %s)"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:234
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:333
 msgid "Dynamic frontpage"
 msgstr "Dynamische Startseite"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:252
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:358
 msgid "Move form textfield to the bottom"
 msgstr "Formular Textfeld nach unten verschieben"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:257
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:364
 msgid "Comments"
 msgstr "Kommentare"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:275
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:391
 msgid "Address"
 msgstr "Adresse"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:285
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:403
 msgid "E-Mail address"
 msgstr "E-Mail Adresse"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:295
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:415
 msgid "Phone"
 msgstr "Telefon"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:300
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:421
 msgid "Core data"
 msgstr "Stammdaten"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:303
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:424
 msgid ""
 "You can use the [coredata]key[coredata] shortcode to display the core data "
 "field inside a post."
@@ -143,66 +163,72 @@ msgstr ""
 "Sie können den [coredata]key[coredata] shortcode benutzen, um Stammdaten "
 "innerhalb eines Posts anzuzeigen."
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:325
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:458
 msgid "Latitude"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:335
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:470
 msgid "Longitude"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:345
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:482
 msgid "Zoom"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:358
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:497
 msgid "API-Key"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:368
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:509
 msgid "Styles"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:369
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:510
 #, php-format
-msgid "Das erstellte %sMap-Style%s JSON in das Textfeld kopieren."
-msgstr ""
+msgid "Copy the created %smap-style%s-JSON to the textarea."
+msgstr "Das erstellte %sMap-Style%s JSON in das Textfeld kopieren."
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:374
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:516
 msgid "Maps"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:387
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:530
 msgid "Trackting-ID"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:395
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:539
 msgid "Analytics"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:396
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:540
 msgid ""
+"After entering the tracking ID, the Google Analytics Script is automatically "
+"included."
+msgstr ""
 "Nach Eingabe der Tracking-ID wird das Google Analytics Script automatisch "
 "eingebunden."
-msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Bambee.php:402
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Bambee.php:546
 msgid "Google"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeAdmin.php:161
-msgid "Beitragsbild"
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/BambeeAdmin.php:91
+msgid "Featured Images"
 msgstr ""
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeWebsite.php:71
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/BambeeAdmin.php:201
+msgid "Featured Image"
+msgstr ""
+
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/BambeeWebsite.php:75
 msgid "Next &raquo;"
 msgstr "Weiter &raquo;"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/BambeeWebsite.php:72
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/BambeeWebsite.php:76
 msgid "&laquo; Prev"
 msgstr "&laquo; Zurück"
 
-#: ../vendor/mbv-media/bambee-composer/src/MBVMedia/Shortcode/AspectRatio.php:106
+#: ../vendor/mbv-media/bambee-core/src/MBVMedia/Shortcode/AspectRatio.php:126
 msgid "Not a valid ratio."
 msgstr "Kein gültiges Seitenverhältnis."
 
@@ -215,9 +241,6 @@ msgstr "Kein gültiges Seitenverhältnis."
 #~ msgstr ""
 #~ "Sie können den [globaldata]key[globaldata] shortcode benutzen, um Globale "
 #~ "Texte innerhalb eines Posts anzuzeigen."
-
-#~ msgid "The fields marked with * are required."
-#~ msgstr "Die mit * gekennzeichneten Felder sind Pflichtfelder."
 
 #~ msgid "Choose Image"
 #~ msgstr "Bild auswählen"
